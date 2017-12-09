@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>index</title>
+	<!--style-->
+    <link href="css/style.css" type="text/css" rel="stylesheet" media="all"/>
+    <link href="css/responsive.css" type="text/css" rel="stylesheet" media="all"/>
+    <!--bootstrape-->
+    <link href="css/bootstrap.min.css" type="text/css" rel="stylesheet" media="all"/>
+    <!--font-awesome-->
+    <link href="css/font-awesome.min.css" type="text/css" rel="stylesheet" media="all"/>
+    <!--fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:300,400,700|Roboto:100,300,400,500,700,900" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet"> 
+    
+    
+    
+    <script type="text/javascript" src="js/jquery-3.2.1.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <!--date picker-->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    
+    
+    
+<script>
+  $( function() {
+    $( "#datepicker" ).datepicker();
+  } );
+  
+  $( function() {
+    $( "#datepicker1" ).datepicker();
+  } );
+  
+</script>
+
+
+<script>
+$(window).scroll(function(){
+
+		if ($(this).scrollTop() > 120) {
+		//alert('hi');	
+			
+        $('.top_head').css('background','#000');
+       
+		} 
+		else
+		{
+			 $('.top_head').css('background','rgba(0,0,0,0.4)');
+		}
+	});
+</script>
+
+    
+  
+
+    
+</head>
+
+<body>
+	<!--wrapper start-->
+    <div class="wrapper">
+    	<header class="header_area">
+        	<div class="top_head top_part_02 wow fadeInDown" data-wow-delay="0.7s">
+            	<div class="container">
+                	<div class="row">
+                    	<div class="col-md-12">
+                        	<div class="logo">
+                            	<a href="#"><img src="images/logo_1.png" alt=""></a>
+                            </div>
+                            <div class="log_area">
+                            	<ul>
+                                	<li><a href="#">How it works</a></li>
+                                    <li><a href="#">Tradesmen Here</a></li>
+                                    <li class="log_btn"><a href="#">log in</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="banner">
+            	<div id="myCarousel" class="carousel slide" data-ride="carousel">
+                       <!-- Indicators -->
+                       		<!--<ol class="carousel-indicators">
+                                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                                <li data-target="#myCarousel" data-slide-to="1"></li>
+                                <li data-target="#myCarousel" data-slide-to="2"></li>
+                            </ol>-->
+                    
+                      <!-- Wrapper for slides -->
+                      <div class="carousel-inner">
+                        <div class="item active">
+                          <img src="images/banner_1.jpg" alt="">
+                        </div>
+                    
+                        <!--<div class="item">
+                          <img src="images/banner_2.jpg" alt="">
+                        </div>
+                        
+                        <div class="item">
+                          <img src="images/banner_3.jpg" alt="">
+                        </div>-->
+                    
+                        
+                      </div>
+                      
+                      <div class="banner_contain">
+                      	<div class="container">
+                        	<div class="row">
+                            	<div class="col-md-12">
+                                	<div class="left_banner">
+                                	<h2>Book local trusted builders by other landlords just like you !</h2>
+                                    <ul>
+                                    	<li>We are 100% Free</li>
+                                        <li>Get 3 quotes per Job</li>
+                                        <li>Save time & Money</li>
+                                        <li>Avoid Rogue trades</li>
+                                        <li>Made by landlords for landlords</li>
+                                        <li>Make your tenants happy</li>
+                                    </ul>
+                                </div>
+                                	<div class="desktop_form banner_form">
+                                    	<h2>Get started </h2>
+                                        <div class="form_area">
+                                        	<form>
+                                            	<div class="form-group">
+                                                   <select class="form_type form_option">
+                                                     <option>Job type</option>
+                                                     <option>Job type 1</option>
+                                                     <option>Job type 2</option>
+                                                   </select>
+                                                </div>
+                                                <div class="form-group">
+                                                   <select class="form_type form_option">
+                                                     <option>Category</option>
+                                                     <option>Category 1</option>
+                                                     <option>Category 2</option>
+                                                   </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control form_type" placeholder="Looking for" >
+                                                </div>
+                                                <div class="form-group">
+                                                	<div class="first">
+                                                    	<input type="text" class="form-control form_type" placeholder="Budget (£)" >
+                                                    </div>
+                                                    <div class="second">
+                                                    	<input type="text" class="form-control form_type form_date" id="datepicker" placeholder="Dateline" >
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                	<div class="first">
+                                                    	<input type="text" class="form-control form_type" placeholder="City" >
+                                                    </div>
+                                                    <div class="second">
+                                                    	<input type="text" class="form-control form_type" placeholder="Zip Code" >
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <textarea class="form_type form_msg" placeholder="Details"></textarea>
+                                                </div>
+                                                <div class="form-group ban_btn">
+                                                    <button type="submit" class="btn sub_bttn">Next</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>	
+                      </div>
+				</div>
+            </div>
+        </header>
+        
+        <div class="mobile_form">
+        	<div class="container">
+            	<div class="row">
+                	<div class="col-md-12">
+                    	<div class="banner_form">
+                                    	<h2>Get started </h2>
+                                        <div class="form_area">
+                                        	<form>
+                                            	<div class="form-group">
+                                                   <select class="form_type form_option">
+                                                     <option>Job type</option>
+                                                     <option>Job type 1</option>
+                                                     <option>Job type 2</option>
+                                                   </select>
+                                                </div>
+                                                <div class="form-group">
+                                                   <select class="form_type form_option">
+                                                     <option>Category</option>
+                                                     <option>Category 1</option>
+                                                     <option>Category 2</option>
+                                                   </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control form_type" placeholder="Looking for" >
+                                                </div>
+                                                <div class="form-group">
+                                                	<div class="first">
+                                                    	<input type="text" class="form-control form_type" placeholder="Budget (£)" >
+                                                    </div>
+                                                    <div class="second">
+                                                    	<input type="text" class="form-control form_type form_date" id="datepicker1" placeholder="Dateline" >
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                	<div class="first">
+                                                    	<input type="text" class="form-control form_type" placeholder="City" >
+                                                    </div>
+                                                    <div class="second">
+                                                    	<input type="text" class="form-control form_type" placeholder="Zip Code" >
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <textarea class="form_type form_msg" placeholder="Details"></textarea>
+                                                </div>
+                                                <div class="form-group ban_btn">
+                                                    <button type="submit" class="btn sub_bttn">Next</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <section class="resource">
+        	<div class="container">
+            	<div class="row">
+                	<div class="col-md-12">
+                    	<h2 class="head_tow">Resources</h2>
+                        <p>Our Mission is simple. We are Here only to support Britain Landlords LandlordRepairs is here only to support landlords to save money and time on all there repairs needs 247! <a href="#"> More <i class="fa fa-caret-right" aria-hidden="true"></i> </a></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="how_work">
+        	<div class="container">
+            	<div class="row">
+                	<div class="col-md-12">
+                    	<h2 class="head_tow">How It Works</h2>
+                    </div>
+                    <div class="works_area">
+                    	<div class="col-md-3 col-sm-6 col-xs-12">
+                        	<div class="work_box">
+                            	<img src="images/work_icon1.png" alt="">
+                                <h3>Post a Job</h3>
+                                <p>Be mobile with the Landlord Repairs.com iPhone App. Download now from the Apple App Store FREE!</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                        	<div class="work_box">
+                            	<img src="images/work_icon2.png" alt="">
+                                <h3>Invite Tradesmen</h3>
+                                <p>Get a feel for the rates that voice talent charge for their voice-over work, recording and production services.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                        	<div class="work_box">
+                            	<img src="images/work_icon3.png" alt="">
+                                <h3>Get Quote</h3>
+                                <p>Read the Beginner's Guide, or the Professional's Guide to Voice Acting to learn about the art of voice acting.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                        	<div class="work_box">
+                            	<img src="images/work_icon4.png" alt="">
+                                <h3>Hire</h3>
+                                <p>Listen to our high-energy podcast and stay up-to-date on industry news and technology trends.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="about_land">
+        	<div class="container">
+            	<div class="row">
+                	<div class="col-md-12">
+                    	<h2 class="head_tow">About Landlord Repairs.com</h2>
+                        <p>Every now and then a company arises whose steely focus, passion for innovation and burning desire to change the world truly makes an impact. Voices.com strives to achieve amazing things through the talent and faith of ordinary people.</p>
+                        <p>As our voice talent step up to their microphones, we meet and exceed your expectations with excellence through the spoken word. We get your job done on time, within budget, and most importantly, we'll get your job done right.</p>
+                        <p>More than 250,000 people from companies like ABC, NBC, ESPN, PBS, The History Channel, The Discovery Channel, Sony Pictures, Audible, Comcast, Bell Canada, Microsoft, Cisco Systems, Western Union, American Airlines, Toyota, Ford and GM as well as organizations such as the US Army and the US Government entrust our online marketplace with their stories and collaborate online.</p>
+                        <p>People at advertising agencies, financial firms, healthcare organizations, radio stations, publishers and other businesses use our award-winning web application, iPhone app, iPad app and innovative SurePay™ payment service to easily search for and hire narrators, voice actors and professional voice over talent.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="popular">
+        	<div class="container">
+            	<div class="row">
+                	<div class="col-md-12">
+                    	<h2 class="head_tow">Popular Local Services</h2>
+                    	<span>Find local businesses directly. What are you looking for today</span>
+                    </div>
+                    <div class="popular_item">
+                    	<div class="col-md-3 col-sm-6 col-xs-12">
+                        	<ul>
+                            	<li><a href="#">Architectural Designers</a></li>
+                                <li><a href="#">Bathroom Fitters</a></li>
+                                <li><a href="#">Bricklayers</a></li>
+                                <li><a href="#">Carpenters & Joiners</a></li>
+                                <li><a href="#">Carpet fitters</a></li>
+                                <li><a href="#">Chimney & Fireplace Specialists</a></li>
+                                <li><a href="#">Conservatory Installers</a></li>
+                                <li><a href="#">Conversion Specialists</a></li>
+                                <li><a href="#">Damp Proofing Specialists</a></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                        	<ul>
+                            	<li><a href="#">Demolition Contractors</a></li>
+                                <li><a href="#">Driveway Pavers</a></li>
+                                <li><a href="#">Electricians</a></li>
+                                <li><a href="#">Extension Builders</a></li>
+                                <li><a href="#">Fencers</a></li>
+                                <li><a href="#">Flooring Fitters</a></li>
+                                <li><a href="#">Garage & Shed Builders</a></li>
+                                <li><a href="#">Gas Engineers</a></li>
+                                <li><a href="#">Groundworkers</a></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                        	<ul>
+                            	<li><a href="#">Handymen</a></li>
+                                <li><a href="#">Heating Engineers</a></li>
+                                <li><a href="#">Insulation Installers</a></li>
+                                <li><a href="#">Kitchen Fitters</a></li>
+                                <li><a href="#">Landscape Gardeners</a></li>
+                                <li><a href="#">Loft Conversion Specialists</a></li>
+                                <li><a href="#">New Home Builders</a></li>
+                                <li><a href="#">Painters & Decorators</a></li>
+                                <li><a href="#">Plasterers</a></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                        	<ul>
+                            	<li><a href="#">Plumbers</a></li>
+                                <li><a href="#">Restoration & Refurb Specialists</a></li>
+                                <li><a href="#">Roofers</a></li>
+                                <li><a href="#">Security System Installers</a></li>
+                                <li><a href="#">Stonemasons</a></li>
+                                <li><a href="#">Tilers</a></li>
+                                <li><a href="#">Tree Surgeons</a></li>
+                                <li><a href="#">Window Fitters</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="why_should">
+        	<div class="container">
+            	<div class="row">
+                	<div class="col-md-12">
+                    	<h2 class="head_tow">Why should I use LandlordRepairs?</h2>
+                    </div>
+                    <div class="should_area">
+                    	<div class="col-md-3 col-sm-6 col-xs-12">
+                        	<div class="should_box">
+                                <img src="images/should_icon1.png" alt="">
+                                <p>100% Free To Use & No Obligation To Hire</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                        	<div class="should_box">
+                                <img src="images/should_icon2.png" alt="">
+                                <p>Compare Prices with your existing Builder</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                        	<div class="should_box">
+                                <img src="images/should_icon3.png" alt="">
+                                <p>Hire The Best & Avoid Rogue Traders</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                        	<div class="should_box">
+                                <img src="images/should_icon4.png" alt="">
+                                <p>Make Your Tenants Happy & Save Money</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mor">
+                    	<a class="more_bttn" href="#">More</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="build">
+        	<div class="container">
+            	<div class="row">
+                	<div class="col-md-12">
+                    	<h2 class="head_tow">BUILDERS GROW YOUR BUSINESS</h2>
+                        <span>Thousands of landlords come to Landlord Repairs every day looking to hire service pros just like you</span>
+                        <a class="more_bttn" href="#">Register your Business</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="cliebt">
+        	<div class="container">
+            	<div class="row">
+                	<div class="col-md-12">
+                    	<h2>As Seen On</h2>
+                        <ul>
+                        	<li><a href="#"><img src="images/client_1.png" alt=""></a></li>
+                            <li><a href="#"><img src="images/client_2.png" alt=""></a></li>
+                            <li><a href="#"><img src="images/client_3.png" alt=""></a></li>
+                            <li><a href="#"><img src="images/client_4.png" alt=""></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!--<section class="recommand">
+        	<div class="container">
+            	<div class="row">
+                	<div class="col-md-12">
+                    	<p><img src="images/recommand_icon.png" alt="">   We support Builders trusted by local landlords know a builder  <a class="more_bttn" href="#">Recommend Us a Tradesperson</a> </p>
+                    </div>
+                </div>
+            </div>
+        </section>-->
+        
+        <footer class="footer_area">
+        	<div class="container">
+            	<div class="row">
+                	<div class="top-footer">
+                    	<div class="col-md-5 col-sm-12 col-xs-12">
+                        	<div class="fot_box">
+                            	<a class="fot_logo" href="#"><img src="images/logo.png" alt=""></a>
+                                <p>Lorem Ipsum is simply dummy or caption text of the printing and typesetting industry, this is a simply dummy or caption text here.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-7 col-sm-12 col-xs-12">
+                        	<div class="fot_box">
+                                <h3>Information</h3>
+                                <ul>
+                                    <li><a href="#">Aboutus</a></li>
+                                    <li><a href="#">Post Job</a></li>
+                                    <li><a href="#">LandLords FAQ</a></li>
+                                </ul>
+                                <ul>
+                                    <li><a href="#">Builders FAQ</a></li>
+                                    <li><a href="#">Terms & Conditions</a></li>
+                                    <li><a href="#">Privacy Policy</a></li>
+                                </ul>
+                                <ul>
+                                    <li><a href="#">Help</a></li>
+                                    <li><a href="#">Contact us</a></li>
+                                    <li class="social">
+                                    	<h4>We Are Social</h4>
+                                    	<ul>
+                                        	<li> <a href="#"> <i class="fa fa-facebook" aria-hidden="true"></i> </a> </li>
+                                            <li> <a href="#"> <i class="fa fa-twitter" aria-hidden="true"></i> </a> </li>
+                                            <li> <a href="#"> <i class="fa fa-google-plus" aria-hidden="true"></i> </a> </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="below_footer">
+                    	<p>Copyrights © 2017 LandLordRepairs all Rights Reserved</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        
+        
+        <!-- Return to Top -->
+		<a href="javascript:" id="return-to-top"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
+        
+    </div>
+    <!--wrapper end-->
+    
+    
+    
+    
+    
+<script>
+	// ===== Scroll to Top ==== 
+$(window).scroll(function() {
+    if ($(this).scrollTop() >= 50) {        // If page is scrolled more than 50px
+        $('#return-to-top').fadeIn(200);    // Fade in the arrow
+    } else {
+        $('#return-to-top').fadeOut(200);   // Else fade out the arrow
+    }
+});
+$('#return-to-top').click(function() {      // When arrow is clicked
+    $('body,html').animate({
+        scrollTop : 0                       // Scroll to top of body
+    }, 500);
+});
+</script>     
+    
+    
+<!-- <script> 
+		alert($(window).width());
+    </script> -->   
+    
+    
+    
+</body>
+</html>

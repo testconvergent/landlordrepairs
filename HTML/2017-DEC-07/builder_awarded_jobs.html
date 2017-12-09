@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>builder_awarded_jobs</title>
+<!--style-->
+<link href="css/style.css" type="text/css" rel="stylesheet" media="all"/>
+<link href="css/responsive.css" type="text/css" rel="stylesheet" media="all"/>
+<!--bootstrape-->
+<link href="css/bootstrap.min.css" type="text/css" rel="stylesheet" media="all"/>
+<!--font-awesome-->
+<link href="css/font-awesome.min.css" type="text/css" rel="stylesheet" media="all"/>
+<!--fonts-->
+<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto+Slab:300,400,700|Roboto:100,300,400,500,700,900" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Poppins:400,400i,600,600i,700" rel="stylesheet">
+<script type="text/javascript" src="js/jquery-3.2.1.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<!--date picker-->
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+  $( function() {
+    $( "#datepicker" ).datepicker();
+  } );
+  
+</script>
+<!--search toggle-->
+
+<script> 
+$(document).ready(function(){
+    $(".ssearch").click(function(){
+        $(".searches_bbox").slideToggle("4000");
+    });
+});
+</script>
+<script>
+$(document).ready(function(){
+    $(".aa").click(function(){
+        $(".dropss_down").slideToggle();
+    });
+});
+</script>
+</head>
+
+<body>
+<!--wrapper start-->
+<div class="row Nomarg">
+  <div class="header_builder">
+    <div class="container">
+      <div class="logo_builder_pg"> <a href="#"> <img src="images/logo.png"  alt="logo" class="img-responsive"> </a> </div>
+      <div class="inner_header_area">
+        <div class="only_search"> <a href="#" class="ssearch"><img src="images/search_ico.png" ></a>
+          <div class="searches_bbox" style="display:none;">
+            <div class="inner_search_box"><img src="images/top_arrow.png" class="arrow" >
+              <input class="form-control" type="text" placeholder="Search">
+              <button type="submit" class="btn btn-default search_submit"><img src="images/search.png" alt=""></button>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="navbar-toggle pposs" data-toggle="collapse" data-target="#myNavbar"> <span class="icon-bar bblack"></span> <span class="icon-bar bblack"></span> <span class="icon-bar bblack"></span> </button>
+        <div class="collapse navbar-collapse drop_ddown" id="myNavbar">
+          <ul>
+            <li><a href="#">New Invites <span>(3)</span></a></li>
+            <li><a href="#"><img src="images/ico01.png">Awarded Jobs</a></li>
+            <li><a href="#" class="credits"><img src="images/ico02.png">Credits<span>(6)</span></a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="review_area">
+        <div class="floatt_right">
+          <div class="rreview" >
+            <ul>
+              <li><a href="#"><img src="images/review_star_full.jpg" ></a></li>
+              <li><a href="#"><img src="images/review_star_full.jpg" ></a></li>
+              <li><a href="#"><img src="images/review_star_full.jpg" ></a></li>
+              <li><a href="#"><img src="images/review_star_full.jpg" ></a></li>
+              <li><a href="#"><img src="images/review_star_full.jpg" ></a></li>
+            </ul>
+            <div class="clearfix"></div>
+            <p>817 Jobs Win, 758 Reviews</p>
+          </div>
+          <div class="profile_pic"> <a href="#" class="aa"> <img src="images/profile_img.jpg" class="img-circle"> <i class="fa fa-caret-down" aria-hidden="true"></i>
+            <div class="dropss_down" style="display:none;">
+              <ul>
+                <li><a href="#"> <i class="fa fa-angle-double-right" aria-hidden="true"></i> Profile</a> </li>
+                <li><a href="#"> <i class="fa fa-angle-double-right" aria-hidden="true"></i> Edit Profile </a></li>
+                <li><a href="#"> <i class="fa fa-angle-double-right" aria-hidden="true"></i> Settings</a> </li>
+                <li><a href="#"> <i class="fa fa-angle-double-right" aria-hidden="true"></i> Recommend us </a></li>
+                <li><a href="#"> <i class="fa fa-angle-double-right" aria-hidden="true"></i> Logout </a></li>
+              </ul>
+            </div>
+            </a> </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="inner_banner_builder"> <img src="images/inner_banner.jpg"  alt="inner_banner">
+    <div class="adnew1">
+      <select class=" form-control newAdd">
+        <option value="">Awarded jobs</option>
+        <option value="1">This week </option>
+        <option value="2">Last week </option>
+        <option value="3">Last month </option>
+      </select>
+      <!--<i class="fa fa-sort-desc arx"></i>--> 
+      
+    </div>
+  </div>
+</div>
+<div class="row Nomarg">
+  <div class="contain_divs">
+    <div class="container">
+      <div class="col-sm-6 col-lg-6 col-md-6">
+        <div class="awaded_jobs_block">
+          <h3>General Maintanance</h3>
+          <div class="clearfix"></div>
+          <div class="awaded_type">
+            <ul>
+              <li><img src="images/ico03.png">Job Category : Technical</li>
+              <li><img src="images/ico04.png">Type : Technical</li>
+            </ul>
+          </div>
+          <div class="clearfix"></div>
+          <div class="awaded_des">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do tempor the incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, nostrud exercitation ullamc...</p>
+          </div>
+          <div class="clearfix"></div>
+          <div class="mob_block">
+            <div class="time_2_contact">Time To Contact: <span>10:00 - 13:00</span></div>
+            <div class="mmob"> <a class="tooltips" href="#">
+              <p>Mobile : 07700991234 <span>Click + to View Full Mobile Number</span> </p>
+              </a> </div>
+          </div>
+          <div class="clearfix"></div>
+          <div class="awarded_btn_group">
+            <div class="bbtn_lleft_p">
+              <button type="button" class="btn btn-primary mark_com1" data-toggle="modal" data-target="#request_feed"> Requst Feedback</button>
+            </div>
+            <div class="com">
+              <p><span><img src="images/com.png" ></span>Completed</p>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+          <div class="bottom_footer_bbox">
+            <ul>
+              <li class="lloc"><span><img src="images/loc.png" ></span>California</li>
+              <li  class="lloc_1"><span><img src="images/ttags.png" ></span>$2300</li>
+              <li class="lloc_2"><span><img src="images/ccal.png" ></span>Deadline: 04 October 2017</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-6 col-md-6">
+        <div class="awaded_jobs_block">
+          <h3>General Maintanance</h3>
+          <div class="clearfix"></div>
+          <div class="awaded_type">
+            <ul>
+              <li><img src="images/ico03.png">Job Category : Technical</li>
+              <li><img src="images/ico04.png">Type : Technical</li>
+            </ul>
+          </div>
+          <div class="clearfix"></div>
+          <div class="awaded_des">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do tempor the incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, nostrud exercitation ullamc...</p>
+          </div>
+          <div class="clearfix"></div>
+          <div class="mob_block">
+            <div class="time_2_contact">Time To Contact: <span>10:00 - 13:00</span></div>
+            <div class="mmob"> <a class="tooltips" href="#">
+              <p>Mobile : 07700991234 <span>Click + to View Full Mobile Number</span> </p>
+              </a> </div>
+          </div>
+          <div class="clearfix"></div>
+          <div class="awarded_btn_group">
+            <div class="bbtn_lleft_p">
+              <button type="button" class="btn btn-primary mark_com" data-target="#mark_complete">Mark Complte</button>
+            </div>
+            <div class="in_progress_right">
+              <p><span><img src="images/progress.png" ></span>In Progress</p>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+          <div class="bottom_footer_bbox">
+            <ul>
+              <li class="lloc"><span><img src="images/loc.png" ></span>California</li>
+              <li  class="lloc_1"><span><img src="images/ttags.png" ></span>$2300</li>
+              <li class="lloc_2"><span><img src="images/ccal.png" ></span>Deadline: 04 October 2017</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+      <div class="col-sm-6 col-lg-6 col-md-6">
+        <div class="awaded_jobs_block">
+          <h3>General Maintanance</h3>
+          <div class="clearfix"></div>
+          <div class="awaded_type">
+            <ul>
+              <li><img src="images/ico03.png">Job Category : Technical</li>
+              <li><img src="images/ico04.png">Type : Technical</li>
+            </ul>
+          </div>
+          <div class="clearfix"></div>
+          <div class="awaded_des">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do tempor the incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, nostrud exercitation ullamc...</p>
+          </div>
+          <div class="clearfix"></div>
+          <div class="mob_block">
+            <div class="time_2_contact">Time To Contact: <span>10:00 - 13:00</span></div>
+            <div class="mmob"> <a class="tooltips" href="#">
+              <p>Mobile : 07700991234 <span>Click + to View Full Mobile Number</span> </p>
+              </a> </div>
+          </div>
+          <div class="clearfix"></div>
+          <div class="awarded_btn_group">
+            <div class="bbtn_lleft_p">
+              <button type="button" class="btn btn-primary mark_com">Mark Complte</button>
+            </div>
+            <div class="in_progress_right">
+              <p><span><img src="images/progress.png" ></span>In Progress</p>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+          <div class="bottom_footer_bbox">
+            <ul>
+              <li class="lloc"><span><img src="images/loc.png" ></span>California</li>
+              <li  class="lloc_1"><span><img src="images/ttags.png" ></span>$2300</li>
+              <li class="lloc_2"><span><img src="images/ccal.png" ></span>Deadline: 04 October 2017</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-6 col-md-6">
+        <div class="awaded_jobs_block">
+          <h3>General Maintanance</h3>
+          <div class="clearfix"></div>
+          <div class="awaded_type">
+            <ul>
+              <li><img src="images/ico03.png">Job Category : Technical</li>
+              <li><img src="images/ico04.png">Type : Technical</li>
+            </ul>
+          </div>
+          <div class="clearfix"></div>
+          <div class="awaded_des">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do tempor the incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, nostrud exercitation ullamc...</p>
+          </div>
+          <div class="clearfix"></div>
+          <div class="mob_block">
+            <div class="time_2_contact">Time To Contact: <span>10:00 - 13:00</span></div>
+            <div class="mmob"> <a class="tooltips" href="#">
+              <p>Mobile : 07700991234 <span>Click + to View Full Mobile Number</span> </p>
+              </a> </div>
+          </div>
+          <div class="clearfix"></div>
+          <div class="awarded_btn_group">
+            <div class="bbtn_lleft_p">
+              <button type="button" class="btn btn-primary mark_com">Mark Complte</button>
+            </div>
+            <div class="in_progress_right">
+              <p><span><img src="images/progress.png" ></span>In Progress</p>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+          <div class="bottom_footer_bbox">
+            <ul>
+              <li class="lloc"><span><img src="images/loc.png" ></span>California</li>
+              <li  class="lloc_1"><span><img src="images/ttags.png" ></span>$2300</li>
+              <li class="lloc_2"><span><img src="images/ccal.png" ></span>Deadline: 04 October 2017</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+      <div class="col-sm-6 col-lg-6 col-md-6">
+        <div class="awaded_jobs_block">
+          <h3>General Maintanance</h3>
+          <div class="clearfix"></div>
+          <div class="awaded_type">
+            <ul>
+              <li><img src="images/ico03.png">Job Category : Technical</li>
+              <li><img src="images/ico04.png">Type : Technical</li>
+            </ul>
+          </div>
+          <div class="clearfix"></div>
+          <div class="awaded_des">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do tempor the incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, nostrud exercitation ullamc...</p>
+          </div>
+          <div class="clearfix"></div>
+          <div class="mob_block">
+            <div class="time_2_contact">Time To Contact: <span>10:00 - 13:00</span></div>
+            <div class="mmob"> <a class="tooltips" href="#">
+              <p>Mobile : 07700991234 <span>Click + to View Full Mobile Number</span> </p>
+              </a> </div>
+          </div>
+          <div class="clearfix"></div>
+          <div class="awarded_btn_group">
+            <div class="bbtn_lleft_p">
+              <button type="button" class="btn btn-primary mark_com">Mark Complte</button>
+            </div>
+            <div class="in_progress_right">
+              <p><span><img src="images/progress.png" ></span>In Progress</p>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+          <div class="bottom_footer_bbox">
+            <ul>
+              <li class="lloc"><span><img src="images/loc.png" ></span>California</li>
+              <li  class="lloc_1"><span><img src="images/ttags.png" ></span>$2300</li>
+              <li class="lloc_2"><span><img src="images/ccal.png" ></span>Deadline: 04 October 2017</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-6 col-md-6">
+        <div class="awaded_jobs_block">
+          <h3>General Maintanance</h3>
+          <div class="clearfix"></div>
+          <div class="awaded_type">
+            <ul>
+              <li><img src="images/ico03.png">Job Category : Technical</li>
+              <li><img src="images/ico04.png">Type : Technical</li>
+            </ul>
+          </div>
+          <div class="clearfix"></div>
+          <div class="awaded_des">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do tempor the incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, nostrud exercitation ullamc...</p>
+          </div>
+          <div class="clearfix"></div>
+          <div class="mob_block">
+            <div class="time_2_contact">Time To Contact: <span>10:00 - 13:00</span></div>
+            <div class="mmob"> <a class="tooltips" href="#">
+              <p>Mobile : 07700991234 <span>Click + to View Full Mobile Number</span> </p>
+              </a> </div>
+          </div>
+          <div class="clearfix"></div>
+          <div class="awarded_btn_group">
+            <div class="bbtn_lleft_p">
+              <button type="button" class="btn btn-primary mark_com">Mark Complte</button>
+            </div>
+            <div class="in_progress_right">
+              <p><span><img src="images/progress.png" ></span>In Progress</p>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+          <div class="bottom_footer_bbox">
+            <ul>
+              <li class="lloc"><span><img src="images/loc.png" ></span>California</li>
+              <li  class="lloc_1"><span><img src="images/ttags.png" ></span>$2300</li>
+              <li class="lloc_2"><span><img src="images/ccal.png" ></span>Deadline: 04 October 2017</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<footer class="footer_area">
+  <div class="container">
+    <div class="row">
+      <div class="top-footer">
+        <div class="col-md-5 col-sm-12 col-xs-12">
+          <div class="fot_box"> <a class="fot_logo" href="#"><img src="images/logo.png" alt=""></a>
+            <p>Lorem Ipsum is simply dummy or caption text of the printing and typesetting industry, this is a simply dummy or caption text here.</p>
+          </div>
+        </div>
+        <div class="col-md-5 col-sm-12 col-xs-12">
+          <div class="fot_box fot_box_tow">
+            <h3>Information</h3>
+            <ul>
+              <li><a href="#">Builders FAQ</a></li>
+              <li><a href="#">Terms & Conditions</a></li>
+              <li><a href="#">Privacy Policy</a></li>
+            </ul>
+            <ul>
+              <li><a href="#">About Us</a></li>
+              <li><a href="#">Help</a></li>
+              <!--<li><a href="#">Contact Us</a></li>-->
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-2 col-sm-12 col-xs-12">
+          <div class="fot_box social">
+            <h3>We Are Social</h3>
+            <ul>
+              <li> <a href="#"> <i class="fa fa-facebook" aria-hidden="true"></i> </a> </li>
+              <li> <a href="#"> <i class="fa fa-twitter" aria-hidden="true"></i> </a> </li>
+              <li> <a href="#"> <i class="fa fa-google-plus" aria-hidden="true"></i> </a> </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="below_footer">
+        <p>Copyrights © 2017 LandLordRepairs all Rights Reserved</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Modal -->
+<div id="mark_complete" class="modal fade" role="dialog">
+  <div class="modal-dialog"> 
+    
+    <!-- Review Modal content-->
+    <div class="modal-content bborder_bottom">
+      <div class="modal-header review_modal_header">
+        <button type="button" class="close cllose" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> </button>
+        <h4 class="modal-title">Mark Completed </h4>
+      </div>
+      <div class="modal-body marks_completed NopaddB">
+      <h3><i class="fa fa-check-circle" aria-hidden="true"></i>
+      <span>
+The job is marked as completed and costomers are notofied</span></h3>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="myModal1" class="modal fade" role="dialog">
+  <div class="modal-dialog"> 
+    
+    <!-- Review Modal content-->
+    <div class="modal-content bborder_bottom">
+      <div class="modal-header review_modal_header">
+        <button type="button" class="close cllose" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> </button>
+        <h4 class="modal-title">Recommend us </h4>
+      </div>
+      <div class="modal-body review_modal_body1 NopaddB">
+        <form class="modal_form_rreview">
+          <div class="col-md-12 popad">
+            <div class="recomnd">
+              <h5>Recommend us to a </h5>
+              <div class="radio_area">
+                <p>
+                  <input type="radio" id="test1" name="radio-group" checked>
+                  <label for="test1">Tradesperson </label>
+                </p>
+                <p>
+                  <input type="radio" id="test2" name="radio-group">
+                  <label for="test2"> Landlord </label>
+                </p>
+              </div>
+              <button type="button" class="btn btn-primary mark_com pull-left post_bbttn">Submit</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="request_feed" class="modal fade " role="dialog">
+  <div class="modal-dialog"> 
+    
+    <!-- Review Modal content-->
+    <div class="modal-content bborder_bottom">
+      <div class="modal-header review_modal_header">
+        <button type="button" class="close cllose" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> </button>
+        <h4 class="modal-title">Request Feedback</h4>
+      </div>
+      <div class="modal-body request_feed_msg">
+        <h3><i class="fa fa-commenting-o" aria-hidden="true"></i> Your feedback request is send to the customer. </h3>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Return to Top --> 
+<a href="javascript:" id="return-to-top"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
+</div>
+<!--wrapper end--> 
+
+<script>
+	// ===== Scroll to Top ==== 
+$(window).scroll(function() {
+    if ($(this).scrollTop() >= 50) {        // If page is scrolled more than 50px
+        $('#return-to-top').fadeIn(200);    // Fade in the arrow
+    } else {
+        $('#return-to-top').fadeOut(200);   // Else fade out the arrow
+    }
+});
+$('#return-to-top').click(function() {      // When arrow is clicked
+    $('body,html').animate({
+        scrollTop : 0                       // Scroll to top of body
+    }, 500);
+});
+$(document).ready(function() {
+   $('.mark_com').click(function(){
+		$('#mark_complete').modal('show');   
+	}); 
+});
+
+</script> 
+<!--wrapper end-->
+
+</body>
+</html>

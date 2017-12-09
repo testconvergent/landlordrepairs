@@ -1,0 +1,15 @@
+http://infowarescripts.com/Landlord-Repair/index.html
+
+http://infowarescripts.com/Landlord-Repair/login.html
+
+http://infowarescripts.com/Landlord-Repair/signup.html
+
+http://infowarescripts.com/Landlord-Repair/forgot_password.html
+
+http://infowarescripts.com/Landlord-Repair/builder_new_invites.html
+
+http://infowarescripts.com/Landlord-Repair/builder_awarded_jobs.html
+
+http://infowarescripts.com/Landlord-Repair/builder_credits.html
+
+http://infowarescripts.com/Landlord-Repair/user_my_posted.html

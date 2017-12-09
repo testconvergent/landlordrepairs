@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>builder_profile</title>
+	<!--style-->
+	<link href="css/style.css" type="text/css" rel="stylesheet" media="all"/>
+	<link href="css/responsive.css" type="text/css" rel="stylesheet" media="all"/>
+	<!--bootstrape-->
+	<link href="css/bootstrap.min.css" type="text/css" rel="stylesheet" media="all"/>
+	<!--font-awesome-->
+	<link href="css/font-awesome.min.css" type="text/css" rel="stylesheet" media="all"/>
+	<!--fonts-->
+	<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Slab:300,400,700|Roboto:100,300,400,500,700,900" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:400,400i,600,600i,700" rel="stylesheet">
+	<script type="text/javascript" src="js/jquery-3.2.1.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<!--date picker-->
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script>
+  $( function() {
+    $( "#datepicker" ).datepicker();
+  } );
+  
+</script>
+	<!--search toggle-->
+
+	<script> 
+$(document).ready(function(){
+    $(".ssearch").click(function(){
+        $(".searches_bbox").slideToggle("4000");
+    });
+});
+</script>
+	<script>
+$(document).ready(function(){
+    $(".aa").click(function(){
+        $(".dropss_down").slideToggle();
+    });
+});
+</script>
+
+	<!--Image Gallery-->
+
+	<!-- Add mousewheel plugin (this is optional) -->
+	<script type="text/javascript" src="js/jquery.mousewheel.pack.js?v=3.1.3"></script>
+
+	<!-- Add fancyBox main JS and CSS files -->
+	<script type="text/javascript" src="js/jquery.fancybox.pack.js?v=2.1.5"></script>
+	<link rel="stylesheet" type="text/css" href="css/jquery.fancybox.css?v=2.1.5" media="screen" />
+
+	<!-- Add Button helper (this is optional) -->
+	<link rel="stylesheet" type="text/css" href="js/jquery.fancybox-buttons.css?v=1.0.5" />
+	<script type="text/javascript" src="js/jquery.fancybox-buttons.js?v=1.0.5"></script>
+
+	<!-- Add Thumbnail helper (this is optional) -->
+	<link rel="stylesheet" type="text/css" href="css/jquery.fancybox-thumbs.css?v=1.0.7" />
+	<script type="text/javascript" src="css/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+
+	<!-- Add Media helper (this is optional) -->
+	<script type="text/javascript" src="js/jquery.fancybox-media.js?v=1.0.6"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			/*
+			 *  Simple image gallery. Uses default settings
+			 */
+
+			$('.fancybox').fancybox();
+
+			/*
+			 *  Different effects
+			 */
+
+			// Change title type, overlay closing speed
+			$(".fancybox-effects-a").fancybox({
+				helpers: {
+					title : {
+						type : 'outside'
+					},
+					overlay : {
+						speedOut : 0
+					}
+				}
+			});
+
+			// Disable opening and closing animations, change title type
+			$(".fancybox-effects-b").fancybox({
+				openEffect  : 'none',
+				closeEffect	: 'none',
+
+				helpers : {
+					title : {
+						type : 'over'
+					}
+				}
+			});
+
+			// Set custom style, close if clicked, change title type and overlay color
+			$(".fancybox-effects-c").fancybox({
+				wrapCSS    : 'fancybox-custom',
+				closeClick : true,
+
+				openEffect : 'none',
+
+				helpers : {
+					title : {
+						type : 'inside'
+					},
+					overlay : {
+						css : {
+							'background' : 'rgba(238,238,238,0.85)'
+						}
+					}
+				}
+			});
+
+			// Remove padding, set opening and closing animations, close if clicked and disable overlay
+			$(".fancybox-effects-d").fancybox({
+				padding: 0,
+
+				openEffect : 'elastic',
+				openSpeed  : 150,
+
+				closeEffect : 'elastic',
+				closeSpeed  : 150,
+
+				closeClick : true,
+
+				helpers : {
+					overlay : null
+				}
+			});
+
+			/*
+			 *  Button helper. Disable animations, hide close button, change title type and content
+			 */
+
+			$('.fancybox-buttons').fancybox({
+				openEffect  : 'none',
+				closeEffect : 'none',
+
+				prevEffect : 'none',
+				nextEffect : 'none',
+
+				closeBtn  : false,
+
+				helpers : {
+					title : {
+						type : 'inside'
+					},
+					buttons	: {}
+				},
+
+				afterLoad : function() {
+					this.title = 'Image ' + (this.index + 1) + ' of ' + this.group.length + (this.title ? ' - ' + this.title : '');
+				}
+			});
+
+
+			/*
+			 *  Thumbnail helper. Disable animations, hide close button, arrows and slide to next gallery item if clicked
+			 */
+
+			$('.fancybox-thumbs').fancybox({
+				prevEffect : 'none',
+				nextEffect : 'none',
+
+				closeBtn  : false,
+				arrows    : false,
+				nextClick : true,
+
+				helpers : {
+					thumbs : {
+						width  : 50,
+						height : 50
+					}
+				}
+			});
+
+			/*
+			 *  Media helper. Group items, disable animations, hide arrows, enable media and button helpers.
+			*/
+			$('.fancybox-media')
+				.attr('rel', 'media-gallery')
+				.fancybox({
+					openEffect : 'none',
+					closeEffect : 'none',
+					prevEffect : 'none',
+					nextEffect : 'none',
+
+					arrows : false,
+					helpers : {
+						media : {},
+						buttons : {}
+					}
+				});
+
+			/*
+			 *  Open manually
+			 */
+
+			$("#fancybox-manual-a").click(function() {
+				$.fancybox.open('1_b.jpg');
+			});
+
+			$("#fancybox-manual-b").click(function() {
+				$.fancybox.open({
+					href : 'iframe.html',
+					type : 'iframe',
+					padding : 5
+				});
+			});
+
+			$("#fancybox-manual-c").click(function() {
+				$.fancybox.open([
+					{
+						href : '1_b.jpg',
+						title : 'My title'
+					}, {
+						href : '2_b.jpg',
+						title : '2nd title'
+					}, {
+						href : '3_b.jpg'
+					}
+				], {
+					helpers : {
+						thumbs : {
+							width: 75,
+							height: 50
+						}
+					}
+				});
+			});
+
+
+		});
+	</script>
+
+	<!--Image Gallery-->
+
+	</head>
+
+	<body>
+<!--wrapper start-->
+<div class="row Nomarg">
+      <div class="header_builder">
+    <div class="container">
+   
+    <div class="logo_builder_pg">
+    <a href="#">
+    <img src="images/logo.png"  alt="logo" class="img-responsive">
+    </a>
+    </div>
+   
+   
+    <div class="inner_header_area">
+    
+    <div class="only_search">
+    
+    	<a href="#" class="ssearch"><img src="images/search_ico.png" ></a>
+        <div class="searches_bbox" style="display:none;">
+            <div class="inner_search_box"><img src="images/top_arrow.png" class="arrow" >
+              <input class="form-control" type="text" placeholder="Search">
+              <button type="submit" class="btn btn-default search_submit"><img src="images/search.png" alt=""></button>
+            </div>
+        </div>
+        
+    </div>
+    
+   
+      <button type="button" class="navbar-toggle pposs" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar bblack"></span>
+        <span class="icon-bar bblack"></span>
+        <span class="icon-bar bblack"></span>                        
+      </button>
+   
+ 
+    <div class="collapse navbar-collapse drop_ddown" id="myNavbar">
+      <ul>
+    <li><a href="#">New Invites <span>(3)</span></a></li>
+     <li><a href="#"><img src="images/ico01.png">Awarded Jobs</a></li>
+    <li><a href="#" class="credits"><img src="images/ico02.png">Credits<span>(6)</span></a></li>  
+    
+    
+    
+    </ul>
+   
+    </div>
+
+
+
+    
+    
+    </div>
+    
+    <div class="review_area">
+    <div class="floatt_right">
+    <div class="rreview" >
+    <ul>
+    <li><a href="#"><img src="images/review_star_full.jpg" ></a></li>
+    <li><a href="#"><img src="images/review_star_full.jpg" ></a></li>
+    <li><a href="#"><img src="images/review_star_full.jpg" ></a></li>
+    <li><a href="#"><img src="images/review_star_full.jpg" ></a></li>
+    <li><a href="#"><img src="images/review_star_full.jpg" ></a></li>
+    
+    </ul>
+    <div class="clearfix"></div>
+    <p>817 Jobs Win, 758 Reviews</p>
+    
+    
+
+    
+    
+    </div>
+  
+    <div class="profile_pic">
+   <a href="#" class="aa"> <img src="images/profile_img.jpg" class="img-circle"> <i class="fa fa-caret-down" aria-hidden="true"></i> <div class="dropss_down" style="display:none;">
+   
+	<ul>
+       <li><a href="#"> <i class="fa fa-angle-double-right" aria-hidden="true"></i> Profile</a> </li>
+       <li><a href="#"> <i class="fa fa-angle-double-right" aria-hidden="true"></i>  Edit Profile </a></li>
+       <li><a href="#"> <i class="fa fa-angle-double-right" aria-hidden="true"></i>  Settings</a> </li>
+       <li><a href="#"> <i class="fa fa-angle-double-right" aria-hidden="true"></i>  Recommend us </a></li>
+       <li><a href="#"> <i class="fa fa-angle-double-right" aria-hidden="true"></i>  Logout </a></li>
+   </ul>
+   
+   </div></a>
+   
+   
+</div>
+    </div>
+    
+    </div>
+  
+    </div>
+    
+    
+    </div>
+      <div class="inner_banner_builder NopaddB"> <img src="images/inner_banner.jpg"  alt="inner_banner"> </div>
+    </div>
+<div class="row Nomarg">
+      <div class="container">
+    <div class="profile_brief">
+          <div class="bborder_ddiv">
+        <div class="builder_pprofile_div"> <img src="images/imag_ppic.jpg" class="img-circle img-ppic"> <a class="edit_iico" href="#"><img src="images/edit_l.png" ></a>
+              <div class="ssocialss">
+            <p>Follow Us :</p>
+            <div class="ssoalss_iico"> 
+            <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+            <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a> 
+            <a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+            <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+            </div>
+          </div>
+            </div>
+        <div class="dess">
+              <h3>OHM Electrical Gas Heating and Plumber Services <a href="#" class="pull-right"><img src="images/edit_icco.png"></a></h3>
+              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five the centuries.</p>
+            </div>
+      </div>
+          <div class="bborder_ddiv">
+        <div class="catts">
+              <div class="edit_div"><a href="#" class="pull-right"><img src="images/edit_icco.png"></a></div>
+              <div class="catt1">
+            <ul>
+                  <li><img src="images/cat01.png" alt="cat">Category : <span>Job Category</span></li>
+                  <li><img src="images/cat02.png" alt="cat">Years in Biz : <span>7 Years</span></li>
+                  <li><img src="images/cat03.png" alt="cat">Qualification : <span> Electrical Engg</span></li>
+                  <li><img src="images/cat04.png" alt="cat">Location : <span>Stanfore, UK</span></li>
+                  <li><img src="images/cat05.png" alt="cat">Miles Travel  : <span>12 Miles</span></li>
+                  <li><img src="images/cat06.png" alt="cat">Insurance : <span> Yes</span></li>
+                  <li><img src="images/cat07.png" alt="cat">Response Time : <span>1 Hour</span></li>
+                  <li><img src="images/cat08.png" alt="cat">Emergency Job : <span>Yes</span></li>
+                  <li><img src="images/cat09.png" alt="cat">Member of Logo</li>
+                  <li><img src="images/cat10.png" alt="cat">Team: <span>15 Members</span></li>
+                  <li><img src="images/cat11.png" alt="cat">Working Hours : <span>09:00 - 18:00</span></li>
+                  <li><img src="images/cat12.png" alt="cat">Member Since : <span> 15th Aug 2011</span></li>
+                </ul>
+          </div>
+              <div class="mapps">
+            <div class="google-maps">
+                  <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d7098.94326104394!2d78.0430654485247!3d27.172909818538997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2s!4v1385710909804" width="600" height="450" frameborder="0" style="border:0"></iframe>
+                </div>
+          </div>
+            </div>
+      </div>
+          <div class="check_box_ddiv">
+        <div class="checkbox-group1">
+              <input id="checkize" type="checkbox">
+              <label for="checkize" class="">
+              <span class="check find_chek"></span> <span class="box W25 boxx"></span>
+              <h6>I'm on Holiday and will don't want to receive invites.</h6>
+              </label>
+            </div>
+      </div>
+        </div>
+    <div class="clearfix"></div>
+    <div class="portfolio_sec">
+          <div class="portfolio_top_panel">
+        <h3>Portfolio</h3>
+        <a class="add_new_portfolio" href="#">add new portfolio</a></div>
+          <div class="clearfix"></div>
+          <div class="portfolio_photo_panel">
+        <ul>
+              <li><a class="fancybox" href="images/1_b.jpg" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
+                <div class="view1 view-first"> <img src="images/1_s.jpg" />
+                <div class="mask">
+                    <h2>Dummy caption here</h2>
+                    <div class="cross_p"><i class="fa fa-times" aria-hidden="true"></i> </div>
+                  </div>
+              </div>
+                </a></li>
+              <li><a class="fancybox" href="images/2_b.jpg" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
+                <div class="view1 view-first"> <img src="images/2_s.jpg" />
+                <div class="mask">
+                    <h2>Dummy caption here</h2>
+                    <div class="cross_p"><i class="fa fa-times" aria-hidden="true"></i> </div>
+                  </div>
+              </div>
+                </a></li>
+              <li><a class="fancybox" href="images/3_b.jpg" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
+                <div class="view1 view-first"> <img src="images/3_s.jpg" />
+                <div class="mask">
+                    <h2>Dummy caption here</h2>
+                    <div class="cross_p"><i class="fa fa-times" aria-hidden="true"></i> </div>
+                  </div>
+              </div>
+                </a></li>
+              <li><a class="fancybox" href="images/4_b.jpg" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
+                <div class="view1 view-first"> <img src="images/4_s.jpg" />
+                <div class="mask">
+                    <h2>Dummy caption here</h2>
+                    <div class="cross_p"><i class="fa fa-times" aria-hidden="true"></i> </div>
+                  </div>
+              </div>
+                </a></li>
+              <li><a class="fancybox" href="images/5_b.jpg" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
+                <div class="view1 view-first"> <img src="images/5_s.jpg" />
+                <div class="mask">
+                    <h2>Dummy caption here</h2>
+                    <div class="cross_p"><i class="fa fa-times" aria-hidden="true"></i> </div>
+                  </div>
+              </div>
+                </a></li>
+              <li><a class="fancybox" href="images/6_b.jpg" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
+                <div class="view1 view-first"> <img src="images/6_s.jpg" />
+                <div class="mask">
+                    <h2>Dummy caption here</h2>
+                    <div class="cross_p"><i class="fa fa-times" aria-hidden="true"></i> </div>
+                  </div>
+              </div>
+                </a></li>
+              <li><a class="fancybox" href="images/7_b.jpg" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
+                <div class="view1 view-first"> <img src="images/7_s.jpg" />
+                <div class="mask">
+                    <h2>Dummy caption here</h2>
+                    <div class="cross_p"><i class="fa fa-times" aria-hidden="true"></i> </div>
+                  </div>
+              </div>
+                </a></li>
+              <li><a class="fancybox" href="images/8_b.jpg" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
+                <div class="view1 view-first"> <img src="images/8_s.jpg" />
+                <div class="mask">
+                    <h2>Dummy caption here</h2>
+                    <div class="cross_p"><i class="fa fa-times" aria-hidden="true"></i> </div>
+                  </div>
+              </div>
+                </a></li>
+              <li><a class="fancybox" href="images/9_b.jpg" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
+                <div class="view1 view-first"> <img src="images/9_s.jpg" />
+                <div class="mask">
+                    <h2>Dummy caption here</h2>
+                    <div class="cross_p"><i class="fa fa-times" aria-hidden="true"></i> </div>
+                  </div>
+              </div>
+                </a></li>
+              <li><a class="fancybox" href="images/10_b.jpg" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
+                <div class="view1 view-first"> <img src="images/10_s.jpg" />
+                <div class="mask">
+                    <h2>Dummy caption here</h2>
+                    <div class="cross_p"><i class="fa fa-times" aria-hidden="true"></i> </div>
+                  </div>
+              </div>
+                </a></li>
+            </ul>
+      </div>
+        </div>
+    <div class="clearfix"></div>
+    <div class="qualification_panel">
+          <h3>Qualification</h3>
+          <div class="clearfix"></div>
+          <div class="engg_panel">
+        <h3>Electrical Engineer</h3>
+        <a href="#" class="pull-right"><img src="images/edit_icco.png"></a></div>
+        </div>
+    <div class="clearfix"></div>
+    <div class="review_panel">
+          <div class="review_panel_toop">
+        <h3>Reviews</h3>
+        <a href="#" class="pull-right"><img src="images/edit_icco.png"></a></div>
+          <div class="clearfix"></div>
+          <div class="review_bblock_11">
+        <h3>Light & Power - Internal</h3>
+        <div class="pull-right">
+              <div class="review_sub">
+            <ul>
+                  <li><img src="images/sstar.png"></li>
+                  <li><img src="images/sstar.png"></li>
+                  <li><img src="images/sstar.png"></li>
+                  <li><img src="images/sstar.png"></li>
+                  <li><img src="images/sstar_1.png"></li>
+                </ul>
+          </div>
+            </div>
+        <div class="clearfix"></div>
+        <div class="review_bblock_12">
+              <ul>
+            <li><span><img src="images/user.png" alt="user"></span>Monica, NW6</li>
+            <li><span><img src="images/cals.png"></span>Feb 10, 2017</li>
+          </ul>
+            </div>
+        <div class="clearfix"></div>
+        <div class="review_ddes"> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five the centuries.Lorem Ipsum is simply dummy text of the printing and typesetting industry.</div>
+      </div>
+        </div>
+  </div>
+    </div>
+</div>
+</div>
+<footer class="footer_area">
+        	<div class="container">
+            	<div class="row">
+                	<div class="top-footer">
+                    	<div class="col-md-5 col-sm-12 col-xs-12">
+                        	<div class="fot_box">
+                            	<a class="fot_logo" href="#"><img src="images/logo.png" alt=""></a>
+                                <p>Lorem Ipsum is simply dummy or caption text of the printing and typesetting industry, this is a simply dummy or caption text here.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-5 col-sm-12 col-xs-12">
+                        	<div class="fot_box fot_box_tow">
+                                <h3>Information</h3>
+                                <ul>
+                                    <li><a href="#">Builders FAQ</a></li>
+                                    <li><a href="#">Terms & Conditions</a></li>
+                                    <li><a href="#">Privacy Policy</a></li>
+                                </ul>
+                                <ul>
+                                    <li><a href="#">About Us</a></li>
+                                    <li><a href="#">Help</a></li>
+                                    <li><a href="#">Contact Us</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-sm-12 col-xs-12">
+                        	<div class="fot_box social">
+                            	<h3>We Are Social</h3>
+                                <ul>
+                                    <li> <a href="#"> <i class="fa fa-facebook" aria-hidden="true"></i> </a> </li>
+                                    <li> <a href="#"> <i class="fa fa-twitter" aria-hidden="true"></i> </a> </li>
+                                    <li> <a href="#"> <i class="fa fa-google-plus" aria-hidden="true"></i> </a> </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="below_footer">
+                    	<p>Copyrights © 2017 LandLordRepairs all Rights Reserved</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+<!-- Return to Top --> 
+<a href="javascript:" id="return-to-top"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
+</div>
+<!--wrapper end--> 
+
+<script>
+	// ===== Scroll to Top ==== 
+$(window).scroll(function() {
+    if ($(this).scrollTop() >= 50) {        // If page is scrolled more than 50px
+        $('#return-to-top').fadeIn(200);    // Fade in the arrow
+    } else {
+        $('#return-to-top').fadeOut(200);   // Else fade out the arrow
+    }
+});
+$('#return-to-top').click(function() {      // When arrow is clicked
+    $('body,html').animate({
+        scrollTop : 0                       // Scroll to top of body
+    }, 500);
+});
+</script> 
+<!--wrapper end-->
+
+</body>
+</html>
