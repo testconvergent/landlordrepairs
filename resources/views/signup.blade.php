@@ -23,7 +23,7 @@
 								<span><img src="images/luser_1.png" alt=""></span>
 							</div>
 							<div class="log_form1">
-								<input type="text" placeholder="Mobile" name="user_mobile" class="required" autocomplete="new-user_mobile">
+								<input type="text" placeholder="Mobile" name="user_mobile" class="required" autocomplete="new-user_mobile" minlength="10" maxlength="10" onkeypress="validate(event)" id="mobile">
 								<span><img src="images/mobile.png" alt=""></span>
 							</div>
 							<div class="log_form1">
@@ -32,7 +32,7 @@
 							</div>
 							<input type="submit" value="Signup">
 							<div class="login_bottom">
-								<span>Already a Member ?</span> <a href="#">Login Now!</a>
+								<span>Already a Member ?</span> <a href="login">Login Now!</a>
 							</div>
 						</form>
 					</div> 
@@ -81,6 +81,52 @@ $(document).ready(function(){
 			});
 		}
 	});
+	$('#mobile').blur(function(){
+		var mobile = $('#mobile').val();
+		var token =" {{ csrf_token() }}";
+		if(mobile != "")
+		{
+			$.ajax({
+				method:"POST",
+				url:"<?php echo url('exist-mobile')?>",
+				dataType: 'JSON',
+				data:{
+					_token:token,
+					mobile:mobile
+				},
+				success:function(result)
+				{
+					if(result.msg == 2)
+					{
+						$('#mobile').css('border','');
+						return true;
+					}
+					else
+					{
+						$('#mobile').val('');
+						$('#mobile').attr('placeholder','Mobile Number already exist');
+						$('#mobile').css('border','2px solid #FF0000');
+						$('#mobile').focus();
+						return false;
+					}
+					
+				},
+				error:function(error){
+					console.log(error.responseText);
+				} 
+			});
+		}
+	});
 });
+function validate(evt){
+	var theEvent=evt || window.event;
+	var key=theEvent.keyCode || theEvent.which;
+	key=String.fromCharCode(key);
+	var regex = /[0-9]||\./;
+	if(!regex.test(key)){
+		theEvent.returnValue=false;
+		if(theEvent.preventDefault) theEvent.preventDefault();
+	}
+}
 </script>
 @endsection

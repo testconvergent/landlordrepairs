@@ -1,0 +1,29 @@
+control panel:
+ https://control.gridhost.co.uk/members/myaccount.php    
+
+user name -- lrdev 
+passs-  Hellotech7
+
+domain: landlordrepairs.uk
+
+http://landlordrepairs.uk/phpinfo.php
+
+FTP:
+host:  ftp.landlordrepairs.uk
+useR: lr@landlordrepairs.uk
+pasS:Hellotech7
+
+mysql:
+
+user: landlord1_landus
+Pass:  Rtsrstt253!
+db: landlord1_landlorddb
+db host: 10.169.0.158
+remote access host: 91.208.99.2:1193
+
+
+pma link:
+
+https://phpmyadmin.gridhost.co.uk/index.php 
+
+while login select the ip "10.169.0.158" from server choice dropdown. 

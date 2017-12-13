@@ -1,0 +1,80 @@
+Milestones 1:
+
+Graphics Design and HTML conversion of all the screens
+
+Milestone 2:
+
+Customer Sign UP
+Contractor Sign Up
+Contractor profile creation
+Job Posting by customer
+Admin Panel - User Management
+Admin Panel - Memberships
+
+Milestone 3: 
+
+Customer - My Jobs
+Customer - Invite Contractor
+Customer - View proposal
+Contractor - View Invitation/Alerts
+Contractor - Send proposal
+Admin Panel - Jobs Management 
+
+Milestone 4:
+
+Customer - post review
+Memberships implementation
+Payment gateway implementation
+SMS gateway implementation
+Static pages implementation 
+Admin Panel - Reports
+
+
+
+
+1- is free for the customers all the way
+2- review system yes
+3. message/chat - NO
+4. same job posting fields for all type of jobs
+
+Job Types: Emergency job --- End of tenancy job -- Maintenance job -- Normal job
+
+
+
+NOTES:
+
+
+Q:I have one question on builder credits page. In this page presently we are showing multiple packages. I guess all the available packages will show here and a renew button beside the package where the user is currently signed up. Please confirm. 
+
+ANS: 
+We only need to show first the package the builder is signup to the rest can be little hidden but when clikcing on Upgrade my credit is when we will show the rest of the packages lets name the packages as follow — Bronze — Silver —- Gold .
+
+when the builder whats to downgrade their can only do so when there on the silver or gold package not on the bronze package .    3— On the Renew - we need Autorenew account that will be as a default but also the builders can click on manual renewal this mean we will send alerts via text that there credits needs to be renew this is when the Renew button comes in.   4— I do not see the membership fee , of every 3 month we call it activation  Fee —     5-  we can say your account is active . 6—the money sign change to the new one.
+
+Q: Also one credit means one – One invitation or one proposal submission? 
+Ans:
+
+Yes that is correct - one credit means one booking the moment the user books the builder that is one credit. If the builders does not want to get booked their can click the I’m on holiday that means when the user try to book we will show icon saying this builder is on holiday u can not book it we will present top sign .
+
+
+
+Question: 
+Tradesman sign up page has three dropdown fields: Role within the Business, Primary Trade, Business Type.
+I am assuming that the Primary Trade is the category that will be matched against the category of the job. The other two fields are only informative. 
+
+1- Yes that is correct
+
+Also in order to get the nearest tradesman for a specific job we need the geo location of the user. This can be done by google maps api,  so can we add a field address in the tradesmen sign up page.
+
+2- Yes that is correct
+
+Tradesmen sign up verify your identity in this section the tradesman will upload scanned copy of their credentials that will be viewed and approved by admin?
+  
+No their just need to verify there mobile number via text alerts as two way auth- using twilio
+but the admin needs to have control to suspend and unsuspend 
+
+Also in the job posting form there is a textbox "looking for" - will it be matched with the tradesman "Business type" field?
+
+Ans: 
+ Yes- that is to make sure the right type of job match to the people - ex; Maintenance job - is basic end of tenancy jobs - is basic - emergency job - needs to match with the builders that clicked that their ok to do emergency job - meaning the job can be posted 2am in the morning the builder will get notified via text - Note --- emergency job will cots the builder 2 credits
+to make it simple here the only match will be if there is the emergency job - this sis base on your last question.

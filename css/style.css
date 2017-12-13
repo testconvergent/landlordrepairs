@@ -2051,6 +2051,7 @@ padding: 11px 24px !important;
 	border-bottom: 1px solid #e6e6e6;
 	float: left;
 	padding-bottom: 20px;
+	width:100%;
 }
 .catts {
 	width: 100%;
@@ -2139,10 +2140,10 @@ padding: 11px 24px !important;
 	color:#ee9e03;
 	}
 .dess {
-	width: 77%;
+	width: 76%;
 	float: left;
 	padding-left: 33px;
-	margin-right: 15px;
+	/* margin-right: 15px; */
 }
 .dess h3 {
 	font-family: 'Roboto', sans-serif;
@@ -2164,8 +2165,8 @@ padding: 11px 24px !important;
 }
 .google-maps {
 	position: relative;
-	padding-bottom: 50%;
-// This is the aspect ratio  height: 0;
+	/*padding-bottom: 50%;*/
+
 	overflow: hidden;
 }
 .google-maps iframe {
@@ -2266,6 +2267,20 @@ padding: 11px 24px !important;
 	float: left;
 }
 .add_new_portfolio {
+	color: #fff;
+	float: right;
+	text-transform: uppercase;
+	font-family: 'Poppins', sans-serif;
+	font-size: 15px;
+	line-height: 43px;
+	font-weight: 600;
+	padding: 2px 15px 0;
+	background: #ee9e03;
+	border-radius: 2px;
+	display: inline-block;
+	box-shadow: 0 2px #06608a;
+}
+.add_new_logo{
 	color: #fff;
 	float: right;
 	text-transform: uppercase;
@@ -3081,6 +3096,20 @@ font-weight: normal;
 	box-shadow: 0px 1px 1px 0px #c1c1c1;
 	margin-bottom:10px;
 }
+.your-mail input[type="email"] {
+	width: 100%;
+	height: 42px;
+	float: left;
+	padding: 0 10px;
+	color: #8d9091;
+	font-family: 'Poppins', sans-serif;
+	font-size: 14px;
+	border: 1px solid #e5e5e5;
+	border-radius: 0;
+	background: #fff;
+	box-shadow: 0px 1px 1px 0px #c1c1c1;
+	margin-bottom:10px;
+}
 .your-mail input[type="password"] {
 	width: 100%;
 	height: 42px;
@@ -3476,10 +3505,10 @@ box-shadow: 2px 2px 2px 3px #D6D6D6 !important;
 	
 }
 .error{
-	width:100%;
-	float:left;
-	text-align:left;
-	color:red;
+	width:100% !important;
+	float:left !important;
+	text-align:left !important;
+	color:red !important;
 }
 .message_board{
 	display: block;
@@ -3538,8 +3567,42 @@ box-shadow: 2px 2px 2px 3px #D6D6D6 !important;
 	webkit-transition: all .3s ease 0s;
 	transition: all .3s ease 0s;
 }
-	
-	
+
+.msg1 {
+   float: left;
+    font-size: 17px;
+    font-weight: 700;
+    padding: 0 15px;
+    background: #007bb447;
+    border-radius: 4px;
+    box-shadow: 108px;
+    box-shadow: 1px 4px #e2e1e1;
+}
+.mak_frm{
+	float:left;
+	margin-top:20px;
+}
+textarea {
+	width: 100%;
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	 box-sizing: border-box;         /* Opera/IE 8+ */
+}
+#mapCanvas{
+	width:300px;
+	height:200px;
+}
+.submit_button{
+  margin-top: 5px;
+}
+.prof_description div{
+	display: inline-block;
+    font-size: 17px;
+    font-family: 'Roboto', sans-serif;
+    color: #393939;
+    width: 33%;
+    margin-bottom: 12px;
+}
 	
 	
 	

@@ -33,7 +33,7 @@
 										<form method="post" action="post-job" id="job_post_frm">
 											{{csrf_field()}}
 											<div class="form-group">
-												<select class="form_type form_option required" name="job_type_id">
+												<select class="form_type form_option" name="job_type_id" id="job_type_id">
 													<option value="">Job type</option>
 													@if(!$job_type->isEmpty())
 														@foreach($job_type as $job)
@@ -43,7 +43,7 @@
 												</select>
 											</div>
 											<div class="form-group">
-												<select class="form_type form_option required" name="job_category_id">
+												<select class="form_type form_option" name="job_category_id" id="job_category_id">
 													<option value="">Category</option>
 													@if(!$category->isEmpty())
 														@foreach($category as $cat)
@@ -53,31 +53,32 @@
 												</select>
 											</div>
 											<div class="form-group">
-												<input type="text" class="form-control form_type required" name="looking_for" placeholder="Looking for">
+												<input type="text" class="form-control form_type" name="looking_for" id="looking_for" placeholder="Looking for">
 											</div>
 											<div class="form-group">
 												<div class="first">
-													<input type="text" class="form-control form_type required" name="budget" placeholder="Budget (£)">
+													<input type="text" class="form-control form_type" name="budget" id="budget" placeholder="Budget (£)" onkeypress="validate(event)">
 												</div>
 												<div class="second">
-													<input type="text" class="form-control form_type form_date required" id="datepicker" name="deadline" placeholder="Dateline" >
+													<input type="text" class="form-control form_type form_date" id="datepicker" name="deadline" placeholder="Deadline" >
 												</div>
 											</div>
 											<div class="form-group">
 												<div class="first">
-													<input type="text" class="form-control form_type required" id="searchTextField" name="city" placeholder="City">
-													<input type="hidden" id="longitude" name="longitude">
-													<input type="hidden" id="latitude" name="latitude">
+													<input type="text" class="form-control form_type " name="city" id="city" placeholder="City" value="United Kingdom">
+													<input type="hidden" id="longitude" name="longitude" value="-3.43597299999999">
+													<input type="hidden" id="lattitude" name="lattitude" value="55.378051">
 												</div>
 												<div class="second">
-													<input type="text" class="form-control form_type required" name="zip_code" placeholder="Zip Code">
+													<input type="text" class="form-control form_type" name="zip_code" id="zip_code" placeholder="Zip Code">
 												</div>
 											</div>
 											<div class="form-group">
-												<textarea class="form_type form_msg required" name="job_details" placeholder="Details"></textarea>
+												<textarea class="form_type form_msg" id="job_details" name="job_details" placeholder="Details"></textarea>
 											</div>
 											<div class="form-group ban_btn">
 												<button type="submit" class="btn sub_bttn">Next</button>
+												<span class="span_erro"></span>
 											</div>
 										</form>
 									</div>
@@ -99,7 +100,7 @@
 							<form method="post" action="post-job" id="job_post_frm">
 								{{csrf_field()}}
 								<div class="form-group">
-									<select class="form_type form_option required" name="job_type_id">
+									<select class="form_type form_option" name="job_type_id" id="job_type_id">
 										<option value="">Job type</option>
 										@if(!$job_type->isEmpty())
 											@foreach($job_type as $job)
@@ -109,7 +110,7 @@
 									</select>
 								</div>
 								<div class="form-group">
-									<select class="form_type form_option required" name="job_category_id">
+									<select class="form_type form_option" name="job_category_id" id="job_category_id">
 										<option value="">Category</option>
 										@if(!$category->isEmpty())
 											@foreach($category as $cat)
@@ -119,29 +120,32 @@
 									</select>
 								</div>
 								<div class="form-group">
-									<input type="text" class="form-control form_type required" name="looking_for" placeholder="Looking for">
+									<input type="text" class="form-control form_type" name="looking_for" id="looking_for" placeholder="Looking for">
 								</div>
 								<div class="form-group">
 									<div class="first">
-										<input type="text" class="form-control form_type required" name="budget" placeholder="Budget (£)">
+										<input type="text" class="form-control form_type" name="budget" id="budget" placeholder="Budget (£)" onkeypress="validate(event)">
 									</div>
 									<div class="second">
-										<input type="text" class="form-control form_type form_date required" id="datepicker" name="deadline" placeholder="Dateline" >
+										<input type="text" class="form-control form_type form_date" id="datepicker" name="deadline" placeholder="Dateline" >
 									</div>
 								</div>
 								<div class="form-group">
 									<div class="first">
-										<input type="text" class="form-control form_type required"   name="city" placeholder="City">
+										<input type="text" class="form-control form_type " name="city" id="city" placeholder="City" value="United Kingdom">
+										<input type="hidden" id="longitude" name="longitude" value="-3.43597299999999">
+										<input type="hidden" id="lattitude" name="lattitude" value="55.378051">
 									</div>
 									<div class="second">
-										<input type="text" class="form-control form_type required" name="zip_code" placeholder="Zip Code">
+										<input type="text" class="form-control form_type" name="zip_code" id="zip_code" placeholder="Zip Code">
 									</div>
 								</div>
 								<div class="form-group">
-									<textarea class="form_type form_msg required" name="job_details" placeholder="Details"></textarea>
+									<textarea class="form_type form_msg" id="job_details" name="job_details" placeholder="Details"></textarea>
 								</div>
 								<div class="form-group ban_btn">
 									<button type="submit" class="btn sub_bttn">Next</button>
+									<span class="span_erro"></span>
 								</div>
 							</form>
 						</div>
@@ -349,21 +353,79 @@
 	</section>
 	@include('layout.footer')
 </div>
+<style>
+.span_erro{
+	color: red;
+    font-weight: bold;
+    margin-left: 48px;
+}
+</style>
 <script>
 $(document).ready(function(){
-	$('#job_post_frm').validate();
+	$('#job_post_frm').submit(function(){
+		if($('#job_type_id').val() == "")
+		{
+			$('.span_erro').html('Job type is required');
+			return false;
+		}
+		else if($('#job_category_id').val() == "")
+		{
+			$('.span_erro').html('Job category is required');
+			return false;
+		}
+		else if($('#looking_for').val() == "")
+		{
+			$('.span_erro').html('Looking for is required');
+			return false;
+		}
+		else if($('#budget').val() == "")
+		{
+			$('.span_erro').html('Budget is required');
+			return false;
+		}
+		else if($('#datepicker').val() == "")
+		{
+			$('.span_erro').html('Deadline is required');
+			return false;
+		}
+		else if($('#city').val() == "")
+		{
+			$('.span_erro').html('City is required');
+			return false;
+		}
+		else if($('#zip_code').val() == "")
+		{
+			$('.span_erro').html('Zipcode is required');
+			return false;
+		}
+		else if($('#job_details').val() == "")
+		{
+			$('.span_erro').html('Job Details is required');
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	});
 });
-var input = document.getElementById('searchTextField');
+function validate(evt){
+	var theEvent=evt || window.event;
+	var key=theEvent.keyCode || theEvent.which;
+	key=String.fromCharCode(key);
+	var regex = /[0-9]||\./;
+	if(!regex.test(key)){
+		theEvent.returnValue=false;
+		if(theEvent.preventDefault) theEvent.preventDefault();
+	}
+}
+var input = document.getElementById('city');
 var autocomplete = new google.maps.places.Autocomplete(input);
  google.maps.event.addListener(autocomplete, 'place_changed', function() {
-        //input.className = '';
-		var place = autocomplete.getPlace();
-		document.getElementById('longitude').value = place.geometry.location.lng();
-        document.getElementById('latitude').value = place.geometry.location.lat();
-      
-       
-        
-
-    });
+//input.className = '';
+var place = autocomplete.getPlace();
+document.getElementById('longitude').value = place.geometry.location.lng();
+document.getElementById('lattitude').value = place.geometry.location.lat();
+});
 </script>
 @endsection

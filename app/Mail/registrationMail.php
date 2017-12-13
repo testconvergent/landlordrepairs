@@ -26,6 +26,6 @@ class registrationMail extends Mailable
      */
     public function build(Request $request)
     {
-        return $this->view('mail.registration_mail',['user_name'=>$request->user_name,'v_code'=>$request->v_code,'user_id'=>$request->user_id])->to($request->email)->subject('Registration Mail')->from('noreply@landloadrepairs.com');
+        return $this->view('mail.registration_mail',['user_name'=>$request->user_name,'v_code'=>$request->v_code,'user_id'=>$request->user_id])->to($request->email)->subject('Registration Mail')->from('noreply@landlordrepairs.uk');
     }
 }

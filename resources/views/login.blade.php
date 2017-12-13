@@ -14,6 +14,8 @@
 						<h2>Sign In</h2>
 						@if(@session()->get('msg'))
 						<div class="alert alert-danger ">{{session()->get('msg')}}</div>@endif
+						@if(@session()->get('success'))
+						<div class="alert alert-success">{{session()->get('success')}}</div>@endif
 						<form action="login" method="post" id="login">
 							{{csrf_field()}}
 							<div class="log_form1">
@@ -34,7 +36,7 @@
 								</label>
 							</div>
 							<div class="forgot_password">
-								<a href="#">Forgot Password?</a>
+								<a href="forget-password">Forgot Password?</a>
 							</div>
 							<div class="login_bottom">
 								<span>Don’t have an account?</span> <a href="signup">Signup Now!</a>
