@@ -26,9 +26,9 @@ class Jobs extends Model
 		//->belongsTo('App\JobCategory', 'category_id', 'category_id');
 	}
 	public function users(){
-		return $this->belongsTo('App\User','user_id');		
+		return $this->belongsTo('App\User','user_id','user_id');		
 	}
 	public function jobType(){
-		return $this->hasOne('App\JobType','job_type_id');
+		return $this->hasOne('App\JobType','job_type_id','job_type_id');
 	}
 }

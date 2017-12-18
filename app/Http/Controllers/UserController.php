@@ -181,9 +181,7 @@ class UserController extends Controller
 		}else{
 			//abort(404);
 		}
-		
 	}
-	
 	public function getProviderDetails($userId){		
 	  $provider_details=User::provider($userId)
 						->with('get_providers_details')
@@ -262,13 +260,13 @@ class UserController extends Controller
 			echo json_encode($responce);
 		}
 	}
-	public function my_invited(Request $request){   
+	public function my_invited(Request $request){  
 		 $userId=$request->session()->get('user_id');
 	     $user_type=$request->session()->get('user_type');
 		 $provider_job_invitation=JobInvitation::invitedProvider($userId)
 					->with('providerJobDetails.jobType','providerJobDetails.users')					
 					->with('categoryDetails.category')
-					->get();					
+					->get();
 		 $data['provider_job_invitation']=$provider_job_invitation;
 		 return view('builder_invited',$data);
 	}
@@ -367,8 +365,7 @@ class UserController extends Controller
 			$job_id=$invitation_details->job_id;
 			$job_details= Jobs::find($job_id);
 			$job_details->job_status=3;
-			$job_details->save();
-			//change the job status			
+			$job_details->save();					
 			session()->flash('success','Successfully submited your status.'); 
 			return redirect('my-awarded-job');
 		}

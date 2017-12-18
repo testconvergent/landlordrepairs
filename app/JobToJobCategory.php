@@ -23,15 +23,13 @@ class JobToJobCategory extends Model
 		return $this->belongsTo('App\JobCategory', 'category_id', 'category_id');
 
 	}
-	public function getJobDetails(){
-		
+	public function getJobDetails(){		
 		return $this->belongsTo('App\Jobs', 'job_id', 'job_id');
-
 	}
 	public function job(){
-		return $this->belongsTo('App\Jobs','job_id');
+		return $this->belongsTo('App\Jobs','job_id','job_id');
 	}
 	public function category(){
-		return $this->belongsTo('App\JobCategory','category_id');
+		return $this->belongsTo('App\JobCategory','category_id','category_id');
 	}
 }
