@@ -21,4 +21,7 @@ class JobCategory extends Model
 	public function cateGoryJobDetails(){
 		$this->hasMany('App\JobToJobCategory','category_id');
 	}
+	public function ScopeActive($query){
+		return $query->where('category_status',1);
+	}
 }

@@ -12,9 +12,9 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <h4 class="pull-left page-title">Package List</h4>
-								<div class="submit-login pull-right">
+								<!--<div class="submit-login pull-right">
 									<a href="admin-add-package"><button type="submit" class="btn btn-default tpp">Add Package</button></a>
-								</div>
+								</div>-->
                             </div>
                         </div>
 						<div class="row">
@@ -28,7 +28,7 @@
 									@endif
                                     <div class="panel-body table-rep-plugin">
                                         <div class="row">
-											<form method="post"  action="admin-customers-list">
+											<!--<form method="post"  action="admin-customers-list">
 												{{csrf_field()}}
 												<div class="admin_search_area">
 											<div class="row">
@@ -56,23 +56,12 @@
 												</div>
 												</div>
 												</div>
-											</form>
-											<!--<form id="admin-change-multi-customer-status" action="admin-change-multi-customer-status" method="post">
-											{{csrf_field()}}
-                                            <div class="clearfix"></div>
-											<div class="col-md-5 col-lg-5">
-												<div class="add_btnm1">
-													<button class="btn btn-primary btn-md" value="Active" type="submit" name="action">Active</button>
-													<button class="btn btn-primary btn-md" value="Inactive" type="submit" name="action">Inactive</button>
-													<span class="multi_status_change_admin">Please check any record to submit.</span>
-												</div>
-											</div>-->
+											</form>-->
 											<div class="col-md-12 col-sm-12 col-xs-12" style="margin: 12px 11px 17px 0px;">
 												<span class="legrn">Legend : </span>
-												<i class="fa fa-eye cncl" aria-hidden="true"> <span class="cncl_oopo">= View</span></i>
+												<i class="fa fa-pencil-square-o cncl" aria-hidden="true"> <span class="cncl_oopo">= Edit</span></i>
 												<i class="fa fa-check cncl" aria-hidden="true"> <span class="cncl_oopo">= Active</span></i>
-												<i class="fa fa-times cncl" aria-hidden="true"> <span class="cncl_oopo">= Inactive</span></i>
-												<i class="fa fa-trash cncl" aria-hidden="true"> <span class="cncl_oopo">= Delete</span></i>
+												<i class="fa fa-times cncl" aria-hidden="true" style="border-right:none;"> <span class="cncl_oopo">= Inactive</span></i>
 											</div>
 											<div class="col-md-12 col-sm-12 col-xs-12">
 												<div class="table-responsive" data-pattern="priority-columns">
@@ -97,25 +86,25 @@
 																	<td>-->
 																	<td>
 																	@if($row->package_type == 1)Bronze
-																	@elseif($row->package_type == 1)Silver
-																	@elseif($row->package_type == 1)Gold
+																	@elseif($row->package_type == 2)Silver
+																	@elseif($row->package_type == 3)Gold
 																	@endif
 																	</td>
 																	<td>
 																	£ {{@$row->cost}}
 																	</td>
 																	<td>
-																	{{@$row->credit_you_recieve}}
+																	{{number_format(@$row->credit_point)}}
 																	</td>
 																	<td>@if($row->package_status == 0)Inactive
 																	@elseif($row->package_status == 1)Active
 																	@endif</td>
 																	<td>
-																	<a href="admin-customer-details/{{$row->package_id}}" title="View"> <i class="fa fa-eye delet" aria-hidden="true"></i></a>
+																	<a href="admin-edit-package/{{$row->package_id}}" title="View"> <i class="fa fa-pencil-square-o delet" aria-hidden="true"></i></a>
 																		@if($row->package_status == 0)
-																		<a href="admin-customer-status/{{$row->package_id}}" onclick="return confirm('Are you sure to change status ?')" title="Click to active"> <i class="fa fa-check cncl1" aria-hidden="true"></i></a>
+																		<a href="admin-package-status/{{$row->package_id}}" onclick="return confirm('Are you sure to change status ?')" title="Click to active"> <i class="fa fa-check cncl1" aria-hidden="true"></i></a>
 																		@elseif($row->package_status == 1)
-																		<a href="admin-customer-status/{{$row->package_id}}" onclick="return confirm('Are you sure to change status ?')" title="Click to inactive"> <i class="fa fa-times delet" aria-hidden="true"></i></a>
+																		<a href="admin-package-status/{{$row->package_id}}" onclick="return confirm('Are you sure to change status ?')" title="Click to inactive"> <i class="fa fa-times delet" aria-hidden="true"></i></a>
 																		@endif
 																	</td>
 																</tr>

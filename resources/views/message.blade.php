@@ -13,7 +13,7 @@
 						<img src="images/login_logo.png" alt="">
 						@if(session()->get('message') == 'mail-verification')
 							<h2 style="margin-bottom: 5px !important;">Email Verified</h2>
-							<span class="mess_span">You have successfully verify your email. Now you can login your register email and password.</span><br>
+							<span class="mess_span">You have successfully verify your email.</span><br>
 						@else
 							<h2 style="margin-bottom: 5px !important;">Verification</h2>
 							<span class="mess_span">A verification link has been sent to your register email address. Please verify your account.</span><br>

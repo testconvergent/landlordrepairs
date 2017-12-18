@@ -11,6 +11,17 @@ class HomeController extends Controller
 {
     public function index()
 	{
+		if(session()->get('user_id') !="")
+		{
+			if(session()->get('user_type') == 3)
+			{
+				return redirect('my-jobs');
+			}
+			else
+			{
+				return redirect('my-profile');
+			}
+		}
 		$data = array();
 		$fetch_category = DB::table(TBL_JOB_CATEGORY)->where('category_status',1)->get();
 		$fetch_job_type = DB::table(TBL_JOB_TYPE)->where('job_type_status',1)->get();
@@ -62,12 +73,14 @@ class HomeController extends Controller
 					if(!empty($attachment))
 					{
 						$destinationPath = 'attachment/';
-						$filename = time().".".$attachment->getClientOriginalName();
+						$original_name=$attachment->getClientOriginalName();
+						$filename = time().".".$attachment->getClientOriginalExtension();
 						$attachment->move($destinationPath, $filename);
-					
+						
 						$job_insert_attachment = array(
 							'attachment_name' => $filename,
-							'job_id' =>$job_id
+							'job_id' =>$job_id,
+							'orginal_name' =>$original_name
 						);
 						DB::table(TBL_JOB_TO_ATTACHMENT)->insert($job_insert_attachment);
 					}
@@ -80,7 +93,8 @@ class HomeController extends Controller
 			DB::table(TBL_JOB_TO_CATEGORY)->insert($job_inser_cat);
 			if(session()->get('user_id'))
 			{
-				return redirect('my-posted');
+				session()->flash('success','Job Posted Sucessfully.'); 
+				return redirect('my-jobs');
 			}
 			else
 			{
@@ -137,6 +151,14 @@ class HomeController extends Controller
 			{
 				$update = array();
 				$update['phone_vcode'] = null;
+				if($get->email_vcode =="" && $get->is_email_verified == 1)
+				{
+					$update['user_status']=1;
+				}
+				else
+				{
+					$update['user_status']=0;
+				}
 				$update['is_phone_verified'] = 1;
 				DB::table(TBL_USER)->where('user_id',$get->user_id)->update($update);
 				session()->put('mobile_vcode','');
@@ -158,7 +180,14 @@ class HomeController extends Controller
 				if(@$get_user->user_type == 3){
 					if($get_user->user_status == 0 && $get_user->email_vcode != ""){
 						$update = array();
-						$update['user_status']=1;
+						if($get_user->phone_vcode =="" && $get_user->is_phone_verified == 1)
+						{
+							$update['user_status']=1;
+						}
+						else
+						{
+							$update['user_status']=0;
+						}
 						$update['email_vcode']=null;
 						$update['is_email_verified']=1;
 						DB::table(TBL_USER)->where('user_id',$vcode[1])->update($update);
@@ -171,7 +200,14 @@ class HomeController extends Controller
 				if(@$get_user->user_type == 2){
 					if($get_user->user_status == 0 && $get_user->email_vcode != ""){
 						$update = array();
-						$update['user_status']=1;
+						if($get_user->phone_vcode =="" && $get_user->is_phone_verified == 1)
+						{
+							$update['user_status']=1;
+						}
+						else
+						{
+							$update['user_status']=0;
+						}
 						$update['email_vcode']=null;
 						$update['is_email_verified']=1;
 						DB::table(TBL_USER)->where('user_id',$vcode[1])->update($update);
@@ -206,6 +242,14 @@ class HomeController extends Controller
 			if(@$get)
 			{
 				$update = array();
+				if($get->email_vcode =="" && $get->is_email_verified == 1)
+				{
+					$update['user_status']=1;
+				}
+				else
+				{
+					$update['user_status']=0;
+				}
 				$update['phone_vcode'] = null;
 				$update['is_phone_verified'] = 1;
 				DB::table(TBL_USER)->where('user_id',$get->user_id)->update($update);
@@ -254,6 +298,19 @@ class HomeController extends Controller
 		}
 		echo json_encode($responce);
 	}
+	public function exist_mobile_number(Request $request)
+	{
+		$check_mobile = DB::table(TBL_USER)->where('mobile',trim($request->mobile))->where('user_id','!=',session()->get('user_id'))->get();
+		if(count($check_mobile)>0)
+		{
+			$responce = array('msg'=>1);
+		}
+		else
+		{
+			$responce = array('msg'=>2);
+		}
+		echo json_encode($responce);
+	}
 	public function login(Request $request)
 	{
 		//echo "<pre>";print_r($request->all());die;
@@ -268,7 +325,7 @@ class HomeController extends Controller
 					session()->put('user_type',$details->user_type);
 					if($details->user_type == 3)
 					{
-						return redirect('my-posted');
+						return redirect('my-jobs');
 					}
 					if($details->user_type == 2)
 					{
@@ -533,17 +590,118 @@ class HomeController extends Controller
 				$insert['zip_code'] = $request->zip_code;
 				$insert['job_details'] = $request->job_details;
 				DB::table(TBL_JOB_POST)->where('job_id',$id)->update($insert);
+				if($request->hasFile('attachment'))
+				{
+					DB::table(TBL_JOB_TO_ATTACHMENT)->where('job_id',$id)->delete();
+					foreach($request->file('attachment') as $attachment)
+					{
+						if(!empty($attachment))
+						{
+							$destinationPath = 'attachment/';
+							$original_name=$attachment->getClientOriginalName();
+							$filename = time().".".$attachment->getClientOriginalExtension();
+							$attachment->move($destinationPath, $filename);
+							
+							$job_insert_attachment = array(
+								'attachment_name' => $filename,
+								'job_id' =>$id,
+								'orginal_name' =>$original_name
+							);
+							DB::table(TBL_JOB_TO_ATTACHMENT)->insert($job_insert_attachment);
+						}
+					}
+				}
 				$job_inser_cat = array(
 				'category_id' => $request->job_category_id
 				);
 				DB::table(TBL_JOB_TO_CATEGORY)->where('job_id',$id)->update($job_inser_cat);
-				session()->put('edit','success');
-				return redirect('my-posted');
+				session()->flash('success','Job Edited Sucessfully.'); 
+				return redirect('my-jobs');
 			}
 		}
 		else
 		{
-			return redirect('my-posted');
+			return redirect('my-jobs');
+		}
+	}
+	public function job_attachment(Request $request)
+	{
+		$get_attachment = DB::table(TBL_JOB_TO_ATTACHMENT)->where('job_id',$request->job_id)->get();
+		if(count($get_attachment)>0)
+		{
+			$msg='';
+			foreach($get_attachment as $attachment)
+			{
+				$url = url('attachment/'.$attachment->attachment_name);
+				
+				$msg.='<div class="attac_area" id="attach_file_'.$attachment->attachment_id.'"><a href="'.$url.'" download="'.$attachment->orginal_name.'">'.$attachment->orginal_name.'</a><span style="cursor:pointer;" data-id='.$attachment->attachment_id.' title="Delete Attachment" class="delete_attachment"><i class="fa fa-times" aria-hidden="true"></i></span></div>';
+			}
+			$responce = array('attach'=>$msg);
+		}
+		else
+		{
+			$responce = array('attach'=>'no');
+		}
+		echo json_encode($responce);
+	}
+	public function delete_attachment(Request $request)
+	{
+		DB::table(TBL_JOB_TO_ATTACHMENT)->where('attachment_id',$request->attachment_id)->delete();
+		$responce = array('delete'=>1);
+		echo json_encode($responce);
+	}
+	public function edit_profile(Request $request)
+	{
+		if(session()->get('user_id') !="" && session()->get('user_type') == 3)
+		{
+			$get_user = DB::table(TBL_USER)->select('user_name','mobile','email')->where('user_id',session()->get('user_id'))->first();
+			if(@$request->all())
+			{
+				$update = array(
+				'user_name'=>$request->user_name,
+				'mobile'=>$request->mobile,
+				'password'=>md5($request->password)
+				);
+				DB::table(TBL_USER)->where('user_id',session()->get('user_id'))->update($update);
+				session()->flash('success',' Profile successfully updated.');
+				return redirect('edit-profile');
+			}
+			$data = ['user'=>$get_user];
+			return view('customer_edit_profile',$data);
+		}
+		else
+		{
+			if(session()->get('user_type') == 3)
+			{
+				return redirect('my-jobs');
+			}
+			else
+			{
+				return redirect('my-profile');
+			}
+		}
+	}
+	public function jobs_given()
+	{
+		if(session()->get('user_type') == 3)
+		{
+			$get_job_given = DB::table(TBL_JOB_INVITATION)->select(TBL_JOB_INVITATION.'.*',TBL_JOB_POST.'.job_details',TBL_JOB_POST.'.looking_for',TBL_JOB_CATEGORY.'.category_name',TBL_JOB_TYPE.'.job_type_name',TBL_USER.'.user_name',TBL_USER.'.prof_image',TBL_JOB_POST.'.deadline',TBL_JOB_POST.'.city')
+			->leftJoin(TBL_JOB_POST,TBL_JOB_INVITATION.'.job_id','=',TBL_JOB_POST.'.job_id')
+			->leftJoin(TBL_JOB_TO_CATEGORY,TBL_JOB_POST.'.job_id','=',TBL_JOB_TO_CATEGORY.'.job_id')
+			->leftJoin(TBL_JOB_CATEGORY,TBL_JOB_TO_CATEGORY.'.category_id','=',TBL_JOB_CATEGORY.'.category_id')
+			->leftJoin(TBL_JOB_TYPE,TBL_JOB_POST.'.job_type_id','=',TBL_JOB_TYPE.'.job_type_id')
+			->leftJoin(TBL_USER,TBL_JOB_INVITATION.'.to_user_id','=',TBL_USER.'.user_id')
+			->where(TBL_JOB_INVITATION.'.from_user_id',session()->get('user_id'))
+			->where(TBL_JOB_INVITATION.'.invitation_status',2)
+			->orwhere(TBL_JOB_INVITATION.'.invitation_status',3)
+			->get();
+			//echo"<pre>";print_r($get_job_given);die;
+			$data = array('job_given'=>$get_job_given);
+			return view('customer_job_given',$data);
+		}
+		else if(session()->get('user_type') == 2)
+		{
+			return redirect('my-profile');
 		}
 	}
 }

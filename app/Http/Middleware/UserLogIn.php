@@ -14,7 +14,7 @@ class UserLogIn
 			}
 			else if(session()->get('user_type') == 3)
 			{
-				return redirect('my-posted');
+				return redirect('my-jobs');
 			}
 		}
         return $next($request);

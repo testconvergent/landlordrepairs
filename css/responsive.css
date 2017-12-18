@@ -33,15 +33,10 @@ padding:15px;
 	font-size:14px;
 }
 .bottom_footer_bbox ul li {
-   
     font-size: 12px;
-  
-    padding: 10px 16px;
-   
+    padding:8px 12px;
 }
-.lloc{
-	width:auto;
-}
+
 .lloc_1{
 	width:auto;
 }
@@ -74,7 +69,7 @@ padding:15px;
 	margin-top: 5px;
 	}
 .banner_contain{
-	top:80px;
+	top:73px;
 	}
 .left_banner h2{
 	font-size:38px;
@@ -175,15 +170,12 @@ padding:15px;
 	padding: 0 7px 0 0;
 }
 .mapps {
-	width: 35%;
+	width: 25%;
 	float: left;
 }
-.catt1 ul li {
-	width: 49%;
-}
-.google-maps {
+/*.google-maps {
 	padding-bottom: 70%;
-}
+}*/
 /*saoli 30-nov-17*/
 
 .fot_box h3{
@@ -207,7 +199,7 @@ padding:15px;
 }
 
 .banner_form{
-	padding: 20px 20px 10px 20px;
+	padding:10px 15px;
 	}
 
 .mmember_panel ul li {
@@ -219,9 +211,17 @@ padding:15px;
     margin: 0 14px 0 0;
     width: 13%;
 }
+.banner_form .sub_bttn{
+	margin-top:0px;
+	}
+.bottom_footer_bbox .mmob p{
+	font-size:13px;
+	}
+.bottom_footer_bbox .mmob {
+	float: right;
+	width: 73%;
+}
 
-
-	
 }
 /*1199*/
 
@@ -353,9 +353,9 @@ padding:15px;
 	line-height: 21px;
 	text-align: justify;
 }
-.catt1 ul li {
-	font-size: 13px;
-}
+.catt1 ul{
+	width:100%;
+	}
 .checkbox-group1 label h6 {
 	font-size: 17px;
 }
@@ -661,7 +661,38 @@ select.newAdd {
 .inner_banner_builder {
 	margin: 53px 0 0;
 }
+.view1{
+	height:170px;
+	}
+.cross_p{
+	top:37%;
+	}
+.catt1 {
+	width: 73%;
+}
 
+.bottom_footer_bbox ul li {
+	font-size: 12px;
+	padding: 10px 10px;
+	width: 100%;
+	border-bottom: 1px solid #ccc;
+	text-align:left;
+}
+.bottom_footer_bbox .mmob {
+	float: left;
+	width: 73%;
+}
+.bottom_footer_bbox .mmob p {
+	font-size: 13px;
+	float: left;
+}
+.bottom_footer_bbox a:hover.tooltips span {
+	left: 75%;
+	margin-left: -65px;
+}
+.mail_msg p{
+	font-size:14px;
+	}
 
 
 
@@ -1007,7 +1038,9 @@ line-height: 30px;
 .simply_descrp{
 	margin-top:10px;
 	}	
-	
+.portfolio_photo_panel ul li {
+	width: 31.7%;
+}	
 	
 	
 	
@@ -1263,7 +1296,9 @@ padding: 15px 15px 60px 15px;
 	font-size: 15px;
 	line-height: 37px;
 }
-
+#mapCanvas {
+	width: 100%;
+}
 
 
 }
@@ -1466,9 +1501,6 @@ select.newAdd {
 	width:100%;
 	border-bottom:2px solid #c6c6c6;
 	border-right:none;
-}
-.bottom_footer_bbox ul li{
-	text-align:center;
 }
 .bblack{
 	background:#000;
@@ -1828,7 +1860,9 @@ padding: 4px 10px !important;
 .review_sub ul {
 	float:left;
 	}
-
+.catt1{
+	padding:0 !important;
+	}
 
 	
 }

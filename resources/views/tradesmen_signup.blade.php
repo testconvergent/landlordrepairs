@@ -126,9 +126,9 @@
 					<div class="col-md-4 col-sm-6 co-xs-12">
 						<div class="your-mail">
 							<label>Address</label>
-							<input type="text" class="form-control required" name="address" id="city" placeholder="Address" value="@if(@$user->address){{@$user->address}}@else{{'United Kingdom'}}@endif">
-							<input type="hidden" id="longitude" name="longitude" value="@if(@$user->longitude){{@$user->longitude}}@else{{'-3.43597299999999'}}@endif">
-							<input type="hidden" id="lattitude" name="lattitude" value="@if(@$user->lattitude){{@$user->lattitude}}@else{{'55.378051'}}@endif">
+							<input type="text" class="form-control required" name="address" id="city" placeholder="Address" value="@if(@$user->address){{@$user->address}}@endif">
+							<input type="hidden" id="longitude" name="longitude" value="@if(@$user->longitude){{@$user->longitude}}@endif">
+							<input type="hidden" id="lattitude" name="lattitude" value="@if(@$user->lattitude){{@$user->lattitude}}@endif">
 						</div>
 					</div>
 					@if(session()->get('registration_id')=="")
@@ -287,8 +287,13 @@ function validate(evt){
 		if(theEvent.preventDefault) theEvent.preventDefault();
 	}
 }
+var country_code = "UK";		
+var countryRestrict = {'country': country_code};
+var acOptions1 = {
+	componentRestrictions: countryRestrict
+};
 var input = document.getElementById('city');
-var autocomplete = new google.maps.places.Autocomplete(input);
+var autocomplete = new google.maps.places.Autocomplete(input,acOptions1);
  google.maps.event.addListener(autocomplete, 'place_changed', function() {
 //input.className = '';
 var place = autocomplete.getPlace();

@@ -17,7 +17,7 @@
 						<div class="row">
 							<div class="col-md-12">
 								<div class="left_banner">
-									<h2>Book local trusted builders by other landlords just like you !</h2>
+									<h2>Book local builders trusted by landlords just like you !</h2>
 									<ul>
 										<li>We are 100% Free</li>
 										<li>Get 3 quotes per Job</li>
@@ -30,7 +30,7 @@
 								<div class="desktop_form banner_form">
 									<h2>Get started </h2>
 									<div class="form_area">
-										<form method="post" action="post-job" id="job_post_frm">
+										<form method="post" action="post-job" id="job_post_frm" enctype="multipart/form-data">
 											{{csrf_field()}}
 											<div class="form-group">
 												<select class="form_type form_option" name="job_type_id" id="job_type_id">
@@ -65,17 +65,26 @@
 											</div>
 											<div class="form-group">
 												<div class="first">
-													<input type="text" class="form-control form_type " name="city" id="city" placeholder="City" value="United Kingdom">
-													<input type="hidden" id="longitude" name="longitude" value="-3.43597299999999">
-													<input type="hidden" id="lattitude" name="lattitude" value="55.378051">
+													<input type="text" class="form-control form_type " name="city" id="city" placeholder="City">
+													<input type="hidden" id="longitude" name="longitude">
+													<input type="hidden" id="lattitude" name="lattitude">
 												</div>
 												<div class="second">
-													<input type="text" class="form-control form_type" name="zip_code" id="zip_code" placeholder="Zip Code">
+													<input type="text" class="form-control form_type" name="zip_code" id="zip_code" placeholder="Post Code">
 												</div>
 											</div>
 											<div class="form-group">
 												<textarea class="form_type form_msg" id="job_details" name="job_details" placeholder="Details"></textarea>
 											</div>
+                                            <div class="form-group">
+                                            	<div class="attach_file">  
+                                                    <label class="myLabel">
+                                                    <input name="attachment[]" id="attachment" type="file" multiple>
+                                                    <span><i class="fa fa-cloud-upload" aria-hidden="true"></i> Attach Files</span>
+                                                    </label>
+													<span class="fil_txt1"></span>
+                                                </div>
+                                            </div>
 											<div class="form-group ban_btn">
 												<button type="submit" class="btn sub_bttn">Next</button>
 												<span class="span_erro"></span>
@@ -97,7 +106,7 @@
 					<div class="banner_form">
 						<h2>Get started </h2>
 						<div class="form_area">
-							<form method="post" action="post-job" id="job_post_frm">
+							<form method="post" action="post-job" id="job_post_frm" enctype="multipart/form-data">
 								{{csrf_field()}}
 								<div class="form-group">
 									<select class="form_type form_option" name="job_type_id" id="job_type_id">
@@ -132,16 +141,25 @@
 								</div>
 								<div class="form-group">
 									<div class="first">
-										<input type="text" class="form-control form_type " name="city" id="city" placeholder="City" value="United Kingdom">
-										<input type="hidden" id="longitude" name="longitude" value="-3.43597299999999">
-										<input type="hidden" id="lattitude" name="lattitude" value="55.378051">
+										<input type="text" class="form-control form_type " name="city" id="city" placeholder="City">
+										<input type="hidden" id="longitude" name="longitude">
+										<input type="hidden" id="lattitude" name="lattitude">
 									</div>
 									<div class="second">
-										<input type="text" class="form-control form_type" name="zip_code" id="zip_code" placeholder="Zip Code">
+										<input type="text" class="form-control form_type" name="zip_code" id="zip_code" placeholder="Post Code">
 									</div>
 								</div>
 								<div class="form-group">
 									<textarea class="form_type form_msg" id="job_details" name="job_details" placeholder="Details"></textarea>
+								</div>
+								<div class="form-group">
+									<div class="attach_file">  
+										<label class="myLabel">
+										<input name="attachment[]" id="attachment1" type="file" multiple>
+										<span><i class="fa fa-cloud-upload" aria-hidden="true"></i> Attach Files</span>
+										</label>
+										<span class="fil_txt2"></span>
+									</div>
 								</div>
 								<div class="form-group ban_btn">
 									<button type="submit" class="btn sub_bttn">Next</button>
@@ -395,7 +413,7 @@ $(document).ready(function(){
 		}
 		else if($('#zip_code').val() == "")
 		{
-			$('.span_erro').html('Zipcode is required');
+			$('.span_erro').html('Post Code is required');
 			return false;
 		}
 		else if($('#job_details').val() == "")
@@ -408,6 +426,32 @@ $(document).ready(function(){
 			return true;
 		}
 	});
+	$('body').on('change','#attachment',function(){
+		$(".fil_txt1").show();
+		var filename = this.value;
+		var lastIndex = filename.lastIndexOf("\\");
+		if (lastIndex >= 0) {
+		 filename = filename.substring(lastIndex + 1);
+		}
+		var files = $('#attachment')[0].files;
+		for (var i = 0; i < files.length; i++) {
+		$(".fil_txt1").append(files[i].name+"<br>");
+		}
+		document.getElementById('filename').value = filename;
+		});
+	$('body').on('change','#attachment1',function(){
+		$(".fil_txt2").show();
+		var filename = this.value;
+		var lastIndex = filename.lastIndexOf("\\");
+		if (lastIndex >= 0) {
+		 filename = filename.substring(lastIndex + 1);
+		}
+		var files = $('#attachment1')[0].files;
+		for (var i = 0; i < files.length; i++) {
+		$(".fil_txt2").append(files[i].name+"<br>");
+		}
+		document.getElementById('filename').value = filename;
+		});
 });
 function validate(evt){
 	var theEvent=evt || window.event;
@@ -419,8 +463,13 @@ function validate(evt){
 		if(theEvent.preventDefault) theEvent.preventDefault();
 	}
 }
+var country_code = "UK";		
+var countryRestrict = {'country': country_code};
+var acOptions1 = {
+	componentRestrictions: countryRestrict
+};
 var input = document.getElementById('city');
-var autocomplete = new google.maps.places.Autocomplete(input);
+var autocomplete = new google.maps.places.Autocomplete(input,acOptions1);
  google.maps.event.addListener(autocomplete, 'place_changed', function() {
 //input.className = '';
 var place = autocomplete.getPlace();

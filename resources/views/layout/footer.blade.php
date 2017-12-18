@@ -4,7 +4,7 @@
 			<div class="top-footer">
 				<div class="col-md-5 col-sm-12 col-xs-12">
 					<div class="fot_box">
-						<a class="fot_logo" href="#"><img src="images/logo.png" alt=""></a>
+						<a class="fot_logo" href="{{url('')}}"><img src="images/logo.png" alt=""></a>
 						<p>Lorem Ipsum is simply dummy or caption text of the printing and typesetting industry, this is a simply dummy or caption text here.</p>
 					</div>
 				</div>

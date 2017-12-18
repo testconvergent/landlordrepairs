@@ -8,6 +8,10 @@
 				<li>
 					<a href="admin-dashboard" class="<?php if(Request::segment(1)=='admin-dashboard'){echo "active";}?>">
 					<i class="fa fa-tachometer" aria-hidden="true"></i><span> Dashboard </span></a>
+				</li>
+				<li>
+					<a href="admin-change-credential" class="<?php if(Request::segment(1)=='admin-change-credential'){echo "active";}?>">
+					<i class="fa fa-wrench" aria-hidden="true"></i><span> Change Credential </span></a>
 				</li>		
 				<li class="has_sub">
 					<a href="javascript:void(0);" class="waves-effect<?php if(Request::segment(1) == "admin-customers-list" ||Request::segment(1) == "admin-tradesmen-list" || Request::segment(1) == "admin-customer-details" || Request::segment(1) == "admin-tradesmen-status" || Request::segment(1) == "admin-tradesmen-details"){?>subdrop active<?php } ?>"></i><i class="md ion-person "></i>
@@ -18,12 +22,26 @@
 					</ul>
 				</li>
 				<li class="has_sub">
-					<a href="javascript:void(0);" class="waves-effect<?php if(Request::segment(1) == "admin-package-list"){?>subdrop active<?php } ?>"></i><i class="md ion-person "></i>
+					<a href="javascript:void(0);" class="waves-effect<?php if(Request::segment(1) == "admin-package-list" || Request::segment(1) == "admin-edit-package"){?>subdrop active<?php } ?>"></i><i class="fa fa-money" aria-hidden="true"></i>
 					<span>Package Management</span> <span class="pull-right"><i class="md md-add"></i></span></a>
 					<ul class="list-unstyled">
-	                 <li><a href="admin-package-list" class="<?php if(Request::segment(1) == "admin-package-list" ){?>active1<?php } ?>">Package</a></li>
+	                 <li><a href="admin-package-list" class="<?php if(Request::segment(1) == "admin-package-list" || Request::segment(1) == "admin-edit-package"){?>active1<?php } ?>">Package</a></li>
 					</ul>
-				</li>				
+				</li>
+				<li class="has_sub">
+					<a href="javascript:void(0);" class="waves-effect<?php if(Request::segment(1) == "admin-category-list" || Request::segment(1) == "admin-add-category" || Request::segment(1) == "admin-edit-category"){?>subdrop active<?php } ?>"></i><i class="md ion-cube"></i>
+					<span>Category</span> <span class="pull-right"><i class="md md-add"></i></span></a>
+					<ul class="list-unstyled">
+						<li><a href="admin-category-list" class="<?php if(Request::segment(1) == "admin-category-list" || Request::segment(1) == "admin-add-category" || Request::segment(1) == "admin-edit-category"){?>active1<?php } ?>">Category</a></li>
+					</ul>
+				</li>
+				<li class="has_sub">
+					<a href="javascript:void(0);" class="waves-effect<?php if(Request::segment(1) == "admin-posted-job-list"){?>subdrop active<?php } ?>"></i><i class="md ion-cube"></i>
+					<span>Job Management</span> <span class="pull-right"><i class="md md-add"></i></span></a>
+					<ul class="list-unstyled">
+						<li><a href="admin-posted-job-list" class="<?php if(Request::segment(1) == "admin-posted-job-list"){?>active1<?php } ?>">Posted job</a></li>
+					</ul>
+				</li>
 			</ul>
 			<div class="clearfix"></div>
 		</div>

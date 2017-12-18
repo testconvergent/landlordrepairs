@@ -47,6 +47,8 @@
 													<label for="exampleInputEmail1"><strong>Status</strong>: 
 													@if($user->is_email_verified == 0 && $user->user_status == 0){{'Email Not Verified'}}
 													
+													@elseif($user->is_phone_verified == 0 && $user->user_status == 0){{'Phone Number Not Verified'}}
+													
 													@elseif($user->is_email_verified == 1 && $user->user_status == 1){{'Active'}}
 													
 													@elseif($user->is_email_verified == 1 && $user->user_status == 2){{'Inactive'}}

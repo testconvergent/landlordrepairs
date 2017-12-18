@@ -1,295 +1,110 @@
 @extends('layout.app')
-@section('title','My Job Posted')
+@section('title','My Posted Jobs')
 @section('body')
 @include('layout.customer_header')
-	<div class="row Nomarg">
-		<div class="contain_divs">
-			<div class="container">
-				@if(!$get_job->isEmpty())
-					@foreach($get_job as $job)
-						<div class="col-sm-6 col-lg-6 col-md-6">
-							<div class="awaded_jobs_block user_pos">
-								<h3>{{@$job->looking_for}}</h3>
-								<div class="edt">
-									<a href="javascript:void(0);" data-id="{{@$job->job_id}}" data-looking_for="{{@$job->looking_for}}" data-budget="{{@$job->budget}}" data-deadline="{{@$job->deadline}}"data-city="{{@$job->city}}" data-zip_code="{{@$job->zip_code}}" data-job_details="{{@$job->job_details}}" data-job_type_id="{{@$job->job_type_id}}" data-job_cat_id="{{@$job->category_id}}" data-lattitude="{{@$job->lattitude}}" data-longitude="{{@$job->longitude}}" class="edit_job"><img src="images/edit.png" alt=""></a>
-									<a href="javascript:void(0);"><img src="images/ext.png" alt=""></a>
-								</div>
-								<div class="clearfix"></div>
-								<div class="awaded_type">
-									<ul>
-										<li><img src="images/ico03.png">Job Category : {{@$job->category_name}}</li>
-										<li><img src="images/ico04.png">Type : {{@$job->job_type_name}}</li>
-									</ul>
-								</div>
-								<div class="clearfix"></div>
-								<div class="awaded_des">
-									<p class="show">{{@$job->job_details}}</p>
-								</div>
-								<div class="clearfix"></div>
-								<div class="awarded_btn_group">
-									<div class="bbtn_lleft_p">
-										<button data-toggle="modal" data-target="#myModal2" type="button" class="btn btn-primary mark_com">Invited Builders</button>
-										<button data-toggle="modal" data-target="#myModal3" type="button" class="btn btn-primary recommend_us">View Proposals (12)</button>
-									</div>
-								</div>
-								<div class="clearfix"></div>
-								<div class="bottom_footer_bbox">
-									<ul>
-										<li class="lloc"><span><img src="images/loc.png" ></span>{{@$job->city}}</li>
-										<li class="lloc_2"><span><img src="images/ccal.png" ></span>Deadline: {{date('d F Y',strtotime(@$job->deadline))}}</li>
-									</ul>
+<div class="row Nomarg">
+	<div class="contain_divs">
+		<div class="container">
+			@if(!$get_job->isEmpty())
+				@foreach($get_job as $job)
+					<div class="col-sm-6 col-lg-6 col-md-6">
+						<div class="awaded_jobs_block user_pos">
+							<h3>{{@$job->looking_for}}</h3>
+							<div class="edt">
+								<a href="javascript:void(0);" data-id="{{@$job->job_id}}" data-looking_for="{{@$job->looking_for}}" data-budget="{{@$job->budget}}" data-deadline="{{@$job->deadline}}"data-city="{{@$job->city}}" data-zip_code="{{@$job->zip_code}}" data-job_details="{{@$job->job_details}}" data-job_type_id="{{@$job->job_type_id}}" data-job_cat_id="{{@$job->category_id}}" data-lattitude="{{@$job->lattitude}}" data-longitude="{{@$job->longitude}}" class="edit_job"><img src="images/edit.png" alt=""></a>
+								<a href="javascript:void(0);"><img src="images/ext.png" alt=""></a>
+							</div>
+							<div class="clearfix"></div>
+							<div class="awaded_type">
+								<ul>
+									<li><img src="images/ico03.png">Job Category : {{@$job->category_name}}</li>
+									<li><img src="images/ico04.png">Type : {{@$job->job_type_name}}</li>
+								</ul>
+							</div>
+							<div class="clearfix"></div>
+							<div class="awaded_des">
+								<p class="show">{{@$job->job_details}}</p>
+							</div>
+							<div class="clearfix"></div>
+							<div class="awarded_btn_group">
+								<div class="bbtn_lleft_p">
+									<button data-id="{{$job->job_id}}" type="button" class="btn btn-primary mark_com invited">Invited Builders</button>
+									<?php $get_proposal = count_proposal($job->job_id);?>
+									<button type="button" data-id="{{$job->job_id}}" class="btn btn-primary recommend_us view_proposal">View Proposals ({{count($get_proposal)}})</button>
 								</div>
 							</div>
+							<div class="clearfix"></div>
+							<div class="bottom_footer_bbox">
+								<ul>
+									<li class="lloc"><span><img src="images/loc.png" ></span>{{@$job->city}}</li>
+									<li class="lloc_2"><span><img src="images/ccal.png" ></span>Deadline: {{date('d F Y',strtotime(@$job->deadline))}}</li>
+								</ul>
+							</div>
 						</div>
-					@endforeach
-				@endif
-			</div>
+					</div>
+				@endforeach
+				@else
+					<div class="norecordfound">
+					<p>No Jobs Found.</p>
+					</div>
+			@endif
 		</div>
 	</div>
- <div id="myModal1" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Review Modal content-->
-    <div class="modal-content bborder_bottom">
-      <div class="modal-header review_modal_header">
-        <button type="button" class="close cllose" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i>
-</button>
-        <h4 class="modal-title">Recommend us </h4>
-      </div>
-      <div class="modal-body review_modal_body1 NopaddB">
-     <form class="modal_form_rreview">
-     
-     <div class="col-md-12 popad">
-     	<div class="recomnd">
-        	<h5>Recommend us to a </h5>
-            <div class="radio_area">
-            	  <p>
-                    <input type="radio" id="test1" name="radio-group" checked>
-                    <label for="test1">Tradesperson </label>
-                  </p>
-                  <p>
-                    <input type="radio" id="test2" name="radio-group">
-                    <label for="test2"> Landlord </label>
-                  </p>
-            </div>
-            <button type="button" class="btn btn-primary mark_com pull-left post_bbttn">Submit</button>
-        </div>
-     </div>
-
-     </form>
-       
-     
-     
-        
-        
-        
-   
-      </div>
-      
-    </div>
-
-  </div>
-</div> 
+</div>
+<!--Invite Builder-->
 <div id="myModal2" class="modal fade" role="dialog">
-  <div class="modal-dialog invite_modil">
-
-    <!-- Review Modal content-->
-    <div class="modal-content bborder_bottom">
-      <div class="modal-header review_modal_header">
-        <button type="button" class="close cllose" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i>
-</button>
-        <h4 class="modal-title">Invite Builder</h4>
-      </div>
-      <div class="modal-body review_modal_body1 NopaddB inv">
-     <form class="modal_form_rreview">
-     
-     <div class="col-md-12 popad">
-     	<div class="invite_pop">
-        	<p>Builder in some job category near job location</p>
-            <div class="scr">
-            	<div class="invite_box">
-            	<div class="invite_img">
-                	<img src="images/imag_ppic.jpg" alt="">
-                </div>
-                <div class="invie_del">
-                	<h4>Janet Jackson</h4>
-                    <span><img src="images/black.png" alt="">Plumbers</span>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been dummy text the industry's standard dummy text ever since the, when an.</p>
-                </div>
-                <div class="invite_rev">
-                	<ul>
-                    	<li><img src="images/sstar.png" alt=""></li>
-                        <li><img src="images/sstar.png" alt=""></li>
-                        <li><img src="images/sstar.png" alt=""></li>
-                        <li><img src="images/sstar.png" alt=""></li>
-                        <li><img src="images/sstar_1.png" alt=""></li>
-                    </ul>
-                    <a class="invite_btn" href="#"><img src="images/luser.png" alt=""> Invite</a>
-                    <a class="invite_btn viw_pf" href="#"><img src="images/eyes.png" alt=""> View Profile</a>
-                </div>
-            </div>
-            	<div class="invite_box">
-            	<div class="invite_img">
-                	<img src="images/imag_ppic.jpg" alt="">
-                </div>
-                <div class="invie_del">
-                	<h4>Janet Jackson</h4>
-                    <span><img src="images/black.png" alt="">Plumbers</span>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been dummy text the industry's standard dummy text ever since the, when an.</p>
-                </div>
-                <div class="invite_rev">
-                	<ul>
-                    	<li><img src="images/sstar.png" alt=""></li>
-                        <li><img src="images/sstar.png" alt=""></li>
-                        <li><img src="images/sstar.png" alt=""></li>
-                        <li><img src="images/sstar.png" alt=""></li>
-                        <li><img src="images/sstar_1.png" alt=""></li>
-                    </ul>
-                    <a class="invite_btn" href="#"><img src="images/luser.png" alt=""> Invite</a>
-                    <a class="invite_btn viw_pf" href="#"><img src="images/eyes.png" alt=""> View Profile</a>
-                </div>
-            </div>
-            	<div class="invite_box">
-            	<div class="invite_img">
-                	<img src="images/imag_ppic.jpg" alt="">
-                </div>
-                <div class="invie_del">
-                	<h4>Janet Jackson</h4>
-                    <span><img src="images/black.png" alt="">Plumbers</span>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been dummy text the industry's standard dummy text ever since the, when an.</p>
-                </div>
-                <div class="invite_rev">
-                	<ul>
-                    	<li><img src="images/sstar.png" alt=""></li>
-                        <li><img src="images/sstar.png" alt=""></li>
-                        <li><img src="images/sstar.png" alt=""></li>
-                        <li><img src="images/sstar.png" alt=""></li>
-                        <li><img src="images/sstar_1.png" alt=""></li>
-                    </ul>
-                    <a class="invite_btn" href="#"><img src="images/luser.png" alt=""> Invite</a>
-                    <a class="invite_btn viw_pf" href="#"><img src="images/eyes.png" alt=""> View Profile</a>
-                </div>
-            </div>
-            </div>
-        </div>
-     </div>
-
-     </form>
-       
-     
-     
-        
-        
-        
-   
-      </div>
-      
-    </div>
-
-  </div>
-</div> 
-<!-- Modal4 newjob -->
-<div id="myModal4" class="modal fade" role="dialog">
 	<div class="modal-dialog invite_modil">
-    <!-- Review Modal content-->
+		<!-- Review Modal content-->
 		<div class="modal-content bborder_bottom">
 			<div class="modal-header review_modal_header">
-				<button type="button" class="close cllose" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i></button>
-				<h4 class="modal-title">New Jobs</h4>
+				<button type="button" class="close cllose" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i>
+				</button>
+				<h4 class="modal-title">Invite Builder</h4>
 			</div>
-			<div class="modal-body review_modal_body1 NopaddB inv_1">
-				<form class="modal_form_rreview" method="post" action="post-job" id="job_post_frm" enctype="multipart/form-data">
-					{{csrf_field()}}
-					<div class="col-sm-6 col-lg-6 col-md-6">
-						<div class="form-group">
-							<label class="control-label" for="pwd">Job Type</label>
-							<select class="pop_select" name="job_type_id" id="job_type_id">
-							<option value="">Job type</option>
-							@if(!$job_type->isEmpty())
-								@foreach($job_type as $job)
-									<option value="{{@$job->job_type_id}}">{{@$job->job_type_name}}</option>
-								@endforeach
-							@endif
-							</select>
-						</div>
-					</div>
-					<div class="col-sm-6 col-lg-6 col-md-6">
-						<div class="form-group">
-							<label class="control-label">Category</label>
-							<select class="pop_select" name="job_category_id" id="job_category_id">
-								<option value="">Category</option>
-								@if(!$category->isEmpty())
-									@foreach($category as $cat)
-										<option value="{{@$cat->category_id}}">{{@$cat->category_name}}</option>
-									@endforeach
-								@endif
-							</select>
-						</div>
-					</div>
-					<div class="col-sm-12 col-lg-12 col-md-12">
-						<div class="form-group">
-							<label class="control-label" for="pwd">Looking For</label>
-							<input type="text" class="form-control" name="looking_for" id="looking_for" placeholder="Looking for">
-						</div>
-					</div>
-					<div class="col-sm-6 col-lg-6 col-md-6">
-						<div class="form-group">
-							<label class="control-label" for="pwd">Budget</label>
-							<input type="text" class="form-control" name="budget" id="budget" placeholder="Budget (£)" onkeypress="validate(event)">
-						</div>
-					</div>
-					<div class="col-sm-6 col-lg-6 col-md-6">
-						<div class="form-group">
-							<label class="control-label">Deadline</label>
-							<div class="ccal">
-								<img src="images/call.png" >
-								<input type="text" class="form-control" id="datepicker" name="deadline" placeholder="Deadline" >
+			<div class="modal-body review_modal_body1 NopaddB inv">
+				<form class="modal_form_rreview">
+					<div class="col-md-12 popad">
+						<div class="invite_pop">
+							<p>Builder in some job category near job location</p>
+							<div class="scr">
+								
 							</div>
 						</div>
-					</div>
-					<div class="col-sm-6 col-lg-6 col-md-6">
-						<div class="form-group">
-							<label class="control-label" for="pwd">City</label>
-							<input type="text" class="form-control" name="city" id="city" placeholder="City">
-							<input type="hidden" id="longitude" name="longitude">
-							<input type="hidden" id="lattitude" name="lattitude">
-						</div>
-					</div>
-					<div class="col-sm-6 col-lg-6 col-md-6">
-						<div class="form-group">
-							<label class="control-label" for="pwd">Zipcode</label>
-							<input type="text" class="form-control" name="zip_code" id="zip_code" placeholder="Zip Code">
-						</div>
-					</div>
-					<div class="col-sm-12 col-lg-12 col-md-12">
-						<div class="form-group">
-							<label class="control-label">Description</label>
-							<textarea class="form-control" rows="3" id="comment" name="job_details"></textarea>
-						</div>
-					</div>
-					<div class="col-sm-5 col-lg-5 col-md-5">
-						<div class="form-group">
-							<div class="Uploadbtn">
-								<input type="file" id="uploadBtn1" class="input-upload" name="attachment[]" multiple>
-								<span> <b>Upload</b> <i><img src="images/ddownload.png"></i></span>
-							</div>
-							<span class="fil_txt1"></span>
-						</div>
-					</div>
-					<div class="col-sm-4 col-lg-4 col-md-4">
-						<span class="span_erro"></span>
-					</div>
-					<div class="col-sm-3 col-lg-3 col-md-3">
-						<button type="submit" class="btn btn-primary mark_com pull-right MargT30 post_bbttn">Post</button>
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
-</div> 
+</div>
+<!--Invite Builder-->
+<!--Builder Proposal-->
+<div id="myModal3" class="modal fade" role="dialog">
+	<div class="modal-dialog invite_modil">
+		<!-- Review Modal content-->
+		<div class="modal-content bborder_bottom">
+			<div class="modal-header review_modal_header">
+				<button type="button" class="close cllose" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i></button>
+				<h4 class="modal-title">View Proposal</h4>
+			</div>
+			<div class="modal-body review_modal_body1 NopaddB inv">
+				<form class="modal_form_rreview">
+					<div class="col-md-12 popad">
+						<div class="invite_pop">
+							<!--<p>Builder in some job category near job location</p>-->
+							<div class="scr proposal">
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<!--Builder Proposal-->
+<!--Edit Job-->
 <div id="myModal5" class="modal fade" role="dialog">
 	<div class="modal-dialog invite_modil">
-    <!-- Review Modal content-->
+	<!-- Review Modal content-->
 		<div class="modal-content bborder_bottom">
 			<div class="modal-header review_modal_header">
 				<button type="button" class="close cllose" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i></button>
@@ -348,15 +163,15 @@
 					<div class="col-sm-6 col-lg-6 col-md-6">
 						<div class="form-group">
 							<label class="control-label" for="pwd">City</label>
-							<input type="text" class="form-control" name="city" id="city" placeholder="City">
+							<input type="text" class="form-control" name="city" id="address" placeholder="City">
 							<input type="hidden" id="longitude" name="longitude">
 							<input type="hidden" id="lattitude" name="lattitude">
 						</div>
 					</div>
 					<div class="col-sm-6 col-lg-6 col-md-6">
 						<div class="form-group">
-							<label class="control-label" for="pwd">Zipcode</label>
-							<input type="text" class="form-control" name="zip_code" id="zip_code" placeholder="Zip Code">
+							<label class="control-label" for="pwd">Post Code</label>
+							<input type="text" class="form-control" name="zip_code" id="zip_code" placeholder="Post Code">
 						</div>
 					</div>
 					<div class="col-sm-12 col-lg-12 col-md-12">
@@ -381,22 +196,19 @@
 						<button type="submit" class="btn btn-primary mark_com pull-right MargT30 post_bbttn">Update</button>
 					</div>
 				</form>
+				<div class="clearfix"></div>
+				<div class="atta">
+					
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
+<!--Edit Job-->
 @include('layout.footer')
 <script src="dist/sweetalert.min.js"></script>
 <link rel="stylesheet" type="text/css" href="dist/sweetalert.css">
 <style>
-.span_erro{
-	color: red;
-    font-weight: bold;
-    margin-left: 2px;
-    margin-top: 20px;
-    width: 100%;
-    float: left;
-}
 .pac-container {
     background-color: #FFF;
     z-index: 20;
@@ -422,18 +234,14 @@ display: none;
     font: bold 15px tahoma;
     text-decoration: none;
 }
-.fil_txt1 {
-    float: left;
-    background-color: rgba(152, 132, 132, 0.3);
-    border-radius: 3px;
-    font-size: 11px;
-    font-family: roboto, sans-serif;
-    font-weight: 300;
-    color: #000;
-    padding: 5px;
-    font-style: italic;
-    margin-right: 15px;
-	display:none;
+.no_invited{
+    font-size: 20px;
+    font-family: initial;
+    font-weight: 700;
+    color: #de4c4c;
+    text-align: center;
+    background-color: #e0e0e0;
+    margin: 36px 8px 6px 0px;
 }
 </style>
 <script>
@@ -471,7 +279,7 @@ $(document).ready(function(){
 		}
 		else if($(this).find('#zip_code').val() == "")
 		{
-			$('.span_erro').html('Zipcode is required');
+			$('.span_erro').html('Post Code is required');
 			return false;
 		}
 		else if($(this).find('#job_details').val() == "")
@@ -484,7 +292,32 @@ $(document).ready(function(){
 			return true;
 		}
 	});
-	$('.edit_job').click(function(){	
+	$('.edit_job').click(function(){
+		var job_id = $(this).data('id');
+		var token =" {{ csrf_token() }}";
+		$.ajax({
+			method:"POST",
+			url:"<?php echo url('get-file')?>",
+			dataType: 'JSON',
+			data:{
+				_token:token,
+				job_id:job_id
+			},
+			success:function(result)
+			{
+				if(result.attach == 'no')
+				{
+					
+				}
+				else
+				{
+					$('.atta').html(result.attach);
+				}
+			},
+			error:function(error){
+				console.log(error.responseText);
+			} 
+		});
 		$("#myModal5 #job_post_frm1").attr("action", "edit-post-job/" + $(this).data('id'));
 		$("#myModal5 #job_type_id").val($(this).data('job_type_id'));
 		$("#myModal5 #job_category_id").val($(this).data('job_cat_id'));
@@ -492,11 +325,109 @@ $(document).ready(function(){
 		$("#myModal5 #budget").val($(this).data('budget'));
 		$("#myModal5 #datepicker").val($(this).data('deadline'));
 		$("#myModal5 #zip_code").val($(this).data('zip_code'));
-		$("#myModal5 #city").val($(this).data('city'));
+		$("#myModal5 #address").val($(this).data('city'));
 		$("#myModal5 #longitude").val($(this).data('longitude'));
 		$("#myModal5 #lattitude").val($(this).data('lattitude'));
 		$("#myModal5 #comment").val($(this).data('job_details'));
 		$('#myModal5').modal("show");
+	});
+	$('.invited').click(function(){
+		var job_id = $(this).data('id');
+		//alert(category_id);
+		var token =" {{ csrf_token() }}";
+		$.ajax({
+			method:"POST",
+			url:"<?php echo url('invited-builder-list')?>",
+			dataType: 'JSON',
+			data:{
+				_token:token,
+				job_id:job_id
+			},
+			success:function(result)
+			{
+				$('#myModal2').modal("show");
+				$('.scr').html(result.user_html);	
+			},
+			error:function(error){
+				console.log(error.responseText);
+			} 
+		});
+	});
+	$('.view_proposal').click(function(){
+		var job_id = $(this).data('id');
+		//alert(category_id);
+		var token =" {{ csrf_token() }}";
+		$.ajax({
+			method:"POST",
+			url:"<?php echo url('builder-proposal-list')?>",
+			dataType: 'JSON',
+			data:{
+				_token:token,
+				job_id:job_id
+			},
+			success:function(result)
+			{
+				$('#myModal3').modal("show");
+				$('.proposal').html(result.proposal_html);	
+			},
+			error:function(error){
+				console.log(error.responseText);
+			} 
+		});
+	});
+	$('body').on('click','.invited_user',function(){
+		var builder_id = $(this).data('id');
+		var job_id = $(this).data('job_id');
+		var token =" {{ csrf_token() }}";
+		$.ajax({
+			method:"POST",
+			url:"<?php echo url('invited-builder')?>",
+			dataType: 'JSON',
+			data:{
+				_token:token,
+				builder_id:builder_id,
+				job_id:job_id
+			},
+			success:function(result)
+			{
+				alert(result.invited);
+				if(result.invited == 1)
+				{
+					$('#invite_'+builder_id).html('<img src="images/luser.png" alt=""> invited');
+					$('#invite_'+builder_id).removeClass('invited_user');
+				}
+				//$('.scr').html(result.user_html);	
+			},
+			error:function(error){
+				console.log(error.responseText);
+			} 
+		});
+	});
+	$('body').on('click','.hired',function(){
+		var job_invitation_id = $(this).data('id');
+		var token =" {{ csrf_token() }}";
+		$.ajax({
+			method:"POST",
+			url:"<?php echo url('hire-builder')?>",
+			dataType: 'JSON',
+			data:{
+				_token:token,
+				job_invitation_id:job_invitation_id
+			},
+			success:function(result)
+			{
+				//alert(result.hired);
+				if(result.hired == 1)
+				{
+					$('#hire_'+job_invitation_id).html('<img src="images/tow.png" alt=""> Hired');
+					$('#hire_'+job_invitation_id).removeClass('hired');
+				}
+				//$('.scr').html(result.user_html);	
+			},
+			error:function(error){
+				console.log(error.responseText);
+			} 
+		});
 	});
 	$('body').on('change','#uploadBtn1',function(){//alert();
 		$(".fil_txt1").show();
@@ -524,7 +455,35 @@ $(document).ready(function(){
 		  }
 		  document.getElementById('filename').value = filename;
 		  });
+	$('body').on('click','.delete_attachment',function(){
+		var attachment_id = $(this).data('id');
+		var token =" {{ csrf_token() }}";
+		$.ajax({
+			method:"POST",
+			url:"<?php echo url('delete-attachment')?>",
+			dataType: 'JSON',
+			data:{
+				_token:token,
+				attachment_id:attachment_id
+			},
+			success:function(result)
+			{
+				if(result.delete == 1)
+				{
+					$('#attach_file_'+attachment_id).remove();
+				}
+				else
+				{
+					
+				}
+			},
+			error:function(error){
+				console.log(error.responseText);
+			} 
+		});
+	});
 });
+		
 function validate(evt){
 	var theEvent=evt || window.event;
 	var key=theEvent.keyCode || theEvent.which;
@@ -535,8 +494,27 @@ function validate(evt){
 		if(theEvent.preventDefault) theEvent.preventDefault();
 	}
 }
+var country_code = "UK";		
+var countryRestrict = {'country': country_code};
+var acOptions1 = {
+	componentRestrictions: countryRestrict
+};
 var input = document.getElementById('city');
-var autocomplete = new google.maps.places.Autocomplete(input);
+var autocomplete = new google.maps.places.Autocomplete(input,acOptions1);
+ google.maps.event.addListener(autocomplete, 'place_changed', function() {
+//input.className = '';
+var place = autocomplete.getPlace();
+document.getElementById('longitude').value = place.geometry.location.lng();
+document.getElementById('lattitude').value = place.geometry.location.lat();
+});
+
+var country_code = "UK";		
+var countryRestrict = {'country': country_code};
+var acOptions1 = {
+	componentRestrictions: countryRestrict
+};
+var input = document.getElementById('address');
+var autocomplete = new google.maps.places.Autocomplete(input,acOptions1);
  google.maps.event.addListener(autocomplete, 'place_changed', function() {
 //input.className = '';
 var place = autocomplete.getPlace();
@@ -545,7 +523,7 @@ document.getElementById('lattitude').value = place.geometry.location.lat();
 });
 
 $(function() {
-var showTotalChar = 180, showChar = "", hideChar = "";
+var showTotalChar = 160, showChar = "", hideChar = "";
 $('.show').each(function() {
 var content = $(this).text();
 if (content.length > showTotalChar) {
@@ -556,14 +534,14 @@ $(this).html(txt);
 }
 });
 });
-<?php if(session()->get('edit') == 'success'){?>
+</script>
+@if(session()->get('success'))
+<script>
 swal(
-  'Good job!',
-  'Job edited successfully.',
+  'Success',
+  '{{session()->get("success")}}',
   'success'
 )
-<?php } 
-session()->put('edit','');
-?>
 </script>
+@endif
 @endsection

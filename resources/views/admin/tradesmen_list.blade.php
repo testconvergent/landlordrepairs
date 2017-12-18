@@ -72,7 +72,8 @@
 												<i class="fa fa-eye cncl" aria-hidden="true"> <span class="cncl_oopo">= View</span></i>
 												<i class="fa fa-check cncl" aria-hidden="true"> <span class="cncl_oopo">= Active</span></i>
 												<i class="fa fa-times cncl" aria-hidden="true"> <span class="cncl_oopo">= Inactive</span></i>
-												<i class="fa fa-trash cncl" aria-hidden="true"> <span class="cncl_oopo">= Delete</span></i>
+												<i class="fa fa-check-circle cncl" aria-hidden="true"> <span class="cncl_oopo">= Approve</span></i>
+												<i class="fa fa-trash cncl" aria-hidden="true" style="border-right:none;"> <span class="cncl_oopo">= Delete</span></i>
 											</div>
 											<div class="col-md-12 col-sm-12 col-xs-12">
 												<div class="table-responsive" data-pattern="priority-columns">
@@ -104,21 +105,25 @@
 																	<td>
 																	{{@$row->mobile}}
 																	</td>
-																	<td>@if($row->user_status == 0)Email Not Verified
+																	<td>
+																	@if($row->is_email_verified == 0 && $row->user_status == 0){{'Email Not Verified'}}
+																	@elseif($row->is_phone_verified == 0 && $row->user_status == 0){{'Phone Number Not Verified'}}
 																	@elseif($row->user_status == 1)Active
 																	@elseif($row->user_status == 2)Inactive
 																	@endif</td>
 																	<td>
 																	<a href="admin-tradesmen-details/{{$row->user_id}}" title="View"> <i class="fa fa-eye delet" aria-hidden="true"></i></a>
 																		@if($row->user_status == 0)
-																		<a href="admin-tradesmen-status/{{$row->user_id}}" onclick="return confirm('Are you sure to change status ?')" title="Click to active"> <i class="fa fa-check cncl1" aria-hidden="true"></i></a>
+																		<a href="admin-tradesmen-approve/{{$row->user_id}}" onclick="return confirm('Are you sure to approve this tradesmen ?')" title="Click to approve"> <i class="fa fa-check-circle cncl1" aria-hidden="true"></i></a>
+																		@elseif($row->user_status == 2)
+																		<a href="admin-tradesmen-approve/{{$row->user_id}}" onclick="return confirm('Are you sure to change status ?')" title="Click to approve"> <i class="fa fa-check-circle cncl1" aria-hidden="true"></i></a>
 																		@elseif($row->user_status == 1)
 																		<a href="admin-tradesmen-status/{{$row->user_id}}" onclick="return confirm('Are you sure to change status ?')" title="Click to inactive"> <i class="fa fa-times delet" aria-hidden="true"></i></a>
 																		@elseif($row->user_status == 2)
-																		<a href="admin-customer-status/{{$row->user_id}}" onclick="return confirm('Are you sure to change status ?')" title="Click to active"> <i class="fa fa-check delet" aria-hidden="true"></i></a>
+																		<a href="admin-tradesmen-status/{{$row->user_id}}" onclick="return confirm('Are you sure to change status ?')" title="Click to active"> <i class="fa fa-check delet" aria-hidden="true"></i></a>
 																		@endif
-																		@if($row->is_email_verified==0)
-																		<a href="admin-customer-delete/{{$row->user_id}}" onclick="return confirm('Are you want to delete this user ?')" title="Delete"><i class="fa fa-trash delet	" aria-hidden="true"></i></a>
+																		@if($row->is_email_verified == 0 || $row->is_phone_verified == 0)
+																		<a href="admin-tradesmen-delete/{{$row->user_id}}" onclick="return confirm('Are you want to delete this user ?')" title="Delete"><i class="fa fa-trash delet	" aria-hidden="true"></i></a>
 																		@endif
 																	</td>
 																</tr>

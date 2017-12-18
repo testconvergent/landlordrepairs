@@ -19,7 +19,7 @@
                                     <span class="mini-stat-icon bg-warning"><i class="fa fa-user"></i></span>
                                     <div class="mini-stat-info text-right text-dark">
                                         <span class="counter text-dark">20</span>
-                                       All Seller
+                                       All Tardesmaen
                                     </div>
                                 </div>
                             </div>
@@ -28,7 +28,7 @@
                                     <span class="mini-stat-icon bg-info"><i class="md-play-install"></i></span>
                                     <div class="mini-stat-info text-right text-dark">
                                         <span class="counter text-dark">20</span>
-                                        All Buyer
+                                        All Customer
                                     </div>
                                 </div>
                             </div>
@@ -46,7 +46,7 @@
                                     <span class="mini-stat-icon bg-success"><i class="fa fa-question-circle" aria-hidden="true"></i></span>
                                     <div class="mini-stat-info text-right text-dark">
                                         <span class="counter text-dark">11</span>
-                                        All Product
+                                        All Package
                                     </div>
                                 </div>
                             </div>
