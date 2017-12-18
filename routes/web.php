@@ -35,6 +35,8 @@ Route::post('/invited-builder-list','UserController@invited_builder_list')->midd
 Route::post('/builder-proposal-list','UserController@builder_proposal_list')->middleware('user_logout');
 Route::post('/hire-builder','UserController@hire_builder')->middleware('user_logout');
 Route::get('/jobs-given','HomeController@jobs_given')->middleware('user_logout');
+Route::post('/review-post','HomeController@review_post')->middleware('user_logout');
+Route::get('/delete-job/{id}','HomeController@delete_job')->middleware('user_logout');
 Route::post('/invited-builder','UserController@invited_builder')->middleware('user_logout');
 Route::get('/my-invited','UserController@my_invited')->middleware('user_logout');
 Route::post('/provider-quote-submit','UserController@provider_quote_submit')->middleware('user_logout');

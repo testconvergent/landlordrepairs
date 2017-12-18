@@ -547,6 +547,8 @@ class HomeController extends Controller
 			
 			->leftJoin(TBL_JOB_TYPE,TBL_JOB_POST.'.job_type_id','=',TBL_JOB_TYPE.'.job_type_id')
 			->where('user_id',session()->get('user_id'))
+			->where('job_status','!=',3)
+			->where('job_status','!=',5)
 			->get();
 			$fetch_category = DB::table(TBL_JOB_CATEGORY)->where('category_status',1)->get();
 			$fetch_job_type = DB::table(TBL_JOB_TYPE)->where('job_type_status',1)->get();
@@ -559,6 +561,17 @@ class HomeController extends Controller
 		else
 		{
 			
+		}
+	}
+	public function delete_job($id)
+	{
+		$fetch = DB::table(TBL_JOB_POST)->where('job_id',$id)->first();
+		if(count($fetch)>0 && $fetch->user_id == session()->get('user_id'))
+		{
+			//$update = array('job_status'=>5);
+			DB::table(TBL_JOB_POST)->where('job_id',$id)->update(array('job_status'=>5));
+			session()->flash('success','Job deleted successfully.');
+			return redirect('my-jobs');
 		}
 	}
 	public function edit_job_posted(Request $request,$id)
@@ -703,5 +716,28 @@ class HomeController extends Controller
 		{
 			return redirect('my-profile');
 		}
+	}
+	public function review_post(Request $request)
+	{
+		$get = DB::table(TBL_JOB_INVITATION)->where('from_user_id',session()->get('user_id'))->where('to_user_id',$request->builder_id)->where('job_id',$request->job_id)->where('invitation_status',3)->first();
+		if(count($get)>0)
+		{
+			$insert_rev = array();
+			$insert_rev['user_id'] = session()->get('user_id');
+			$insert_rev['builder_id'] = $request->builder_id;
+			$insert_rev['job_id'] = $request->job_id;
+			$insert_rev['quality'] = $request->quality_rating;
+			$insert_rev['on_time'] = $request->time_rating;
+			$insert_rev['price'] = $request->price_rating;
+			$insert_rev['hire'] = $request->hire_rating;
+			$insert_rev['recomm'] = $request->recomm_rating;
+			$insert_rev['comments'] = $request->rev_comment;
+			$insert_rev['review_date'] = date('Y-m-d');
+			$insert_rev['total_review'] = ($request->quality_rating+$request->time_rating+ $request->price_rating+$request->hire_rating+$request->recomm_rating);
+			$insert_rev['ave_review'] = ($insert_rev['total_review']/5);
+			DB::table(TBL_REVIEW)->insert($insert_rev);
+			session()->flash('success','Review posted successfully');
+		}
+		return redirect('jobs-given');
 	}
 }

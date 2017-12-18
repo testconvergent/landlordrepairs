@@ -9,4 +9,5 @@ define('TBL_PACKAGE','package');
 define('TBL_USER_TO_PORTFOLIO','users_to_portfolio');
 define('TBL_USER_TO_LOGO','users_to_logo');
 define('TBL_JOB_INVITATION','job_invitation');
+define('TBL_REVIEW','review');
 ?>

@@ -12,7 +12,7 @@
 							<h3>{{@$job->looking_for}}</h3>
 							<div class="edt">
 								<a href="javascript:void(0);" data-id="{{@$job->job_id}}" data-looking_for="{{@$job->looking_for}}" data-budget="{{@$job->budget}}" data-deadline="{{@$job->deadline}}"data-city="{{@$job->city}}" data-zip_code="{{@$job->zip_code}}" data-job_details="{{@$job->job_details}}" data-job_type_id="{{@$job->job_type_id}}" data-job_cat_id="{{@$job->category_id}}" data-lattitude="{{@$job->lattitude}}" data-longitude="{{@$job->longitude}}" class="edit_job"><img src="images/edit.png" alt=""></a>
-								<a href="javascript:void(0);"><img src="images/ext.png" alt=""></a>
+								<a href="javascript:void(0);" onclick="delete_job({{$job->job_id}})"><img src="images/ext.png" alt=""></a>
 							</div>
 							<div class="clearfix"></div>
 							<div class="awaded_type">
@@ -64,9 +64,8 @@
 			<div class="modal-body review_modal_body1 NopaddB inv">
 				<form class="modal_form_rreview">
 					<div class="col-md-12 popad">
-						<div class="invite_pop">
-							<p>Builder in some job category near job location</p>
-							<div class="scr">
+						<div class="invite_pop invi_user">
+							<div class="">
 								
 							</div>
 						</div>
@@ -205,7 +204,7 @@
 	</div>
 </div>
 <!--Edit Job-->
-@include('layout.footer')
+@include('layout.customer_footer')
 <script src="dist/sweetalert.min.js"></script>
 <link rel="stylesheet" type="text/css" href="dist/sweetalert.css">
 <style>
@@ -227,10 +226,22 @@
     text-align: justify;
 	padding: 15px 0 0 0;
 }
+.show1 {
+    font:normal 15px arial;
+    text-align: justify;
+	padding: 15px 0 0 0;
+}
 .morectnt span {
 display: none;
 }
+.morectnt1 span {
+display: none;
+}
 .showmoretxt {
+    font: bold 15px tahoma;
+    text-decoration: none;
+}
+.showmoretxt1 {
     font: bold 15px tahoma;
     text-decoration: none;
 }
@@ -346,7 +357,7 @@ $(document).ready(function(){
 			success:function(result)
 			{
 				$('#myModal2').modal("show");
-				$('.scr').html(result.user_html);	
+				$('.invi_user').html(result.user_html);	
 			},
 			error:function(error){
 				console.log(error.responseText);
@@ -393,7 +404,7 @@ $(document).ready(function(){
 				alert(result.invited);
 				if(result.invited == 1)
 				{
-					$('#invite_'+builder_id).html('<img src="images/luser.png" alt=""> invited');
+					$('#invite_'+builder_id).html('<i class="fa fa-check-circle" aria-hidden="true"></i> invited');
 					$('#invite_'+builder_id).removeClass('invited_user');
 				}
 				//$('.scr').html(result.user_html);	
@@ -419,7 +430,7 @@ $(document).ready(function(){
 				//alert(result.hired);
 				if(result.hired == 1)
 				{
-					$('#hire_'+job_invitation_id).html('<img src="images/tow.png" alt=""> Hired');
+					$('#hire_'+job_invitation_id).html('<i class="fa fa-handshake-o" aria-hidden="true"></i> Hired');
 					$('#hire_'+job_invitation_id).removeClass('hired');
 				}
 				//$('.scr').html(result.user_html);	
@@ -529,11 +540,57 @@ var content = $(this).text();
 if (content.length > showTotalChar) {
 var con = content.substr(0, showTotalChar);
 var hcon = content.substr(showTotalChar, content.length - showTotalChar);
-var txt= con +  '<span class="dots">...</span><span class="morectnt"><span>' + hcon + '</span>&nbsp;&nbsp;<a href="" class="showmoretxt">' + showChar + '</a></span>';
+var txt= con +  '<span class="dots">...</span><span class="morectnt1"><span>' + hcon + '</span>&nbsp;&nbsp;<a href="" class="showmoretxt">' + showChar + '</a></span>';
 $(this).html(txt);
 }
 });
 });
+$(function() {
+var showTotalChar1 = 10, showChar1 = "View More >>", hideChar1 = "<< View Less";
+$('.show1').each(function() {
+var content = $(this).text();
+if (content.length > showTotalChar1) {
+var con = content.substr(0, showTotalChar1);
+var hcon = content.substr(showTotalChar1, content.length - showTotalChar1);
+var txt= con +  '<span class="dots">...</span><span class="morectnt1"><span>' + hcon + '</span>&nbsp;&nbsp;<a href="" class="showmoretxt1">' + showChar1 + '</a></span>';
+$(this).html(txt);
+}
+});
+$(".showmoretxt1").click(function() {
+if ($(this).hasClass("sample")) {
+$(this).removeClass("sample");
+$(this).text(showChar1);
+} else {
+$(this).addClass("sample");
+$(this).text(hideChar1);
+}
+$(this).parent().prev().toggle();
+$(this).prev().toggle();
+return false;
+});
+});
+function delete_job(id)
+	{
+		//alert(id);
+		swal({   title: "Are you sure?",   
+		text: "You want to delete this job?",   
+		type: "warning",   
+		showCancelButton: true,   
+		confirmButtonColor: "#DD6B55",   
+		confirmButtonText: "Yes, delete it!",   
+		cancelButtonText: "No, cancel!",   
+		closeOnConfirm: false,   
+		closeOnCancel: true 
+		}, 
+		function(isConfirm)
+		{   
+			if (isConfirm)
+			{
+				window.location.assign("<?php echo url('/');?>/delete-job/"+id);	
+			} 
+			
+		});
+	}
 </script>
 @if(session()->get('success'))
 <script>

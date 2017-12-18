@@ -20,7 +20,7 @@
 	}
 	function hired_builder($job_id)
 	{
-		$fetch = DB::table(TBL_JOB_INVITATION)->where('invitation_status',2)->where('job_id',$job_id)->get();
+		$fetch = DB::table(TBL_JOB_INVITATION)->where('invitation_status',2)->orwhere('invitation_status',3)->where('job_id',$job_id)->get();
 		return $fetch;
 	}
 	function job_category()

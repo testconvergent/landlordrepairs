@@ -12,8 +12,7 @@
                     <div class="upload-image-preview">
                         <img src="{{$prof_image}}" class="img-circle img-ppic">
                     </div>
-                    <a class="edit_iico" href="javascript:void(0);">
-                        <img src="images/edit_l.png"></a>
+                    <a class="edit_iico" href="javascript:void(0);"><img src="images/edit_l.png"></a>
                     <form method="post" action="prof-pic-upload" id="prof-pic-upload" enctype="multipart/form-data">
                         {{csrf_field()}}
                         <input type="file" id="imgupload" name="prof_image" style="display:none" />
@@ -36,7 +35,6 @@
                         </div>
                     </div>
                 </form>
-
             </div>
             <div class="bborder_ddiv">
                 <div class="catts">
@@ -80,7 +78,6 @@
                         <div class="google-maps">
                             <div id="mapCanvas"></div>
                         </div>
-
                     </div>
                     <div class="col-md-12 edited_cat" style="display:none;padding:0px;">
                         <form action="prof-description-secend-block" method="post" id="prof-description-secend-block">
@@ -95,7 +92,6 @@
                                     </select>
                                 </div>
                             </div>
-
                             {{csrf_field()}}
                             <div class="col-md-4 col-sm-6 co-xs-12">
                                 <div class="your-mail">
@@ -127,14 +123,12 @@
                                     </select>
                                 </div>
                             </div>
-
                             <div class="col-md-4 col-sm-6 co-xs-12">
                                 <div class="your-mail">
                                     <label>Qualification</label>
 
                                     <input class="form-control required" placeholder="Type your company name" name="qualification" type="text" value="{{$qualification}}">
                                 </div>
-
                             </div>
                             <div class="clearfix"></div>
                             <div class="col-md-4 col-sm-6 co-xs-12">
@@ -146,14 +140,12 @@
                                     </select>
                                 </div>
                             </div>
-
                             <div class="col-md-4 col-sm-6 co-xs-12">
                                 <div class="your-mail">
                                     <label>Working Hours From</label>
                                     <input class="form-control required" placeholder="Type your company name" name="from_time" type="text" id="from_time" value="{{$hours_from}}">
                                 </div>
                             </div>
-
                             <div class="col-md-4 col-sm-6 co-xs-12">
                                 <div class="your-mail">
                                     <label>Working Hours To</label>
@@ -178,7 +170,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
         <div class="clearfix"></div>
         <div class="portfolio_sec">
@@ -213,23 +204,8 @@
                             </div>
                         </a>
                     </li>
-                    @endforeach @endif
-                    <!--  <li><a class="fancybox" href="images/9_b.jpg" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
-                <div class="view1 view-first"> <img src="images/9_s.jpg" />
-                <div class="mask">
-                    <h2>Dummy caption here</h2>
-                    <div class="cross_p"><i class="fa fa-times" aria-hidden="true"></i> </div>
-                  </div>
-              </div>
-                </a></li>
-              <li><a class="fancybox" href="images/10_b.jpg" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
-                <div class="view1 view-first"> <img src="images/10_s.jpg" />
-                <div class="mask">
-                    <h2>Dummy caption here</h2>
-                    <div class="cross_p"><i class="fa fa-times" aria-hidden="true"></i> </div>
-                  </div>
-              </div>
-                </a></li>-->
+                    @endforeach 
+					@endif
                 </ul>
             </div>
         </div>
@@ -241,7 +217,6 @@
                 <h3>{{$qualification}}</h3>
                 <a href="#" class="pull-right"><img src="images/edit_icco.png"></a>
             </div>
-
         </div>
         <div class="mmember_panel">
             <h3>Member of</h3>
@@ -257,8 +232,6 @@
         <div class="review_panel">
             <div class="review_panel_toop">
                 <h3>Reviews</h3>
-                <!-- <a href="#" class="pull-right"><img src="images/edit_icco.png"></a>
-	   -->
             </div>
             <div class="clearfix"></div>
             <div class="review_bblock_11">
@@ -287,31 +260,7 @@
         </div>
     </div>
 </div>
-</div>
-</div>
-
-@include('layout.footer')
-
-<!-- Return to Top -->
-<a href="javascript:" id="return-to-top"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
-</div>
-<!--wrapper end-->
-
-<script>
-    // ===== Scroll to Top ==== 
-    $(window).scroll(function() {
-        if ($(this).scrollTop() >= 50) { // If page is scrolled more than 50px
-            $('#return-to-top').fadeIn(200); // Fade in the arrow
-        } else {
-            $('#return-to-top').fadeOut(200); // Else fade out the arrow
-        }
-    });
-    $('#return-to-top').click(function() { // When arrow is clicked
-        $('body,html').animate({
-            scrollTop: 0 // Scroll to top of body
-        }, 500);
-    });
-</script>
+@include('layout.builder_footer')
 <script>
     var marker;
     var input;
@@ -384,7 +333,7 @@
                                         </div>
                                     </div>
                                     <div class="upload_caption">
-                                        <input type="text" class="form-control builder_type required" name="efore_image_caption" placeholder="Before image caption">
+                                        <input type="text" class="form-control builder_type required" name="before_image_caption" placeholder="Before image caption">
                                     </div>
                                 </div>
 
@@ -456,4 +405,5 @@
         'success'
     )
 </script>
-@endif @endsection
+@endif
+@endsection

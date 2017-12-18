@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 use DB;
+use Mail;
 use App;
 use App\User;
 use App\Jobs;
@@ -22,7 +23,7 @@ class UserController extends Controller
 	  $provider_details=User::provider($userId)
 						->with('get_providers_details')
 						->first();
-						
+							
 	  if(count($provider_details)){		 
 		 $data=$this->getProviderDetails($userId);
 		 return view('my_profile',$data);  
@@ -84,8 +85,7 @@ class UserController extends Controller
 			//$request->after_image->move($destinationPath.'/'.$after_image,80);
 
 			$destinationPath = public_path('/portpolio_normal');
-			$request->after_image->move($destinationPath, $after_image);
-	
+			$request->after_image->move($destinationPath, $after_image);			
 			$portpolio_details = new UsersToPortFolio;			
 			$portpolio_details->before_image =$before_image;
 			$portpolio_details->after_image=$after_image;
@@ -227,13 +227,15 @@ class UserController extends Controller
 	}
 	public function invited_builder_list(Request $request){
 		$get_job_category = DB::table(TBL_JOB_TO_CATEGORY)->where('job_id',$request->job_id)->first();
-		if(count($get_job_category)>0)
+		$get_job = DB::table(TBL_JOB_POST)->where('job_id',$request->job_id)->first();
+		if(count($get_job_category)>0 && count($get_job)>0 && $get_job->user_id == session()->get('user_id'))
 		{
 			$get_user = DB::table(TBL_USER)->select('user_id','user_name','email','user_slug','prof_description','prof_image','tot_review','avg_review',TBL_JOB_CATEGORY.'.category_name')
 			->leftJoin(TBL_JOB_CATEGORY,TBL_USER.'.primary_trade','=',TBL_JOB_CATEGORY.'.category_id')
 			->where('primary_trade',$get_job_category->category_id)->get();
 			//echo "<pre>";print_r($get_user);die;
-			$returnHTML = view('ajax_page.invited_builder')->with('get_user', $get_user)->with('job_id',$request->job_id)->render();
+			
+			$returnHTML = view('ajax_page.invited_builder')->with('get_user', $get_user)->with('job_id',$request->job_id)->with('job',$get_job)->render();
 			$responce = array('user_html'=>$returnHTML);
 		}
 		echo json_encode($responce);
@@ -267,16 +269,18 @@ class UserController extends Controller
 					->with('providerJobDetails.jobType','providerJobDetails.users')					
 					->with('categoryDetails.category')
 					->get();
+/*--------------Read new job invitation------------------------*/
+		 $readNewInvitation=JobInvitation::newJobInvitation($userId)
+							->update(['invitation_read' => 1]);
+ /*------------Read new job invitation------------------------*/
 		 $data['provider_job_invitation']=$provider_job_invitation;
 		 return view('builder_invited',$data);
 	}
 	public function provider_quote_submit(Request $request){		
 		//return view('mail.proposal');
 		if(@$request->all()){			
-		     $quote_attachment =time().'.'.$request->quote_attachment->getClientOriginalExtension();
-			 $destinationPath = storage_path('invitation_attachment');
-			//$thumb_img = Image::make($request->prof_image->getRealPath())->resize(149, 149);
-			//$thumb_img->save($destinationPath.'/'.$prof_image,80);
+		    $quote_attachment =time().'.'.$request->quote_attachment->getClientOriginalExtension();
+			$destinationPath = storage_path('invitation_attachment');			
 			$request->quote_attachment->move($destinationPath, $quote_attachment);
 			$invitation_id=$request->invitation_id;
 			$invitation_details = JobInvitation::find($invitation_id);
@@ -287,6 +291,40 @@ class UserController extends Controller
 			$invitation_details->invitation_date =date('Y-m-d H:i:s');			
 			$invitation_details->invitation_status =1;	//reply from builders		
 			$invitation_details->save();
+			$customer_id=$invitation_details->from_user_id;
+			$tradesman_id=$invitation_details->to_user_id;
+			$job_id=$invitation_details->job_id;
+            /*send mail for proposal to customer from provider */
+						
+			/*calculate average bid and total bid */
+			 $job_details=Jobs::find($job_id);
+			 $proposal_for=$job_details->looking_for;
+			 $job_details->avg_bid=JobInvitation::all()->where('job_id',$job_id)->where('invitation_status',1)->avg('price');
+			
+			 $job_details->no_of_bids=$job_details->no_of_bids+1;
+			 $job_details->save();
+			 $job_category_details=JobToJobCategory::with('category')
+											->whereHas('category',function($query)use($job_id){
+											return $query->where('job_id',$job_id);
+												})
+											->first();
+			$job_type_details=Jobs::find($job_id)->with('jobType')->first();			
+			$customer_email=User::find($customer_id)->email;
+			$tradesman_email=User::find($tradesman_id)->email;
+			/*for mail average bid and total bid */
+			$proposal_details=new \StdClass();
+			$proposal_details->proposed_price=$request->price;
+			$proposal_details->customer_name=User::find($customer_id)->user_name;
+			$proposal_details->proposed_date=date('D j-M Y',strtotime($request->start_date));
+			$proposal_details->proposal_description=$request->quote_description;
+			$proposal_details->category=$job_category_details->category->category_name;
+			$proposal_details->job_type=$job_type_details->jobType->job_type_name;			
+			$proposal_details->tradesman_email=$tradesman_email;			
+			$proposal_details->tradesman_name=User::find($tradesman_id)->user_name;
+			$proposal_details->looking_for=$proposal_for;
+			$proposal_details->subject='Proposal for '.$proposal_for;			
+			$data['proposal']=$proposal_details;			
+			//Mail::to($customer_email)->send(new App\Mail\proposalMail($proposal_details));			
 			session()->flash('success','Successfully submited your quote.'); 
 			return redirect('my-invited');
 		}
@@ -360,16 +398,14 @@ class UserController extends Controller
 		if ($request->isMethod('post')){
 			$invitation_id=$request->invitation_id;
 			$invitation_details = JobInvitation::find($invitation_id);
-			$invitation_details->invitation_status =3;	//reply from builders		
+			$invitation_details->invitation_status =3;	//3 for job marked as completed	
 			$invitation_details->save();
 			$job_id=$invitation_details->job_id;
 			$job_details= Jobs::find($job_id);
-			$job_details->job_status=3;
+			$job_details->job_status=4;   // 4 for completed job
 			$job_details->save();					
 			session()->flash('success','Successfully submited your status.'); 
 			return redirect('my-awarded-job');
 		}
 	}
-	
-	
 }

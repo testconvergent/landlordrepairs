@@ -45,9 +45,11 @@
 	</div>
 	<div class="inner_banner_builder">
 		<img src="images/inner_banner.jpg"  alt="inner_banner">
+		@if(Request::segment(1) != 'profile' && Request::segment(2) =="")
 		<div class="adnew1 post_btn">
 			<a data-toggle="modal" data-target="#myModal4" class="sub_bttn" id="job_post" href="#">Post New Jobs</a>
 		</div>
+		@endif
 	</div>
 </div>
 <!--Recommend Us-->
