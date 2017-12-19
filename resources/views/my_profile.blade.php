@@ -182,7 +182,7 @@
                     @if(@$port_polio) @foreach($port_polio as $polio)
                     <li>
                         <h3 class="bbfore">Before</h3>
-                        <a class="fancybox" href="{{url('public/portpolio_normal/'.$polio->before_image)}}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
+                        <a class="fancybox" href="{{url('public/portpolio_normal/'.$polio->before_image)}}" data-fancybox-group="gallery" title="{{$polio->before_image_caption}}">
                             <div class="view1 view-first"> <img src="{{url('public/portpolio_normal/'.$polio->before_image)}}" />
                                 <div class="mask">
                                     <h2>{{$polio->before_image_caption}}</h2>
@@ -194,7 +194,7 @@
                     </li>
                     <li>
                         <h3 class="bbfore">After</h3>
-                        <a class="fancybox" href="{{url('public/portpolio_normal/'.$polio->after_image)}}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
+                        <a class="fancybox" href="{{url('public/portpolio_normal/'.$polio->after_image)}}" data-fancybox-group="gallery" title="{{$polio->after_image_caption}}">
                             <div class="view1 view-first"> <img src="{{url('public/portpolio_normal/'.$polio->after_image)}}" />
                                 <div class="mask">
                                     <h2>{{$polio->after_image_caption}}</h2>
@@ -234,33 +234,45 @@
                 <h3>Reviews</h3>
             </div>
             <div class="clearfix"></div>
-            <div class="review_bblock_11">
-                <h3>Light & Power - Internal</h3>
-                <div class="pull-right">
-                    <div class="review_sub">
-                        <ul>
-                            <li><img src="images/sstar.png"></li>
-                            <li><img src="images/sstar.png"></li>
-                            <li><img src="images/sstar.png"></li>
-                            <li><img src="images/sstar.png"></li>
-                            <li><img src="images/sstar_1.png"></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="clearfix"></div>
-                <div class="review_bblock_12">
-                    <ul>
-                        <li><span><img src="images/user.png" alt="user"></span>Monica, NW6</li>
-                        <li><span><img src="images/cals.png"></span>Feb 10, 2017</li>
-                    </ul>
-                </div>
-                <div class="clearfix"></div>
-                <div class="review_ddes"> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five the centuries.Lorem Ipsum is simply dummy text of the printing and typesetting industry.</div>
-            </div>
+            <div class="review_bblock_11 reviewarea">
+				@if(!$review->isEmpty())
+					@foreach($review as $rev)
+						<h3>{{@$rev->review_title}}</h3>
+						<div class="pull-right">
+							<div class="review_sub">
+								<ul>
+									<?php 
+									$review_point = floor(@$rev->ave_review);
+									for($i=1;$i<=5;$i++){
+									if($i <= $review_point){?>
+										<li><img src="images/sstar.png" alt=""></li>
+										<?php
+										}
+										else{?>
+										<li><img src="images/sstar_1.png" alt=""></li>
+										<?php
+										}
+									}?>
+								</ul>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+						<div class="review_bblock_12">
+							<ul>
+								<li><span><img src="images/user.png" alt="user"></span>{{$rev->review->user_name}}</li>
+								<li><span><img src="images/cals.png"></span>{{date('M d, Y',strtotime(@$rev->review_date))}}</li>
+							</ul>
+						</div>
+						<div class="clearfix"></div>
+						<div class="review_ddes">{{@$rev->comments}}.</div><hr>
+					@endforeach
+				@endif
+			</div>
         </div>
     </div>
 </div>
 @include('layout.builder_footer')
+<script type="text/javascript" src="js/jquery.slimscroll.js"></script>
 <script>
     var marker;
     var input;
@@ -307,6 +319,12 @@
     var longitude = document.getElementById('longitude').value;
     var lattitude = document.getElementById('lattitude').value;
     google.maps.event.addDomListener(window, 'load', initialize(lattitude, longitude));
+	$(function(){
+		$('.reviewarea').slimScroll({
+			height: '300px',
+			scrollTo: '200500px' 
+		});
+	}); 
 </script>
 <!--wrapper end-->
 <div id="myModal1" class="modal fade" role="dialog">

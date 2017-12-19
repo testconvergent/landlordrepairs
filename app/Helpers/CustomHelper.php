@@ -33,4 +33,10 @@
 		$fetch_job_type = DB::table(TBL_JOB_TYPE)->where('job_type_status',1)->get();
 		return $fetch_job_type;
 	}
+	function job_win()
+	{
+		$win = DB::table(TBL_USER)->select('job_win','avg_review')->where('user_id',session()->get('user_id'))->first();
+		//echo "<pre>";print_r($win);die;
+		return $win;
+	}
 ?>

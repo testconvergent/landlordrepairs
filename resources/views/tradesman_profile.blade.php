@@ -1,4 +1,6 @@
-@extends('layout.app') @section('title','My Profile') @section('body')
+@extends('layout.app') 
+@section('title','Builder Profile') 
+@section('body')
 <!--wrapper start-->
 <div class="row Nomarg">
     @include('layout.customer_header')
@@ -261,61 +263,49 @@
             <div class="review_panel">
                 <div class="review_panel_toop">
                     <h3>Reviews</h3>
-                    <!-- <a href="#" class="pull-right"><img src="images/edit_icco.png"></a>
-	   -->
                 </div>
                 <div class="clearfix"></div>
-                <div class="review_bblock_11">
-                    <h3>Light & Power - Internal</h3>
-                    <div class="pull-right">
-                        <div class="review_sub">
-                            <ul>
-                                <li><img src="images/sstar.png"></li>
-                                <li><img src="images/sstar.png"></li>
-                                <li><img src="images/sstar.png"></li>
-                                <li><img src="images/sstar.png"></li>
-                                <li><img src="images/sstar_1.png"></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                    <div class="review_bblock_12">
-                        <ul>
-                            <li><span><img src="images/user.png" alt="user"></span>Monica, NW6</li>
-                            <li><span><img src="images/cals.png"></span>Feb 10, 2017</li>
-                        </ul>
-                    </div>
-                    <div class="clearfix"></div>
-                    <div class="review_ddes"> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five the centuries.Lorem Ipsum is simply dummy text of the printing and typesetting industry.</div>
-                </div>
+				<div class="review_bblock_11 reviewarea">
+					@if(!$review->isEmpty())
+						@foreach($review as $rev)
+							<h3>{{@$rev->review_title}}</h3>
+							<div class="pull-right">
+								<div class="review_sub">
+									<ul>
+										<?php 
+										$review_point = floor(@$rev->ave_review);
+										for($i=1;$i<=5;$i++){
+										if($i <= $review_point){?>
+											<li><img src="images/sstar.png" alt=""></li>
+											<?php
+											}
+											else{?>
+											<li><img src="images/sstar_1.png" alt=""></li>
+											<?php
+											}
+										}?>
+									</ul>
+								</div>
+							</div>
+							<div class="clearfix"></div>
+							<div class="review_bblock_12">
+								<ul>
+									<li><span><img src="images/user.png" alt="user"></span>{{$rev->review->user_name}}</li>
+									<li><span><img src="images/cals.png"></span>{{date('M d, Y',strtotime(@$rev->review_date))}}</li>
+								</ul>
+							</div>
+							<div class="clearfix"></div>
+							<div class="review_ddes">{{@$rev->comments}}.</div><hr>
+						@endforeach
+					@endif
+				</div>
             </div>
         </div>
     </div>
 </div>
 </div>
-
 @include('layout.footer')
-
-<!-- Return to Top -->
-<a href="javascript:" id="return-to-top"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
-</div>
-<!--wrapper end-->
-
-<script>
-    // ===== Scroll to Top ==== 
-    $(window).scroll(function() {
-        if ($(this).scrollTop() >= 50) { // If page is scrolled more than 50px
-            $('#return-to-top').fadeIn(200); // Fade in the arrow
-        } else {
-            $('#return-to-top').fadeOut(200); // Else fade out the arrow
-        }
-    });
-    $('#return-to-top').click(function() { // When arrow is clicked
-        $('body,html').animate({
-            scrollTop: 0 // Scroll to top of body
-        }, 500);
-    });
-</script>
+<script type="text/javascript" src="js/jquery.slimscroll.js"></script>
 <script>
     var marker;
     var input;
@@ -362,94 +352,15 @@
     var longitude = document.getElementById('longitude').value;
     var lattitude = document.getElementById('lattitude').value;
     google.maps.event.addDomListener(window, 'load', initialize(lattitude, longitude));
+	
+	$(function(){
+		$('.reviewarea').slimScroll({
+			height: '300px',
+			scrollTo: '200500px' 
+		});
+	}); 
 </script>
 <!--wrapper end-->
-<div id="myModal1" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <!-- Review Modal content-->
-        <div class="modal-content bborder_bottom">
-            <div class="modal-header review_modal_header">
-                <button type="button" class="close cllose" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i>
-                </button>
-                <h4 class="modal-title">Portfolio </h4>
-            </div>
-            <div class="modal-body review_modal_body1 NopaddB">
-                <div class="col-md-12 popad">
-                    <div class="recomnd">
-                        <div class="radio_area port_pop">
-                            <form action="prof-description-portpolio-block" id="portpolio-frm" method="post" enctype="multipart/form-data">
-                                {{csrf_field()}}
-                                <div class="col-md-6">
-                                    <div class="before_image view-first"></div>
-                                    <div class="upload_icon">
-                                        <div class="Uploadbtn">
-                                            <input type="file" id="before_image_file_id" name="before_image" class="input-upload required">
-                                            <span><b>choose before image</b> <i><img src="images/ddownload.png"></i></span>
-                                        </div>
-                                    </div>
-                                    <div class="upload_caption">
-                                        <input type="text" class="form-control builder_type required" name="efore_image_caption" placeholder="Before image caption">
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="after_image view-first"></div>
-                                    <div class="upload_icon">
-                                        <div class="Uploadbtn">
-                                            <input type="file" id="after_image_file_id" name="after_image" class="input-upload required">
-                                            <span> <b>choose after image</b> <i><img src="images/ddownload.png"></i></span>
-                                        </div>
-                                    </div>
-                                    <div class="upload_caption">
-                                        <input type="text" class="form-control builder_type required" name="after_image_caption" placeholder="After image caption">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="submit" class="btn btn-primary mark_com pull-left post_bbttn" vlaue="Submit">
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div id="myModal2" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <!-- Review Modal content-->
-        <div class="modal-content bborder_bottom">
-            <div class="modal-header review_modal_header">
-                <button type="button" class="close cllose" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i>
-                </button>
-                <h4 class="modal-title">Logo </h4>
-            </div>
-            <div class="modal-body review_modal_body1 NopaddB">
-                <div class="col-md-12 popad">
-                    <div class="recomnd modal_logo">
-                        <div class="radio_area port_pop">
-                            <form action="prof-description-logo-block" id="logo-frm" method="post" enctype="multipart/form-data">
-                                {{csrf_field()}}
-                                <div class="col-md-12">
-                                    <div class="logo_view_image view-first"></div>
-                                    <div class="upload_icon">
-                                        <div class="Uploadbtn">
-                                            <input type="file" name="logo_image" id="logo_image" class="input-upload required">
-                                            <span> <b>Upload</b> <i><img src="images/ddownload.png"></i></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12" style="margin-top:15px;">
-                                    <input type="submit" class="btn btn-primary mark_com pull-left post_bbttn" value="Submit">
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 @if(session()->get('success'))
 <script src="dist/sweetalert.min.js"></script>
 <link rel="stylesheet" type="text/css" href="dist/sweetalert.css">

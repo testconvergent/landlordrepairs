@@ -46,12 +46,12 @@
 						<div class="clearfix"></div>
 						<div class="awarded_btn_group">
 							@if($jobs->invitation_status==2)
-								<div class="bbtn_lleft_p">
-								  <button type="button" class="btn btn-primary mark_com" data-id="{{$jobs->job_invitation_id}}" data-target="#mark_complete">Mark Complete</button>
+								<div class="bbtn_lleft_p mark_as_complete">
+								  <button type="button" class="btn btn-primary mark_com"  data-id="{{$jobs->job_invitation_id}}" data-target="#mark_complete">Mark Complete</button>
 								</div>
 							@elseif($jobs->invitation_status==3)
 								<div class="bbtn_lleft_p">
-								  <button type="button" class="btn btn-primary mark_com1" data-toggle="modal" data-target="#request_feed"> Requst Feedback</button>
+								  <button type="button" class="btn btn-primary mark_com1" data-id="{{$jobs->job_invitation_id}}" data-toggle="modal" data-target="#request_feed">Request Feedback</button>
 								</div>  
 							@endif
 							@if($jobs->invitation_status==2)
@@ -98,12 +98,15 @@
 				<h4 class="modal-title">Mark Completed </h4>
 			</div>
 			<div class="modal-body marks_completed NopaddB">
-				<form action="provider-mark-complete-job" method="post">
+				<form action="provider-mark-complete-job" method="post" id="provider-mark-complete-job">
 				{{csrf_field()}}
 					<h3><i class="fa fa-check-circle" aria-hidden="true"></i>
-					<span>The job is marked as completed and costomers are notofied</span></h3>
+					<span>The job is marked as completed and costomers are notified</span></h3>
 					<input type="hidden" name="invitation_id" id="invitation_id">
-					<button type="submit" class="btn btn-primary mark_com">Completed</button>
+					<div class="form-group">				  
+					  <textarea class="form-control" rows="5" name="request_feedback" id="comment"></textarea>
+					</div>
+					<button type="submit" class="btn btn-primary mark_com">Submit</button>
 				</form>
 			</div>
 		</div>
@@ -150,6 +153,14 @@
 			</div>
 			<div class="modal-body request_feed_msg">
 				<h3><i class="fa fa-commenting-o" aria-hidden="true"></i> Your feedback request is send to the customer. </h3>
+			<form action="request-feedback" method="post" id="request-feedback">
+			 {{csrf_field()}}
+			   <input type="hidden" name="invitation_master_id" id="invitation_master_id" value="">
+				<div class="form-group">				  
+				  <textarea class="form-control" rows="5" name="request_feedback" id="comment"></textarea>
+				</div>
+				<button type="submit" class="btn btn-primary mark_com">Submit</button>
+			</form>
 			</div>
 		</div>
 	</div>
@@ -157,13 +168,15 @@
 @include('layout.builder_footer')
 <script>
 $(document).ready(function() {
-   $('.mark_com').click(function(){
+   $('.mark_as_complete .mark_com').click(function(){
 		$('#mark_complete').modal('show');   
 	}); 
 });
 $("#awarded_job_filter").change(function(){
 	$(this).closest('form').submit();
 });
+$('#provider-mark-complete-job').validate();
+$('#request-feedback').validate();
 </script> 
 <script>
 	$('[data-id]').click(function(){
@@ -172,7 +185,10 @@ $("#awarded_job_filter").change(function(){
 		//$('.modal-title').text('Reply for '+modal_title);
 		$('#invitation_id').val(id);
 	});
-
+$("button:contains('Request Feedback')").click(function(){
+	var id=$(this).attr('data-id');
+	$("#invitation_master_id").val(id);
+});
 </script>
 @if(session()->get('success'))
 <script src="dist/sweetalert.min.js"></script>

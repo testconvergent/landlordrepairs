@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class proposalMail extends Mailable
+class requestFeedback extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -16,10 +16,10 @@ class proposalMail extends Mailable
      *
      * @return void
      */
-	public $proposal;
-    public function __construct($proposalDetails)
+	public $request_feedback;
+    public function __construct($request_feedback)
     {
-        $this->proposal=$proposalDetails;
+        $this->request_feedback=$request_feedback;
     }
 
     /**
@@ -27,8 +27,8 @@ class proposalMail extends Mailable
      *
      * @return $this
      */
-    public function build(){
-		$data['proposal']=$this->proposal;
-        return $this->view('mail.proposal',$data)->subject($this->subject)->from($this->from);
+    public function build()
+    {
+        return $this->view('mail.request_feedback')->subject($this->request_feedback->subject)->from($this->request_feedback->provider_email);
     }
 }

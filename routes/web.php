@@ -39,11 +39,11 @@ Route::post('/review-post','HomeController@review_post')->middleware('user_logou
 Route::get('/delete-job/{id}','HomeController@delete_job')->middleware('user_logout');
 Route::post('/invited-builder','UserController@invited_builder')->middleware('user_logout');
 Route::get('/my-invited','UserController@my_invited')->middleware('user_logout');
-Route::post('/provider-quote-submit','UserController@provider_quote_submit')->middleware('user_logout');
-Route::match(['get','post'],'/my-awarded-job','UserController@awarded_provider_job')->middleware('user_logout');
-Route::post('/provider-quote-submit','UserController@provider_quote_submit')->middleware('user_logout');
-Route::post('/provider-mark-complete-job','UserController@provider_mark_complete_job')->middleware('user_logout');
 
+Route::match(['get','post'],'/my-awarded-job','UserController@awarded_provider_job')->middleware('user_logout');
+Route::post('/provider-quote-submit','ProviderController@provider_quote_submit')->middleware('user_logout');
+Route::post('/provider-mark-complete-job','ProviderController@provider_mark_complete_job')->middleware('user_logout');
+Route::post('/request-feedback','ProviderController@request_feedback')->middleware('user_logout');
 /*Admin*/
 Route::get('/admin',function(){	return view('admin.admin_login');});
 Route::post('admin-login','admin\HomeController@login');

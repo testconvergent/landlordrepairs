@@ -12,6 +12,7 @@ use App\JobAttachment;
 use App\JobInvitation;
 use App\JobToJobCategory;
 use App\UsersToLogo;
+use App\UsersToReview;
 use Illuminate\Http\Request;
 use Faker\Generator as Faker;
 use Carbon\Carbon as Carbon;
@@ -20,12 +21,11 @@ class UserController extends Controller
 	public function my_profile(Request $request){		
 	  $userId=$request->session()->get('user_id');
 	  $user_type=$request->session()->get('user_type');
-	  $provider_details=User::provider($userId)
-						->with('get_providers_details')
-						->first();
+	  $provider_details=User::provider($userId)->with('get_providers_details')->first();
 							
 	  if(count($provider_details)){		 
 		 $data=$this->getProviderDetails($userId);
+		 $data['review']=$this->getreview($userId);
 		 return view('my_profile',$data);  
 	  }else{
 			return redirect('my-jobs');
@@ -177,10 +177,16 @@ class UserController extends Controller
 		$tradesman_pro_details=User::tradesManProfile($profile_slag)->first();		
 		if(count($tradesman_pro_details)){
 			$data=$this->getProviderDetails($tradesman_pro_details->user_id);
+			$data['review']=$this->getreview($tradesman_pro_details->user_id);
 			return view('tradesman_profile',$data);			
 		}else{
 			//abort(404);
 		}
+	}
+	public function getreview($buider_id){
+		$review = UsersToReview::where('builder_id',$buider_id)->with('review')->get();
+		//dd($review->review->user_name);
+		return $review;
 	}
 	public function getProviderDetails($userId){		
 	  $provider_details=User::provider($userId)
@@ -391,21 +397,8 @@ class UserController extends Controller
 								->with('categoryDetails.category')
 								->get();
 						
-		 $data['provider_job_invitation']=$provider_job_invitation;	
+		$data['provider_job_invitation']=$provider_job_invitation;	
 		return view('builder_awarded_jobs',$data);
 	}
-	public function provider_mark_complete_job(Request $request){
-		if ($request->isMethod('post')){
-			$invitation_id=$request->invitation_id;
-			$invitation_details = JobInvitation::find($invitation_id);
-			$invitation_details->invitation_status =3;	//3 for job marked as completed	
-			$invitation_details->save();
-			$job_id=$invitation_details->job_id;
-			$job_details= Jobs::find($job_id);
-			$job_details->job_status=4;   // 4 for completed job
-			$job_details->save();					
-			session()->flash('success','Successfully submited your status.'); 
-			return redirect('my-awarded-job');
-		}
-	}
+	
 }
