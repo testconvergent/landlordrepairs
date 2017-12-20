@@ -25,11 +25,12 @@ class JobController extends Controller
 											if(@$category_id)$query->where('category_id', $category_id);
 									})
 								->paginate(25);
+							
 		$data['posted_job_details']=$posted_job_details;
 		}else{		
 		$posted_job_details =JobToJobCategory::with('job.users','category')->paginate(25);
 		$data['posted_job_details']=$posted_job_details;
-		}
+		}        		
 		$data['category_details']=JobCategory::all();	
 		return view('admin.posted_job_list',$data);
 	}

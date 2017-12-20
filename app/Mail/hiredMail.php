@@ -16,9 +16,10 @@ class hiredMail extends Mailable
      *
      * @return void
      */
-    public function __construct()
+	public $hired;
+    public function __construct($hiredDetails)
     {
-        //
+        $this->hired=$hiredDetails;
     }
 
     /**
@@ -28,6 +29,7 @@ class hiredMail extends Mailable
      */
     public function build()
     {
-        return $this->view('view.name');
+		$data['hired']=$this->hired;
+        return $this->view('mail.hired',$data))->subject($this->subject)->from('noreply@landlordrepairs.uk');
     }
 }

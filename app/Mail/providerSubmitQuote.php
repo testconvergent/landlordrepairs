@@ -16,9 +16,10 @@ class providerSubmitQuote extends Mailable
      *
      * @return void
      */
-    public function __construct()
+	public $quote_details;
+    public function __construct($quote_details)
     {
-        //
+        $this->quote_details=$quote_details;
     }
 
     /**
@@ -27,7 +28,7 @@ class providerSubmitQuote extends Mailable
      * @return $this
      */
     public function build()
-    {
-        return $this->view('view.name');
+    {	$data['quote_details']=$this->quote_details;
+        return $this->view('mail.provider_submit_quote',$data)->subject($this->quote_details->subject)->from('noreply@landlordrepairs.uk');
     }
 }

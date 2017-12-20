@@ -21,7 +21,7 @@
 							</div>
 							<div class="clearfix"></div>
 							<div class="awaded_des">
-								<p class="show">{{@$job->job_details}}</p>
+								<p>{{str_limit(@$job->job_details,200)}}</p>
 							</div>
 							<div class="clearfix"></div>
 							<div class="jobs_given_block">
@@ -35,7 +35,11 @@
 								<div class="col-sm-8 col-lg-10 col-md-9 col-xs-9 W100 nnpadd">
 									<h3 class="pull-left nopadss">{{$job->user_name}}</h3>
 									@if($job->invitation_status == 3)
-										<button type="button" class="btn btn-primary mark_com pull-right MargL15 review" data-id="{{$job->job_id}}" data-builder_id="{{$job->to_user_id}}">Post Review</button>
+										@if($job->is_review == 0)
+											<button type="button" class="btn btn-primary mark_com pull-right MargL15 review" data-id="{{$job->job_id}}" data-builder_id="{{$job->to_user_id}}">Post Review</button>
+										@else
+											<div class="reviewd"><i class="fa fa-check-circle" aria-hidden="true"></i> Reviewed</div>
+										@endif
 									@endif
 									<div class="clearfix"></div>
 									@if($job->invitation_status == 3)
@@ -49,7 +53,7 @@
 									@endif
 									@if($job->invitation_status == 3)
 										<div class="rreport_builders pull-right1 pppl">
-											<a href="#"><span><img src="images/report.png"></span>Report a Builder</a>
+											<a href="javascript:void(0);" data-id="{{$job->job_id}}" data-builder_id="{{$job->to_user_id}}" class="report_builder"><span><img src="images/report.png"></span>Report a Builder</a>
 										</div>
 									@else
 										<div class="rreport_builders pull-right1 ppp2">
@@ -90,7 +94,8 @@
 					<div class="col-sm-12 col-lg-12 col-md-12 popad">
 						<div class="form-group">
 							<label class="control-label pop_label" for="pwd">Review Comments</label>
-							<input class="form-control pop_type" placeholder="Type your comments here..." type="text" name="rev_comment" id="rev_comment">
+							<input class="form-control" placeholder="Type your review title" type="text" name="rev_title" id="rev_title" style="margin-bottom:13px;">
+							<textarea class="form-control pop_type" placeholder="Type your comments here..." name="rev_comment" id="rev_comment"></textarea>
 						</div>
 					</div>
 					<div class="clearfix"></div>
@@ -190,23 +195,54 @@
 		</div>
 	</div>
 </div>  
+<div id="myModal8" class="modal fade" role="dialog">
+	<div class="modal-dialog invite_modil">
+	<!-- Review Modal content-->
+		<div class="modal-content bborder_bottom">
+			<div class="modal-header review_modal_header">
+				<button type="button" class="close cllose" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i></button>
+				<h4 class="modal-title">Report Builder</h4>
+			</div>
+			<div class="modal-body review_modal_body1 NopaddB inv_1">
+				<form class="modal_form_rreview" method="post" action="report-builder" id="report_frm" enctype="multipart/form-data">
+					{{csrf_field()}}
+					<div class="col-sm-12 col-lg-12 col-md-12">
+						<div class="form-group">
+							<label class="control-label" for="pwd">Report Title</label>
+							<input type="text" class="form-control" name="report_title" id="report_title" placeholder="Report Title">
+						</div>
+					</div>
+					<div class="col-sm-12 col-lg-12 col-md-12">
+						<div class="form-group">
+							<label class="control-label">Description</label>
+							<textarea class="form-control" rows="3" id="report_description" name="report_description"></textarea>
+						</div>
+					</div>
+					<input type="hidden" name="job_id" id="report_job_id"/>
+					<input type="hidden" name="builder_id" id="report_builder_id"/>
+					<!--<div class="col-sm-5 col-lg-5 col-md-5">
+						<div class="form-group">
+							<div class="Uploadbtn">
+								<input type="file" id="uploadBtn1" class="input-upload" name="attachment[]" multiple>
+								<span> <b>Upload</b> <i><img src="images/ddownload.png"></i></span>
+							</div>
+							<span class="fil_txt1"></span>
+						</div>
+					</div>-->
+					<div class="col-sm-4 col-lg-4 col-md-4">
+						<span class="span_erro"></span>
+					</div>
+					<div class="col-sm-3 col-lg-3 col-md-3">
+						<button type="submit" class="btn btn-primary mark_com MargT30 post_bbttn">Report Submit</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div> 
 @include('layout.customer_footer')
 <script src="dist/sweetalert.min.js"></script>
 <link rel="stylesheet" type="text/css" href="dist/sweetalert.css">
-<style>
-.show {
-    font:normal 15px arial;
-    text-align: justify;
-	padding: 15px 0 0 0;
-}
-.morectnt span {
-display: none;
-}
-.showmoretxt {
-    font: bold 15px tahoma;
-    text-decoration: none;
-}
-</style>
 <script>
 $(document).ready(function(){
 	$('#job_post_frm,#job_post_frm1').submit(function(){
@@ -256,34 +292,39 @@ $(document).ready(function(){
 		}
 	});
 	$('#review_post').submit(function(){
-		if($('#rev_comment').val() == "")
+		if($('#rev_title').val() == "")
 		{
-			$('.span_erro1').html('Write some comment for this builder');
+			$('.span_erro1').html('Write review title.');
+			return false;
+		}
+		else if($('#rev_comment').val() == "")
+		{
+			$('.span_erro1').html('Write some comment for this builder.');
 			return false;
 		}
 		else if($('input:hidden[name=rev_comment]').val() == "")
 		{
-			$('.span_erro1').html('Give review for quality');
+			$('.span_erro1').html('Give review for quality.');
 			return false;
 		}
 		else if($('#time_rating').val() == "")
 		{
-			$('.span_erro1').html('Give review for on-time');
+			$('.span_erro1').html('Give review for on-time.');
 			return false;
 		}
 		else if($('#price_rating').val() == "")
 		{
-			$('.span_erro1').html('Give review for price');
+			$('.span_erro1').html('Give review for price.');
 			return false;
 		}
 		else if($('#hire_rating').val() == "")
 		{
-			$('.span_erro1').html('Give review for we hire again');
+			$('.span_erro1').html('Give review for we hire again.');
 			return false;
 		}
 		else if($('#recomm_rating').val() == "")
 		{
-			$('.span_erro1').html('Give review for recomm');
+			$('.span_erro1').html('Give review for recomm.');
 			return false;
 		}
 		else
@@ -369,18 +410,27 @@ $(document).ready(function(){
 		$('#builder_id').val($(this).data('builder_id'));
 		$('#myModal7').modal("show");
 	});
-});
-$(function() {
-var showTotalChar = 160, showChar = "", hideChar = "";
-$('.show').each(function() {
-var content = $(this).text();
-if (content.length > showTotalChar) {
-var con = content.substr(0, showTotalChar);
-var hcon = content.substr(showTotalChar, content.length - showTotalChar);
-var txt= con +  '<span class="dots">...</span><span class="morectnt"><span>' + hcon + '</span>&nbsp;&nbsp;<a href="" class="showmoretxt">' + showChar + '</a></span>';
-$(this).html(txt);
-}
-});
+	$('.report_builder').click(function(){
+		$('#report_job_id').val($(this).data('id'));
+		$('#report_builder_id').val($(this).data('builder_id'));
+		$('#myModal8').modal("show");
+	});
+	$('#report_frm').submit(function(){
+		if($(this).find('#report_title').val() == "")
+		{
+			$('.span_erro').html('Write report title.');
+			return false;
+		}
+		else if($(this).find('#report_description').val() == "")
+		{
+			$('.span_erro').html('Write report description.');
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	});
 });
 </script>
 @if(session()->get('success'))

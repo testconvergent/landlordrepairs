@@ -1,5 +1,5 @@
 @if(!$get_user->isEmpty())
-	<p>{{@$get_user{0}->category_name}} for the job <strong>{{@$job->looking_for}} </strong> of the location {{@$job->city}}.</p>
+	<p>{{@$get_user{0}->category_name}} for the job of <strong>{{@$job->looking_for}} </strong> at the location {{@$job->city}}.</p>
 	<div class="scr">		
 		@foreach($get_user as $user)
 			<div class="invite_box">
@@ -42,6 +42,6 @@
 			</div>
 		@endforeach
 		@else
-			<div class="no_invited">No Builder found in some job category of near job location</div>
+			<div class="no_invited">No builder found for the job of <strong>{{@$job->looking_for}} </strong> at the location {{@$job->city}}.</div>
 	</div>
 @endif

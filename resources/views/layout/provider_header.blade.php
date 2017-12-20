@@ -43,8 +43,8 @@
               <div class="profile_pic"> <a href="javascript:void(0)" class="aa"> <img src="images/profile_img.jpg" class="img-circle"> <i class="fa fa-caret-down" aria-hidden="true"></i>
             <div class="dropss_down" style="display:none;">
                   <ul>
-                <li><a href="javascript:void(0)"> <i class="fa fa-angle-double-right" aria-hidden="true"></i> Profile</a> </li>
-                <li><a href="javascript:void(0)"> <i class="fa fa-angle-double-right" aria-hidden="true"></i> Edit Profile </a></li>
+                <li><a href="my-profile"> <i class="fa fa-angle-double-right" aria-hidden="true"></i> Profile</a> </li>
+                <li><a href="my-profile"> <i class="fa fa-angle-double-right" aria-hidden="true"></i> Edit Profile </a></li>
                 <li><a href="javascript:void(0)"> <i class="fa fa-angle-double-right" aria-hidden="true"></i> Settings</a> </li>
                 <li><a href="javascript:void(0)"> <i class="fa fa-angle-double-right" aria-hidden="true"></i> Recommend us </a></li>
                 <li><a href="logout"> <i class="fa fa-angle-double-right" aria-hidden="true"></i> Logout </a></li>

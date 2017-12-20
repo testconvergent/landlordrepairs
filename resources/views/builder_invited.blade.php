@@ -1,7 +1,7 @@
 @extends('layout.app') 
 @section('title','My Profile') @section('body')
 <!--wrapper start-->
-<div class="row Nomarg" >
+<div class="row Nomarg">
     @include('layout.provider_header')
     <div class="inner_banner_builder NopaddB" style="margin-bottom: 21px;"> <img src="images/inner_banner.jpg" alt="inner_banner"> </div>
 </div>
@@ -12,7 +12,7 @@
 				@foreach($provider_job_invitation as $jobs)
 				<div class="col-sm-6 col-lg-6 col-md-6">
 					<div class="awaded_jobs_block">	
-						<h3>{{ $jobs->categoryDetails->category->category_name}}</h3>
+						<h3>{{ $jobs->providerJobDetails[0]->looking_for}}</h3>
 						<div class="clearfix"></div>
 						<div class="awaded_type">
 							<ul>
@@ -22,7 +22,7 @@
 						</div>
 						<div class="clearfix"></div>
 						<div class="awaded_des">
-							<p>{{str_limit($jobs->providerJobDetails[0]->job_details,50)}}</p>
+							<p>{{str_limit($jobs->providerJobDetails[0]->job_details,200)}}</p>
 						</div>
 						<div class="clearfix"></div>
 						<div class="mob_block">
@@ -40,13 +40,20 @@
 							@if($jobs->invitation_status==0)
 								<button type="button" data-toggle="modal" data-modal-title="{{ $jobs->categoryDetails->category->category_name}}" data-id="{{$jobs->job_invitation_id}}" data-target="#myModal1" class="btn btn-primary respondent">Respond</button>
 							@elseif($jobs->invitation_status==1)
-								<div class="reponded">Responded</div>
+								<div class="repondeded"><i class="fa fa-check-circle" aria-hidden="true"></i> Responded</div>
 							@endif 
 							</div>
 							<div class="mail_msg">
 							@if($jobs->invitation_status==0)
 								<p><img src="images/mails.png"><span>you have been invited </span></p>
 							@elseif($jobs->invitation_status==1)
+								<p><img src="images/mails.png"><span>waiting for customer response </span></p>
+							@endif
+							</div>
+							<div class="mail_msg">
+							@if($jobs->invitation_status==4)
+								<p><img src="images/mails.png"><span>Your request for bid has been rejected</span></p>
+							@elseif($jobs->invitation_status==4)
 								<p><img src="images/mails.png"><span>waiting for customer response </span></p>
 							@endif
 							</div>
@@ -71,7 +78,7 @@
 								</li>
 								<li class="lloc_2">
 								<span><img src="images/ccal.png" >
-								</span>Deadline: {{ Carbon\Carbon::parse($jobs->providerJobDetails[0]->deadline)->format('D j-M Y') }}
+								</span>Deadline: {{ Carbon\Carbon::parse($jobs->providerJobDetails[0]->deadline)->format('d F Y') }}
 								</li>				
 							</ul>
 						</div>

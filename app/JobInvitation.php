@@ -18,7 +18,7 @@ class JobInvitation extends Model
      */
     public $timestamps = false;
 	public function scopeInvitedProvider($query,$provider_id){
-		return $query->where('to_user_id',$provider_id)->whereIn('invitation_status',[0,1]);
+		return $query->where('to_user_id',$provider_id)->whereIn('invitation_status',[0,1,4]);
 	}
 	public function scopeNewJobInvitation($query,$provider_id){
 		return $query->where('to_user_id',$provider_id)->where('invitation_status',0)->where('invitation_read',0);

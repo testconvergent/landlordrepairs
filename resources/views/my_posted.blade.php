@@ -163,8 +163,8 @@
 						<div class="form-group">
 							<label class="control-label" for="pwd">City</label>
 							<input type="text" class="form-control" name="city" id="address" placeholder="City">
-							<input type="hidden" id="longitude" name="longitude">
-							<input type="hidden" id="lattitude" name="lattitude">
+							<input type="hidden" id="address_longitude" name="longitude">
+							<input type="hidden" id="address_lattitude" name="lattitude">
 						</div>
 					</div>
 					<div class="col-sm-6 col-lg-6 col-md-6">
@@ -256,6 +256,12 @@ display: none;
 }
 </style>
 <script>
+$(document).on('click','.read_more',function(event){
+event.preventDefault();
+$(this).parents('.invite_box').find('.show1').toggle();
+$(this).parents('.invite_box').find('.collapse').collapse('toggle');
+});
+
 $(document).ready(function(){
 	$('#job_post_frm,#job_post_frm1').submit(function(){
 		if($(this).find('#job_type_id').val() == "")
@@ -406,6 +412,8 @@ $(document).ready(function(){
 				{
 					$('#invite_'+builder_id).html('<i class="fa fa-check-circle" aria-hidden="true"></i> invited');
 					$('#invite_'+builder_id).removeClass('invited_user');
+					$('#invite_'+builder_id).removeClass('invite_btn');
+					$('#invite_'+builder_id).addClass('invited_btn');
 				}
 				//$('.scr').html(result.user_html);	
 			},
@@ -430,8 +438,11 @@ $(document).ready(function(){
 				//alert(result.hired);
 				if(result.hired == 1)
 				{
-					$('#hire_'+job_invitation_id).html('<i class="fa fa-handshake-o" aria-hidden="true"></i> Hired');
+					/* $('#hire_'+job_invitation_id).html('<i class="fa fa-handshake-o" aria-hidden="true"></i> Hired');
 					$('#hire_'+job_invitation_id).removeClass('hired');
+					$('#hire_'+job_invitation_id).removeClass('invite_btn');
+					$('#hire_'+job_invitation_id).addClass('invited_btn'); */
+					window.location.assign('<?php echo url('jobs-given');?>');
 				}
 				//$('.scr').html(result.user_html);	
 			},
@@ -529,8 +540,8 @@ var autocomplete = new google.maps.places.Autocomplete(input,acOptions1);
  google.maps.event.addListener(autocomplete, 'place_changed', function() {
 //input.className = '';
 var place = autocomplete.getPlace();
-document.getElementById('longitude').value = place.geometry.location.lng();
-document.getElementById('lattitude').value = place.geometry.location.lat();
+document.getElementById('address_longitude').value = place.geometry.location.lng();
+document.getElementById('address_lattitude').value = place.geometry.location.lat();
 });
 
 $(function() {

@@ -18,139 +18,7 @@ use Faker\Generator as Faker;
 use Carbon\Carbon as Carbon;
 class UserController extends Controller
 {
-	public function my_profile(Request $request){		
-	  $userId=$request->session()->get('user_id');
-	  $user_type=$request->session()->get('user_type');
-	  $provider_details=User::provider($userId)->with('get_providers_details')->first();
-							
-	  if(count($provider_details)){		 
-		 $data=$this->getProviderDetails($userId);
-		 $data['review']=$this->getreview($userId);
-		 return view('my_profile',$data);  
-	  }else{
-			return redirect('my-jobs');
-		}
-	}
-	public function prof_description_first_block(Request $request){
-		$userId=$request->session()->get('user_id');
-		if(@$request->all()){			
-			$user_details = User::find($userId);
-			$user_details->prof_description =$request->user_prof_description;
-			$user_details->prof_title=$request->prof_title;
-			$user_details->save();
-			session()->flash('success','Successfully updated your profile details.'); 
-			return redirect('my-profile');
-		}
-	}
-	public function prof_description_secend_block(Request $request){
-		$userId=$request->session()->get('user_id');
-		if(@$request->all()){
-			//dd($request->all());			
-			$user_details = User::find($userId);
-			$user_details->primary_trade =$request->primary_trade;
-			$user_details->address=$request->location;
-			$user_details->lattitude=$request->lattitude;
-			$user_details->longitude=$request->longitude;
-			$user_details->team=$request->team;
-			$user_details->year_in_biz=$request->year_in_biz;
-			$user_details->working_hours=$request->from_time.'-'.$request->to_time;
-			$user_details->qualification=$request->qualification;
-			$user_details->emergency_job=$request->emergency_job;
-			$user_details->insurance=$request->insurance;
-			$user_details->holiday_notification=$request->holiday_notification;
-			$user_details->save();
-			session()->flash('success','Successfully updated your profile details.'); 
-			return redirect('my-profile');
-		}
-		
-	}
-	public function prof_description_portpolio_block(Request $request){
-		$userId=$request->session()->get('user_id');
-		if(@$request->all()){			
-		$this->validate($request, [
-            'before_image' => 'required|image|mimes:jpeg,png,jpg',
-            'after_image' => 'required|image|mimes:jpeg,png,jpg',
-        ]);
-			$before_image = 'before_'.time().'.'.$request->before_image->getClientOriginalExtension();
-			//$destinationPath = public_path('portpolio_thumbnail');
-			//$thumb_img = Image::make($request->before_image->getRealPath())->resize(210, 178);
-			//$request->before_image->move($destinationPath.'/'.$before_image,80);
-
-			$destinationPath = public_path('/portpolio_normal');
-			$request->before_image->move($destinationPath, $before_image);
-			
-			$after_image = 'after_'.time().'.'.$request->after_image->getClientOriginalExtension();
-			//$destinationPath = public_path('portpolio_thumbnail');
-			//$thumb_img = Image::make($request->after_image->getRealPath())->resize(210, 178);
-			//$request->after_image->move($destinationPath.'/'.$after_image,80);
-
-			$destinationPath = public_path('/portpolio_normal');
-			$request->after_image->move($destinationPath, $after_image);			
-			$portpolio_details = new UsersToPortFolio;			
-			$portpolio_details->before_image =$before_image;
-			$portpolio_details->after_image=$after_image;
-			$portpolio_details->before_image_caption=$request->before_image_caption;
-			$portpolio_details->after_image_caption=$request->after_image_caption;
-            $portpolio_details->user_id=$userId;			
-			$portpolio_details->save();
-            session()->flash('success','Your portfolio added successfully.'); 			
-			return redirect('my-profile');
-		}
-		
-	}
-	public function prof_description_logo_block(Request $request){
-		$userId=$request->session()->get('user_id');
-		if(@$request->all()){
-		 $this->validate($request, [           
-            'logo_image' => 'required|image|mimes:jpeg,png,jpg',
-			]);
-			$logo_image =time().'.'.$request->logo_image->getClientOriginalExtension();
-
-			$destinationPath = public_path('logo_image');
-			//$thumb_img = Image::make($request->logo_image->getRealPath())->resize(150, 95);
-			//$thumb_img->save($destinationPath.'/'.$logo_image,80);
-			
-			//$destinationPath = public_path('portpolio_thumbnail');
-			//$thumb_img = Image::make($request->after_image->getRealPath())->resize(210, 178);
-			//$request->after_image->move($destinationPath.'/'.$after_image,80);
-			//$destinationPath = public_path('/portpolio_normal');
-			$request->logo_image->move($destinationPath, $logo_image);
-			$user_details = new UsersToLogo;			
-			$user_details->logo_image =$logo_image;			
-			$user_details->user_id=$userId;
-			$user_details->save();
-			session()->flash('success','Your logo added successfully.'); 
-			return redirect('my-profile');
-		}
-	}
-	public function prof_pic_upload(Request $request){
-		$userId=$request->session()->get('user_id');
-		if(@$request->all()){		 	
-		 $this->validate($request, [           
-            'prof_image' => 'required|image|mimes:jpeg,png,jpg',
-			]);
-			$prof_image =time().'.'.$request->prof_image->getClientOriginalExtension();
-			$destinationPath = public_path('prof_image');
-			//$thumb_img = Image::make($request->prof_image->getRealPath())->resize(149, 149);
-			//$thumb_img->save($destinationPath.'/'.$prof_image,80);
-			$request->prof_image->move($destinationPath, $prof_image );
-			$user_details = User::find($userId);
-			$user_details->prof_image =$prof_image;
-			$user_details->save();
-			session()->flash('success','Profile picture change successfully.'); 
-			return redirect('my-profile');
-		}
-	}
-	public function prof_description_third_block(Request $request){
-		$userId=$request->session()->get('user_id');
-		if(@$request->all()){					
-			$user_details = User::find($userId);
-			$user_details->qualification =$request->qualification;			
-			$user_details->save();
-			session()->flash('success','Successfully updated your qualification.'); 
-			return redirect('my-profile');
-		}
-	}
+	
 	public function get_details(Request $request,Faker $faker){
 		 //$userId=$request->session()->get('user_id');
 				//echo new Carbon('first day of this week'); 
@@ -182,63 +50,21 @@ class UserController extends Controller
 		}else{
 			//abort(404);
 		}
-	}
-	public function getreview($buider_id){
-		$review = UsersToReview::where('builder_id',$buider_id)->with('review')->get();
-		//dd($review->review->user_name);
-		return $review;
-	}
-	public function getProviderDetails($userId){		
-	  $provider_details=User::provider($userId)
-						->with('get_providers_details')
-						->first();
-	  $provider_portpolio=UsersToPortFolio::where('user_id',$userId)->get();	  
-	  $provider_all_category=JobCategory::active()->get();
-	  $provider_logo=UsersToLogo::where('user_id',$userId)->get();
-	  if(!@$provider_details->prof_image)$provider_details->prof_image='blank-profile-picture.png';
-	  $data['prof_image']=asset('public/prof_image/'.$provider_details->prof_image);
-	  $data['prof_title']=$provider_details->prof_title;
-	  $data['prof_description']=$provider_details->prof_description;	
-	  
-	  $data['provider_primary_trade']=$provider_details->get_providers_details->category_name;
-	  $data['provider_primary_id']=$provider_details->get_providers_details->category_id;
-	  $data['year_in_biz']=$provider_details->year_in_biz;
-	  $data['qualification']=$provider_details->qualification;	  
-	 
-	  $data['location']=$provider_details->address;	 
-      $data['insurance']=($provider_details->insurance==1)?'Yes':'No';	
-      $data['emergency_job']=($provider_details->emergency_job==1)?'Yes':'No';
-	  
-	  $data['team']=$provider_details->team;
-	  if(@$provider_details->working_hours){
-		  $working_hours=explode('-',$provider_details->working_hours);
-		   $data['hours_from']=$working_hours[0];
-		   $data['hours_to']=$working_hours[1];
-	  }else{
-		   $data['hours_from']='';
-		   $data['hours_to']='';
-	  }
-	  
-	  $data['working_hours']=$provider_details->working_hours;
-	  $data['member_since']=date('jS M Y',strtotime($provider_details->registration_date));
-	  
-	  $data['lattitude']=$provider_details->lattitude;
-	  $data['longitude']=$provider_details->longitude;
-	  $data['holiday_notification']=($provider_details->holiday_notification==1)?'checked':null;
-	  $data['provider_category']=$provider_all_category;
-  	
-	  $data['port_polio']=$provider_portpolio;
-	  $data['provider_logo']=$provider_logo;
-	  return $data;
-	}
+	}	
 	public function invited_builder_list(Request $request){
 		$get_job_category = DB::table(TBL_JOB_TO_CATEGORY)->where('job_id',$request->job_id)->first();
 		$get_job = DB::table(TBL_JOB_POST)->where('job_id',$request->job_id)->first();
+		//echo "<pre>";print_r($get_job);
 		if(count($get_job_category)>0 && count($get_job)>0 && $get_job->user_id == session()->get('user_id'))
 		{
-			$get_user = DB::table(TBL_USER)->select('user_id','user_name','email','user_slug','prof_description','prof_image','tot_review','avg_review',TBL_JOB_CATEGORY.'.category_name')
+			$get_user = DB::table(TBL_USER)
+			->select('user_id','user_name','email','user_slug','prof_description','prof_image','tot_review','avg_review','lattitude','longitude',TBL_JOB_CATEGORY.'.category_name')
+			->addSelect(DB::raw("(3956 * 2 * ASIN(SQRT(POWER(SIN((CAST($get_job->lattitude AS decimal(10,6)) - lattitude) * pi()/180 / 2), 2) + COS(CAST($get_job->lattitude AS decimal(10,6)) * pi()/180) * COS(lattitude * pi()/180) * POWER(SIN((CAST($get_job->longitude AS decimal(10,6)) - longitude) * pi()/180 / 2), 2)))) as distance"))
 			->leftJoin(TBL_JOB_CATEGORY,TBL_USER.'.primary_trade','=',TBL_JOB_CATEGORY.'.category_id')
-			->where('primary_trade',$get_job_category->category_id)->get();
+			->where('primary_trade',$get_job_category->category_id)
+			->having('distance','<=',32.1869) //20 miles =32.1869km
+			->orderBy('distance','asc')
+			->get();			
 			//echo "<pre>";print_r($get_user);die;
 			
 			$returnHTML = view('ajax_page.invited_builder')->with('get_user', $get_user)->with('job_id',$request->job_id)->with('job',$get_job)->render();
@@ -268,20 +94,7 @@ class UserController extends Controller
 			echo json_encode($responce);
 		}
 	}
-	public function my_invited(Request $request){  
-		 $userId=$request->session()->get('user_id');
-	     $user_type=$request->session()->get('user_type');
-		 $provider_job_invitation=JobInvitation::invitedProvider($userId)
-					->with('providerJobDetails.jobType','providerJobDetails.users')					
-					->with('categoryDetails.category')
-					->get();
-/*--------------Read new job invitation------------------------*/
-		 $readNewInvitation=JobInvitation::newJobInvitation($userId)
-							->update(['invitation_read' => 1]);
- /*------------Read new job invitation------------------------*/
-		 $data['provider_job_invitation']=$provider_job_invitation;
-		 return view('builder_invited',$data);
-	}
+	
 	public function provider_quote_submit(Request $request){		
 		//return view('mail.proposal');
 		if(@$request->all()){			
@@ -330,7 +143,7 @@ class UserController extends Controller
 			$proposal_details->looking_for=$proposal_for;
 			$proposal_details->subject='Proposal for '.$proposal_for;			
 			$data['proposal']=$proposal_details;			
-			//Mail::to($customer_email)->send(new App\Mail\proposalMail($proposal_details));			
+			Mail::to($customer_email)->send(new App\Mail\proposalMail($proposal_details));			
 			session()->flash('success','Successfully submited your quote.'); 
 			return redirect('my-invited');
 		}
@@ -359,46 +172,54 @@ class UserController extends Controller
 			'awarded_job_date'=>date('Y-m-d')
 			);
 			DB::table(TBL_JOB_INVITATION)->where('job_invitation_id',$request->job_invitation_id)->update($update);
+			$update_lost = array(
+			'invitation_status'=>4
+			);
+			DB::table(TBL_JOB_INVITATION)
+			->where('job_invitation_id','!=',$request->job_invitation_id)
+			->where('job_id',$fetch->job_id)
+			->where('from_user_id',session()->get('user_id'))
+			->update($update_lost);
+			$update_job = array('job_status'=>3);
+			DB::table(TBL_JOB_POST)->where('job_id',$fetch->job_id)->update($update_job);
+			$get_user = DB::table(TBL_USER)->select('job_win','user_name','email')->where('user_id',$fetch->to_user_id)->first();
+			$update_builder = array(
+			'job_win'=>$get_user->job_win+1
+			);
+			DB::table(TBL_USER)->where('user_id',$fetch->to_user_id)->update($update_builder);
+			/*Job Hired Mail*/
+				$get_job = DB::table(TBL_JOB_POST)->select(TBL_JOB_POST.'.*',TBL_JOB_CATEGORY.'.category_name',TBL_JOB_TYPE.'.job_type_name')
+				->leftJoin(TBL_JOB_TO_CATEGORY,TBL_JOB_POST.'.job_id','=',TBL_JOB_TO_CATEGORY.'.job_id')
+				->leftJoin(TBL_JOB_CATEGORY,TBL_JOB_TO_CATEGORY.'.category_id','=',TBL_JOB_CATEGORY.'.category_id')
+				->leftJoin(TBL_JOB_TYPE,TBL_JOB_POST.'.job_type_id','=',TBL_JOB_TYPE.'.job_type_id')
+				->where(TBL_JOB_POST.'.job_id',$fetch->job_id)->first();
+				$customer = fetch_user(session()->get('user_id'));
+				$hire_details=new \StdClass();
+				$email = $get_user->email;
+				$hire_details->subject='Hired for '.$get_job->looking_for;
+				$hire_details->looking_for=$get_job->looking_for;
+				$hire_details->provider_name=$get_user->user_name;
+				$hire_details->customer_name=$customer->user_name;
+				$hire_details->category_name=$get_job->category_name;
+				$hire_details->job_type=$get_job->job_type_name;
+				$hire_details->job_price=$get_job->budget;
+				$hire_details->hire_price=$fetch->price;
+				//Mail::to($email)->send(new App\Mail\hiredMail($hire_details));	
+			/*Job Hired Mail*/
 			$responce = array('hired'=>1);
 			echo json_encode($responce);
 		}
 	}
-	public function awarded_provider_job(Request $request){	
-		$to_date='';
-		$form_date='';
-		$date = new \DateTime();
-		if ($request->isMethod('post')) {
-				$filter_type=$request->job_filter;					
-				switch($filter_type){
-					case 'this week' :
-					$date->modify($filter_type);
-					$form_date =$date->format('Y-m-d');
-					$date->modify('+6 days');				
-					$to_date=$date->format('Y-m-d');
-					break;
-					case 'last week' :
-					$date->modify($filter_type);
-					$form_date =$date->format('Y-m-d');
-					$date->modify('+6 days');				
-					$to_date=$date->format('Y-m-d');
-					break;
-					case 'last month' :
-					$month_ini = new \DateTime("first day of last month");
-					$month_end = new \DateTime("last day of last month");
-					$form_date= $month_ini->format('Y-m-d'); 
-					$to_date= $month_end->format('Y-m-d'); 
-					break;
-			  }			
+	public function report_builder(Request $request)
+	{
+		if(@$request->all())
+		{
+			$insert = array();
+			$insert['report_title'] = $request->report_title;
+			$insert['report_description'] = $request->report_description;
+			$insert['job_id'] = $request->job_id;
+			$insert['builder_id'] = $request->builder_id;
 		}
-		$userId=$request->session()->get('user_id');
-		$provider_job_invitation=JobInvitation::awaredProvider($userId)
-								->filterBydate($form_date,$to_date)
-								->with('providerJobDetails.jobType','providerJobDetails.users')					
-								->with('categoryDetails.category')
-								->get();
-						
-		$data['provider_job_invitation']=$provider_job_invitation;	
-		return view('builder_awarded_jobs',$data);
 	}
-	
+	/* SELECT * , (3956 * 2 * ASIN(SQRT( POWER(SIN(( 78.751956 - lattitude) * pi()/180 / 2), 2) +COS( 78.751956 * pi()/180) * COS(lattitude * pi()/180) * POWER(SIN(( 43.690306 - longitude) * pi()/180 / 2), 2) ))) as distance from users having distance <= 10 order by distance */
 }

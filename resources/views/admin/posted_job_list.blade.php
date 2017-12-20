@@ -95,21 +95,21 @@
 																	{{$jobs->job->looking_for}}
 																	</td>
 																	<?php
-																	$status=array('0'=>'Active','1'=>'Active','2'=>'Inactive')																	
+																	$status=array('0'=>'Active','1'=>'Active','2'=>'Inactive','3'=>'Hired','4'=>'Completed','5'=>'Deleted')
 																	?>
 																	<td>{{$status[$jobs->job->job_status]}}</td>
 																	<td>
 																	<a href="admin-view-job-details/{{$jobs->job->job_id}}" title="View"> <i class="fa fa-eye delet" aria-hidden="true"></i></a>
-																		@if($jobs->job->job_status == 2)
+																		@if(@$jobs->job->job_status == 2)
 																		<a href="admin-posted-job-status/{{$jobs->job->job_id}}" onclick="return confirm('Are you sure to change status ?')" title="Click to active"> <i class="fa fa-check cncl1" aria-hidden="true"></i></a>
-																		@elseif($jobs->job->job_status == 1)
+																		@elseif(@$jobs->job->job_status == 1)
 																		<a href="admin-posted-job-status/{{$jobs->job->job_id}}" onclick="return confirm('Are you sure to change status ?')" title="Click to inactive"> <i class="fa fa-times delet" aria-hidden="true"></i></a>
 																		@endif
 																	</td>
 																</tr>
 																@endforeach
 																@else
-																	<tr><td colspan="5">No jobs found</td></tr>
+																	<tr><td colspan="5">No jobs found.</td></tr>
 															@endif
 														</tbody>
 													</table>

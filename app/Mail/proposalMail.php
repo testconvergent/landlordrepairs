@@ -29,6 +29,6 @@ class proposalMail extends Mailable
      */
     public function build(){
 		$data['proposal']=$this->proposal;
-        return $this->view('mail.proposal',$data)->subject($this->subject)->from($this->from);
+        return $this->view('mail.proposal',$data)->subject($this->subject)->from('noreply@landlordrepairs.uk');
     }
 }

@@ -29,6 +29,8 @@ class requestFeedback extends Mailable
      */
     public function build()
     {
-        return $this->view('mail.request_feedback')->subject($this->request_feedback->subject)->from($this->request_feedback->provider_email);
+        return $this->view('mail.request_feedback')
+		->subject($this->request_feedback->subject)
+		->from($this->request_feedback->provider_email);
     }
 }

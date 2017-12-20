@@ -23,7 +23,7 @@
 			@foreach($provider_job_invitation as $jobs)
 				<div class="col-sm-6 col-lg-6 col-md-6">
 					<div class="awaded_jobs_block">
-						<h3>{{ $jobs->categoryDetails->category->category_name}}</h3>
+						<h3>{{ $jobs->providerJobDetails[0]->looking_for}}</h3>
 						<div class="clearfix"></div>
 						<div class="awaded_type">
 							<ul>
@@ -76,7 +76,7 @@
 									</div>
 								</li>
 								<li  class="lloc_1"><span><img src="images/ttags.png" ></span>${{$jobs->price}}</li>
-								<li class="lloc_2"><span><img src="images/ccal.png" ></span>Deadline: {{ Carbon\Carbon::parse($jobs->providerJobDetails[0]->deadline)->format('D j-M Y') }}</li>
+								<li class="lloc_2"><span><img src="images/ccal.png" ></span>Deadline: {{ Carbon\Carbon::parse($jobs->providerJobDetails[0]->deadline)->format('d F Y') }}</li>
 							</ul>
 						</div>
 					</div>
@@ -157,7 +157,7 @@
 			 {{csrf_field()}}
 			   <input type="hidden" name="invitation_master_id" id="invitation_master_id" value="">
 				<div class="form-group">				  
-				  <textarea class="form-control" rows="5" name="request_feedback" id="comment"></textarea>
+				  <textarea class="form-control" rows="3" name="request_feedback" id="comment"></textarea>
 				</div>
 				<button type="submit" class="btn btn-primary mark_com">Submit</button>
 			</form>

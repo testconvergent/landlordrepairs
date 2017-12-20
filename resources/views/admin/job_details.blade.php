@@ -34,17 +34,17 @@
 											</div>
 											<div class="col-md-8 col-sm-8 col-xs-12 col-lg-8">
 												<div class="your-mail">
-													<label for="exampleInputEmail1"><strong>Address </strong>: {{@$job_details->job->users->address}} </label>
+													<label for="exampleInputEmail1"><strong>Email </strong>: {{@$job_details->job->users->email}} </label>
 												</div>
 											</div>
-											<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-												<div class="info_ii">
-													<p>Category details</p>
+											<div class="col-md-8 col-sm-8 col-xs-12 col-lg-8">
+												<div class="your-mail">
+													<label for="exampleInputEmail1"><strong>Phone </strong>: {{@$job_details->job->users->mobile}} </label>
 												</div>
-											</div>
+											</div>											
 											<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
 												<div class="your-mail">
-													<label for="exampleInputEmail1"><strong>Category Name</strong>: {{@$job_details->category->category_name}} </label>
+													<label for="exampleInputEmail1"><strong>Job category</strong>: {{@$job_details->category->category_name}} </label>
 												</div>
 											</div>
 											<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">

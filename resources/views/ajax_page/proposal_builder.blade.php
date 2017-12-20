@@ -27,19 +27,13 @@
 				</ul>
 				<span><img src="images/ttags.png" alt="">${{number_format($user->price)}}</span>
 				<span><img src="images/ccal.png" alt="">{{date('d F Y',strtotime($user->started_date))}}</span>
-				<span class="show1">{{$user->description}}</span>
+				<p class="show1">{{str_limit($user->description,50)}}</p>
+			    <p class="collapse">{{$user->description}}</p>
 			</div>
 			<div class="invite_rev">
-				<a class="invite_btn" href="#"><img src="images/one.png" alt=""> Read More</a>
-				<a class="invite_btn viw_pf" href="profile/{{$user->user_slug}}"><img src="images/eyes.png" alt=""> View Profile</a>
-				<?php $fetch = hired_builder($user->job_id);?>
-				@if(count($fetch)>0)
-					@if($user->job_invitation_id == $fetch{0}->job_invitation_id)
-						<a class="invited_btn"><i class="fa fa-handshake-o" aria-hidden="true"></i> Hired</a>
-					@endif
-					@else
-						<a class="invite_btn hired" id="hire_{{$user->job_invitation_id}}" href="javascript:void(0);" data-id="{{$user->job_invitation_id}}"><img src="images/tow.png" alt=""> Hire</a>
-				@endif
+				<a class="invite_btn read_more"  href="javascript:void(0);"><img src="images/one.png" alt="" > Read More</a>
+				<a target="_blank" class="invite_btn viw_pf" href="profile/{{$user->user_slug}}"><img src="images/eyes.png" alt=""> View Profile</a>
+				<a class="invite_btn hired" id="hire_{{$user->job_invitation_id}}" href="javascript:void(0);" data-id="{{$user->job_invitation_id}}"><img src="images/tow.png" alt=""> Hire</a>
 			</div>
 		</div>
 	@endforeach

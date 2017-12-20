@@ -16,9 +16,10 @@ class providerMarkCompletedMail extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public $request_complete;
+    public function __construct($request_complete)
     {
-        //
+        $this->request_complete=$request_complete;
     }
 
     /**
@@ -26,8 +27,10 @@ class providerMarkCompletedMail extends Mailable
      *
      * @return $this
      */
-    public function build()
-    {
-        return $this->view('view.name');
+    public function build(){
+	    $data['request_complete']=$this->request_complete;
+		return $this->view('mail.request_job_complete',$data)
+		->subject($this->request_complete->subject)
+		->from($this->request_complete->provider_email);
     }
 }

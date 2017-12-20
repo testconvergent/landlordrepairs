@@ -549,6 +549,7 @@ class HomeController extends Controller
 			->where('user_id',session()->get('user_id'))
 			->where('job_status','!=',3)
 			->where('job_status','!=',5)
+			->where('job_status','!=',4)
 			->get();
 			$fetch_category = DB::table(TBL_JOB_CATEGORY)->where('category_status',1)->get();
 			$fetch_job_type = DB::table(TBL_JOB_TYPE)->where('job_type_status',1)->get();
@@ -732,10 +733,25 @@ class HomeController extends Controller
 			$insert_rev['hire'] = $request->hire_rating;
 			$insert_rev['recomm'] = $request->recomm_rating;
 			$insert_rev['comments'] = $request->rev_comment;
+			$insert_rev['review_title'] = $request->rev_title;
 			$insert_rev['review_date'] = date('Y-m-d');
 			$insert_rev['total_review'] = ($request->quality_rating+$request->time_rating+ $request->price_rating+$request->hire_rating+$request->recomm_rating);
 			$insert_rev['ave_review'] = ($insert_rev['total_review']/5);
 			DB::table(TBL_REVIEW)->insert($insert_rev);
+			/*User review*/
+			$get_rev = DB::table(TBL_REVIEW)->where('builder_id',$request->builder_id)->avg('ave_review');
+			$get_rev_total = DB::table(TBL_REVIEW)->where('builder_id',$request->builder_id)->count();
+			/* echo "<pre>";print_r($get_rev_total);
+			echo "<pre>";print_r($get_rev);
+			die; */
+			$update_buider = array(
+				'tot_review'=>$get_rev_total,
+				'avg_review'=>$get_rev
+			);
+			DB::table(TBL_USER)->where('user_id',$request->builder_id)->update($update_buider);
+			/*User review*/
+			$update_ivitation = array('is_review'=>1);
+			DB::table(TBL_JOB_INVITATION)->where('job_invitation_id',$get->job_invitation_id)->update($update_ivitation);
 			session()->flash('success','Review posted successfully');
 		}
 		return redirect('jobs-given');
