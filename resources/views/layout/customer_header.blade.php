@@ -141,7 +141,7 @@
 							<label class="control-label">Deadline</label>
 							<div class="ccal">
 								<img src="images/call.png" >
-								<input type="text" class="form-control" id="datepicker" name="deadline" placeholder="Deadline" >
+								<input type="text" class="form-control" id="datepicker" name="deadline" placeholder="Deadline" style="background:#fff" readonly>
 							</div>
 						</div>
 					</div>

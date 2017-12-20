@@ -35,7 +35,7 @@
 	}
 	function job_win()
 	{
-		$win = DB::table(TBL_USER)->select('job_win','avg_review')->where('user_id',session()->get('user_id'))->first();
+		$win = DB::table(TBL_USER)->select('job_win','avg_review','tot_review')->where('user_id',session()->get('user_id'))->first();
 		//echo "<pre>";print_r($win);die;
 		return $win;
 	}

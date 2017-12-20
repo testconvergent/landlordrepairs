@@ -1,0 +1,65 @@
+public function add_product_option(Request $request)
+	{
+		$fetch_category = DB::table(TBL_CATEGORY_MASTER)->select(TBL_CATEGORY_MASTER.'.category_master_id as category_id',TBL_CATEGORY_DESCRIPTION.'.category_name as cat_name')
+		->leftJoin(TBL_CATEGORY_DESCRIPTION,TBL_CATEGORY_MASTER.'.category_master_id','=',TBL_CATEGORY_DESCRIPTION.'.category_master_id')
+		->where(TBL_CATEGORY_MASTER.'.parent_id',0)->where(TBL_CATEGORY_DESCRIPTION.'.language_id',1)->where(TBL_CATEGORY_MASTER.'.category_status','!=',3)->get();
+		
+		$language = DB::table(TBL_LANGUAGE)->get();
+		$post_data=$request->all();
+		if(@$post_data)
+		{
+			print_r($post_data);
+			die;
+			$check_cat_name = DB::table(TBL_CATEGORY_DESCRIPTION)->where('category_name',$request->category_name_e)->get();
+			if(count($check_cat_name)>0)
+			{
+				session()->flash('error','You have already added this category.');
+				return redirect('admin-category-list');
+			}
+			$validation = array();
+			if($request->hasFile('category_icon'))
+			{
+				$validation['category_icon']='required|image|mimes:jpeg,png,PNG,jpg|max:2048|dimensions:width=18,height=18';
+			}
+			$this->validate($request,$validation);
+			$insert_master = array();
+			if(@$request->category)
+			{
+				$insert_master['parent_id'] = $request->category;
+			}
+			else
+			{
+				$insert_master['parent_id'] = 0;
+			}
+			//$insert_master['category_status'] = 1;
+			$insert_master['display_order'] = $request->display_order;
+			$slug=str_replace(' ','-',$request->category_name_e);
+			$slug=str_replace('--','-',$slug);
+			$insert_master['category_slug']=$slug;
+			if($request->hasFile('category_icon'))
+			{
+				$filename=time().".".$request->category_icon->getClientOriginalExtension();
+				$request->category_icon->storeAs('public/category_image',$filename);
+				$insert_master['category_icon'] = $filename;
+			}
+			$insert_id = DB::table(TBL_CATEGORY_MASTER)->insertGetId($insert_master);
+			$inset_cat_e =array();
+			$inset_cat_e['category_master_id']= $insert_id;
+			$inset_cat_e['category_name']= $request->category_name_e;
+			$inset_cat_e['category_meta_title']= $request->category_meta_title_e;
+			$inset_cat_e['category_meta_description']= $request->category_meta_description_e;
+			$inset_cat_e['language_id']= 1;
+			DB::table(TBL_CATEGORY_DESCRIPTION)->insert($inset_cat_e);
+			$inset_cat_a =array();
+			$inset_cat_a['category_master_id']= $insert_id;
+			$inset_cat_a['category_name']= $request->category_name_a;
+			$inset_cat_a['category_meta_title']= $request->category_meta_title_a;
+			$inset_cat_a['category_meta_description']= $request->category_meta_description_a;
+			$inset_cat_a['language_id']= 2;
+			DB::table(TBL_CATEGORY_DESCRIPTION)->insert($inset_cat_a);
+			session()->flash('success','Option added successfully');
+			return redirect('add_product_option');
+		}
+		$data = ['category'=>$fetch_category,'language'=>$language];
+		return view('admin.add_product_option',$data);
+	}

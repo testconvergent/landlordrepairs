@@ -42,6 +42,9 @@
 							</div>
 						</div>
 					</div>
+					@if($loop->iteration%2==0)
+						<div class="clear"></div>
+					@endif
 				@endforeach
 				@else
 					<div class="norecordfound">
@@ -155,7 +158,7 @@
 							<label class="control-label">Deadline</label>
 							<div class="ccal">
 								<img src="images/call.png" >
-								<input type="text" class="form-control" id="datepicker" name="deadline" placeholder="Deadline" >
+								<input type="text" class="form-control" id="datepicker1" name="deadline" placeholder="Deadline" style="background:#fff" readonly>
 							</div>
 						</div>
 					</div>
@@ -284,12 +287,12 @@ $(document).ready(function(){
 			$('.span_erro').html('Budget is required');
 			return false;
 		}
-		else if($(this).find('#datepicker').val() == "")
+		else if($(this).find('input[name="deadline"]').val() == "")
 		{
 			$('.span_erro').html('Deadline is required');
 			return false;
 		}
-		else if($(this).find('#city').val() == "")
+		else if($(this).find('input[name="city"]').val() == "")
 		{
 			$('.span_erro').html('City is required');
 			return false;
@@ -340,11 +343,11 @@ $(document).ready(function(){
 		$("#myModal5 #job_category_id").val($(this).data('job_cat_id'));
 		$("#myModal5 #looking_for").val($(this).data('looking_for'));
 		$("#myModal5 #budget").val($(this).data('budget'));
-		$("#myModal5 #datepicker").val($(this).data('deadline'));
+		$("#myModal5 #datepicker1").val($(this).data('deadline'));
 		$("#myModal5 #zip_code").val($(this).data('zip_code'));
 		$("#myModal5 #address").val($(this).data('city'));
-		$("#myModal5 #longitude").val($(this).data('longitude'));
-		$("#myModal5 #lattitude").val($(this).data('lattitude'));
+		$("#myModal5 #address_longitude").val($(this).data('longitude'));
+		$("#myModal5 #address_lattitude").val($(this).data('lattitude'));
 		$("#myModal5 #comment").val($(this).data('job_details'));
 		$('#myModal5').modal("show");
 	});
@@ -407,7 +410,7 @@ $(document).ready(function(){
 			},
 			success:function(result)
 			{
-				alert(result.invited);
+				//alert(result.invited);
 				if(result.invited == 1)
 				{
 					$('#invite_'+builder_id).html('<i class="fa fa-check-circle" aria-hidden="true"></i> invited');
@@ -442,6 +445,7 @@ $(document).ready(function(){
 					$('#hire_'+job_invitation_id).removeClass('hired');
 					$('#hire_'+job_invitation_id).removeClass('invite_btn');
 					$('#hire_'+job_invitation_id).addClass('invited_btn'); */
+					$('.hired').hide();
 					window.location.assign('<?php echo url('jobs-given');?>');
 				}
 				//$('.scr').html(result.user_html);	
@@ -465,18 +469,18 @@ $(document).ready(function(){
 		  document.getElementById('filename').value = filename;
 		  });
 	 $('body').on('change','#uploadBtn2',function(){
-		 $(".fil_txt1").show();
+		$(".fil_txt1").show();
 		  var filename = this.value;
 		  var lastIndex = filename.lastIndexOf("\\");
 		  if (lastIndex >= 0) {
-			 filename = filename.substring(lastIndex + 1);
-		  }
+			filename = filename.substring(lastIndex + 1);
+		}
 		  var files = $('#uploadBtn2')[0].files;
 		  for (var i = 0; i < files.length; i++) {
 			$(".fil_txt1").append(files[i].name+"<br>");
-		  }
+		}
 		  document.getElementById('filename').value = filename;
-		  });
+		});
 	$('body').on('click','.delete_attachment',function(){
 		var attachment_id = $(this).data('id');
 		var token =" {{ csrf_token() }}";

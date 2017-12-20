@@ -1,0 +1,21 @@
+Mobile
+
+BRAND
+PRICE
+RAM
+OPERATING SYSTEM
+INTERNAL STORAGE
+
+laptop
+laravel Session
+
+Extra add
+===
+Email address--email_address
+Company email --company_email
+Area --area
+Block --block
+street --street
+Avenue *  ---avenue
+'house_building'=>'House/Building',
+First Name*

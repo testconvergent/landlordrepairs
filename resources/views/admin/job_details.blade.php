@@ -32,29 +32,35 @@
 													<label for="exampleInputEmail1"><strong>Name</strong>: {{@$job_details->job->users->user_name}} </label>
 												</div>
 											</div>
-											<div class="col-md-8 col-sm-8 col-xs-12 col-lg-8">
+											<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
 												<div class="your-mail">
 													<label for="exampleInputEmail1"><strong>Email </strong>: {{@$job_details->job->users->email}} </label>
 												</div>
 											</div>
-											<div class="col-md-8 col-sm-8 col-xs-12 col-lg-8">
+											<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
 												<div class="your-mail">
 													<label for="exampleInputEmail1"><strong>Phone </strong>: {{@$job_details->job->users->mobile}} </label>
 												</div>
 											</div>											
+											
+											<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+												<div class="info_ii">
+													<p>Job details</p>
+												</div>
+											</div>
+											<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+												<div class="your-mail">
+													<label for="exampleInputEmail1"><strong>Job title</strong>: {{@$job_details->job->looking_for}} </label>
+												</div>
+											</div>
 											<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
 												<div class="your-mail">
 													<label for="exampleInputEmail1"><strong>Job category</strong>: {{@$job_details->category->category_name}} </label>
 												</div>
 											</div>
-											<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-												<div class="info_ii">
-													<p>Job description</p>
-												</div>
-											</div>
 											<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
 												<div class="your-mail">
-													<label for="exampleInputEmail1"><strong>Job title</strong>: {{@$job_details->job->looking_for}} </label>
+													<label for="exampleInputEmail1"><strong>Job Type</strong>: {{@$job_details->job->looking_for}} </label>
 												</div>
 											</div>
 											<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
@@ -67,27 +73,38 @@
 													<label for="exampleInputEmail1"><strong>Deadline</strong>: {{ Carbon\Carbon::parse($job_details->job->deadline)->format('D j-M Y') }}  </label>
 												</div>
 											</div>
+											<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+												<div class="your-mail">
+													<label for="exampleInputEmail1"><strong>city</strong>: {{@$job_details->job->city}}  </label>
+												</div>
+											</div>
+											<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+												<div class="your-mail">
+													<label for="exampleInputEmail1"><strong>Post code</strong>: {{ $job_details->job->zip_code }}  </label>
+												</div>
+											</div>
+											<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+												<div class="your-mail">
+													<label for="exampleInputEmail1"><strong>Status</strong>: 
+													@php $status=array('Draft','Active','Inactive','Hired','Complete','delete');
+													@endphp					
+													{{ $status[intval($job_details->job->job_status)] }}  </label>
+												</div>
+											</div>
+											<div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
+												<div class="your-mail">
+												<label for="exampleInputEmail1"><strong>Job attachment
+													<span class="fil_txt1">
+													<a href="{{url('attachment/'.@$job_details->job->attachment->attachment_name)}}attachment/1513762688.xlsx" download="{{@$job_details->job->attachment->orginal_name}}">{{@$job_details->job->attachment->orginal_name}}</a>
+													</span>
+												</div>
+												</label>
+											</div>
 											<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
 												<div class="your-mail">
-													<label for="exampleInputEmail1"><strong>Job details</strong> : {{ $job_details->job->job_details}}</label>
+													<label for="exampleInputEmail1"><strong>Job description</strong> : {{ $job_details->job->job_details}}</label>
 												</div>
 											</div>
-											<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-												<div class="info_ii">
-													<p>Job location</p>
-												</div>
-											</div>
-											<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
-												<div class="your-mail">
-													<label for="exampleInputEmail1"><strong>City</strong>: {{@$job_details->job->city}}  </label>
-												</div>
-											</div>
-											<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
-												<div class="your-mail">
-													<label for="exampleInputEmail1"><strong>zip code</strong>: {{ $job_details->job->zip_code }}  </label>
-												</div>
-											</div>
-											
 											<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 												<div class="info_ii">
 													<p>Bid description</p>

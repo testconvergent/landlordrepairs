@@ -31,4 +31,7 @@ class Jobs extends Model
 	public function jobType(){
 		return $this->hasOne('App\JobType','job_type_id','job_type_id');
 	}
+	public function attachment(){
+		return $this->hasOne('App\JobAttachment','job_id','job_id');
+	}
 }

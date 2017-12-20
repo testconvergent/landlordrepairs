@@ -580,7 +580,8 @@ class HomeController extends Controller
 		$get_job = DB::table(TBL_JOB_POST)->where('job_id',$id)->first();
 		if(count($get_job)>0 && $get_job->user_id == session()->get('user_id'))
 		{
-			if(@$request->all()){	
+			//echo "<pre>";print_r($request->all());die;
+			if(@$request->all()){
 				$validation = array();
 				$validation['job_type_id']='required';
 				$validation['job_category_id']='required';
@@ -590,14 +591,14 @@ class HomeController extends Controller
 				$validation['city']='required';
 				$validation['zip_code']='required';
 				$validation['job_details']='required';
-				$validation['lattitude']='required';
-				$validation['longitude']='required';
+				//$validation['lattitude']='required';
+				//$validation['longitude']='required';
 				$this->validate($request,$validation);
 				$insert = array();
 				$insert['job_type_id'] = $request->job_type_id;
 				$insert['looking_for'] = $request->looking_for;
 				$insert['budget'] = $request->budget;
-				$insert['deadline'] = date('y-m-d',strtotime($request->deadline));
+				$insert['deadline'] = date('Y-m-d',strtotime($request->deadline));
 				$insert['city'] = $request->city;
 				$insert['lattitude'] = $request->lattitude;
 				$insert['longitude'] = $request->longitude;
@@ -606,6 +607,7 @@ class HomeController extends Controller
 				DB::table(TBL_JOB_POST)->where('job_id',$id)->update($insert);
 				if($request->hasFile('attachment'))
 				{
+					//echo"ok";die;
 					DB::table(TBL_JOB_TO_ATTACHMENT)->where('job_id',$id)->delete();
 					foreach($request->file('attachment') as $attachment)
 					{
@@ -694,66 +696,5 @@ class HomeController extends Controller
 				return redirect('my-profile');
 			}
 		}
-	}
-	public function jobs_given()
-	{
-		if(session()->get('user_type') == 3)
-		{
-			$get_job_given = DB::table(TBL_JOB_INVITATION)->select(TBL_JOB_INVITATION.'.*',TBL_JOB_POST.'.job_details',TBL_JOB_POST.'.looking_for',TBL_JOB_CATEGORY.'.category_name',TBL_JOB_TYPE.'.job_type_name',TBL_USER.'.user_name',TBL_USER.'.prof_image',TBL_JOB_POST.'.deadline',TBL_JOB_POST.'.city')
-			->leftJoin(TBL_JOB_POST,TBL_JOB_INVITATION.'.job_id','=',TBL_JOB_POST.'.job_id')
-			->leftJoin(TBL_JOB_TO_CATEGORY,TBL_JOB_POST.'.job_id','=',TBL_JOB_TO_CATEGORY.'.job_id')
-			->leftJoin(TBL_JOB_CATEGORY,TBL_JOB_TO_CATEGORY.'.category_id','=',TBL_JOB_CATEGORY.'.category_id')
-			->leftJoin(TBL_JOB_TYPE,TBL_JOB_POST.'.job_type_id','=',TBL_JOB_TYPE.'.job_type_id')
-			->leftJoin(TBL_USER,TBL_JOB_INVITATION.'.to_user_id','=',TBL_USER.'.user_id')
-			->where(TBL_JOB_INVITATION.'.from_user_id',session()->get('user_id'))
-			->where(TBL_JOB_INVITATION.'.invitation_status',2)
-			->orwhere(TBL_JOB_INVITATION.'.invitation_status',3)
-			->get();
-			//echo"<pre>";print_r($get_job_given);die;
-			$data = array('job_given'=>$get_job_given);
-			return view('customer_job_given',$data);
-		}
-		else if(session()->get('user_type') == 2)
-		{
-			return redirect('my-profile');
-		}
-	}
-	public function review_post(Request $request)
-	{
-		$get = DB::table(TBL_JOB_INVITATION)->where('from_user_id',session()->get('user_id'))->where('to_user_id',$request->builder_id)->where('job_id',$request->job_id)->where('invitation_status',3)->first();
-		if(count($get)>0)
-		{
-			$insert_rev = array();
-			$insert_rev['user_id'] = session()->get('user_id');
-			$insert_rev['builder_id'] = $request->builder_id;
-			$insert_rev['job_id'] = $request->job_id;
-			$insert_rev['quality'] = $request->quality_rating;
-			$insert_rev['on_time'] = $request->time_rating;
-			$insert_rev['price'] = $request->price_rating;
-			$insert_rev['hire'] = $request->hire_rating;
-			$insert_rev['recomm'] = $request->recomm_rating;
-			$insert_rev['comments'] = $request->rev_comment;
-			$insert_rev['review_title'] = $request->rev_title;
-			$insert_rev['review_date'] = date('Y-m-d');
-			$insert_rev['total_review'] = ($request->quality_rating+$request->time_rating+ $request->price_rating+$request->hire_rating+$request->recomm_rating);
-			$insert_rev['ave_review'] = ($insert_rev['total_review']/5);
-			DB::table(TBL_REVIEW)->insert($insert_rev);
-			/*User review*/
-			$get_rev = DB::table(TBL_REVIEW)->where('builder_id',$request->builder_id)->avg('ave_review');
-			$get_rev_total = DB::table(TBL_REVIEW)->where('builder_id',$request->builder_id)->count();
-			/* echo "<pre>";print_r($get_rev_total);
-			echo "<pre>";print_r($get_rev);
-			die; */
-			$update_buider = array(
-				'tot_review'=>$get_rev_total,
-				'avg_review'=>$get_rev
-			);
-			DB::table(TBL_USER)->where('user_id',$request->builder_id)->update($update_buider);
-			/*User review*/
-			$update_ivitation = array('is_review'=>1);
-			DB::table(TBL_JOB_INVITATION)->where('job_invitation_id',$get->job_invitation_id)->update($update_ivitation);
-			session()->flash('success','Review posted successfully');
-		}
-		return redirect('jobs-given');
 	}
 }

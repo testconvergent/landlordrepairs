@@ -38,7 +38,7 @@
 				}?>
             </ul>
             <div class="clearfix"></div>
-            <p>{{$win_job->job_win}} Jobs Win, 758 Reviews</p>
+            <p>{{$win_job->job_win}} Jobs Win, {{$win_job->tot_review}} Reviews</p>
           </div>
               <div class="profile_pic"> <a href="javascript:void(0)" class="aa"> <img src="images/profile_img.jpg" class="img-circle"> <i class="fa fa-caret-down" aria-hidden="true"></i>
             <div class="dropss_down" style="display:none;">

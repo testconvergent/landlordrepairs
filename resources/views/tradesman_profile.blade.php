@@ -84,104 +84,12 @@
                     <div class="mapps">
                         <div class="google-maps">
                             <div id="mapCanvas"></div>
+							<input id="lattitude_1" name="lattitude" type="hidden" size="50" value="{{$lattitude}}">
+                            <input id="longitude_1" name="longitude" type="hidden" size="50" value="{{$longitude}}">
                         </div>
 
                     </div>
-                    <div class="col-md-12 edited_cat" style="display:none;padding:0px;">
-                        <form action="prof-description-secend-block" method="post" id="prof-description-secend-block">
-                            <div class="col-md-4 col-sm-6 co-xs-12">
-                                <div class="col-md-4 col-sm-6 co-xs-12">
-                                    <div class="your-mail">
-                                        <label>Category</label>
-                                        <select class="form-control newdrop3 required" name="primary_trade">
-                                            @foreach($provider_category as $row)
-                                            <option value="{{$row->category_id}}" @if($provider_primary_id==$row->category_id) selected @endif >{{$row->category_name}}
-                                            </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
 
-                                {{csrf_field()}}
-                                <div class="col-md-4 col-sm-6 co-xs-12">
-                                    <div class="your-mail">
-                                        <label>Location</label>
-                                        <input class="form-control required" placeholder="Type your company name" id="location" name="location" type="text" value="{{$location}}">
-                                    </div>
-                                    <input id="lattitude" name="lattitude" type="hidden" size="50" value="{{$lattitude}}">
-                                    <input id="longitude" name="longitude" type="hidden" size="50" value="{{$longitude}}">
-                                </div>
-                                <div class="col-md-4 col-sm-6 co-xs-12">
-                                    <div class="your-mail">
-                                        <label>Team</label>
-                                        <input class="form-control required" placeholder="Type about your team" name="team" type="text" value="{{$team}}">
-                                    </div>
-                                </div>
-                                <div class="clearfix"></div>
-                                <div class="col-md-4 col-sm-6 co-xs-12">
-                                    <div class="your-mail">
-                                        <label>Years in Biz</label>
-                                        <input class="form-control required" placeholder="year in biz" name="year_in_biz" type="text" value="{{$year_in_biz}}">
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-sm-6 co-xs-12">
-                                    <div class="your-mail">
-                                        <label>Emergency Job</label>
-                                        <select class="form-control newdrop3 required" name="emergency_job">
-                                            <option value="1">Yes</option>
-                                            <option value="0">No</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4 col-sm-6 co-xs-12">
-                                    <div class="your-mail">
-                                        <label>Qualification</label>
-
-                                        <input class="form-control required" placeholder="Type your company name" name="qualification" type="text" value="{{$qualification}}">
-                                    </div>
-
-                                </div>
-                                <div class="clearfix"></div>
-                                <div class="col-md-4 col-sm-6 co-xs-12">
-                                    <div class="your-mail">
-                                        <label>Insurance</label>
-                                        <select class="form-control newdrop3 required" name="insurance">
-                                            <option value="1" @if($insurance==1) selected @endif>Yes</option>
-                                            <option value="0" @if($insurance==0) selected @endif>No</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4 col-sm-6 co-xs-12">
-                                    <div class="your-mail">
-                                        <label>Working Hours From</label>
-                                        <input class="form-control required" placeholder="Type your company name" name="from_time" type="text" id="from_time" value="{{$hours_from}}">
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4 col-sm-6 co-xs-12">
-                                    <div class="your-mail">
-                                        <label>Working Hours To</label>
-                                        <input class="form-control required" placeholder="Type your company name" name="to_time" type="text" id="to_time" value="{{$hours_to}}">
-                                    </div>
-                                </div>
-                                <div class="clearfix"></div>
-                                <div class="check_box_ddiv">
-                                    <div class="checkbox-group1">
-                                        <input form="prof-description-secend-block" id="checkize" name="holiday_notification" value="1" type="checkbox" {{$holiday_notification}}>
-                                        <label for="checkize" class="">
-                                            <span class="check find_chek"></span> <span class="box W25 boxx"></span>
-                                            <h6>I'm on Holiday and will don't want to receive invites.</h6>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-sm-6 co-xs-12" style="float:right;">
-                                    <button type="submit" class="btn btn-primary mark_com pull-right post_bbttn">Submit</button>
-                                </div>
-                        </form>
-
-                        </div>
                     </div>
                 </div>
 
@@ -349,8 +257,8 @@
             $('.errorLatLng').css('visibility', 'hidden')
         });
     }
-    var longitude = document.getElementById('longitude').value;
-    var lattitude = document.getElementById('lattitude').value;
+    var longitude = document.getElementById('longitude_1').value;
+    var lattitude = document.getElementById('lattitude_1').value;
     google.maps.event.addDomListener(window, 'load', initialize(lattitude, longitude));
 	
 	$(function(){

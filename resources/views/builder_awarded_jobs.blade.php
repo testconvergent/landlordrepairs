@@ -81,10 +81,13 @@
 						</div>
 					</div>
 				</div>
+				@if($loop->iteration%2==0)
+						<div class="clear"></div>
+					@endif
 			@endforeach
 		@else
 			<div class="norecordfound"><p>No awarded job found.</p></div>
-		@endif
+		@endif		
 		</div>
 	</div>
 </div>
@@ -104,7 +107,7 @@
 					<span>The job is marked as completed and costomers are notified</span></h3>
 					<input type="hidden" name="invitation_id" id="invitation_id">
 					<div class="form-group">				  
-					  <textarea class="form-control" rows="5" name="request_feedback" id="comment"></textarea>
+					  <textarea class="form-control required" rows="5" name="request_feedback" id="comment"></textarea>
 					</div>
 					<button type="submit" class="btn btn-primary mark_com">Submit</button>
 				</form>
@@ -157,7 +160,7 @@
 			 {{csrf_field()}}
 			   <input type="hidden" name="invitation_master_id" id="invitation_master_id" value="">
 				<div class="form-group">				  
-				  <textarea class="form-control" rows="3" name="request_feedback" id="comment"></textarea>
+				  <textarea class="form-control required" rows="3" name="request_feedback" id="comment"></textarea>
 				</div>
 				<button type="submit" class="btn btn-primary mark_com">Submit</button>
 			</form>
@@ -166,15 +169,26 @@
 	</div>
 </div>
 @include('layout.builder_footer')
-<script>
-$(document).ready(function() {
-   $('.mark_as_complete .mark_com').click(function(){
+
+@push('mark_as_complete_modal_open')
+    <script>
+	$(document).ready(function() {
+	$('.mark_as_complete .mark_com').click(function(){
 		$('#mark_complete').modal('show');   
 	}); 
-});
-$("#awarded_job_filter").change(function(){
-	$(this).closest('form').submit();
-});
+	});
+	</script>
+@endpush
+@push('awarded_job_filter_search_by_date')
+    <script>
+	$("#awarded_job_filter").change(function(){
+		$(this).closest('form').submit();
+	});
+	</script>
+@endpush
+ @stack('awarded_job_filter_search_by_date')
+ @stack('mark_as_complete_modal_open')
+<script>
 $('#provider-mark-complete-job').validate();
 $('#request-feedback').validate();
 </script> 

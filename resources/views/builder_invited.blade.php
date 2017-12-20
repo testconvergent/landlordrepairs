@@ -8,7 +8,7 @@
 <div class="row Nomarg" >
 	<div class="contain_divs">
 		<div class="container">
-			@if($provider_job_invitation)
+			@if(count($provider_job_invitation)>0)
 				@foreach($provider_job_invitation as $jobs)
 				<div class="col-sm-6 col-lg-6 col-md-6">
 					<div class="awaded_jobs_block">	
@@ -38,7 +38,7 @@
 						<div class="awarded_btn_group">
 							<div class="bbtn_lleft_p">
 							@if($jobs->invitation_status==0)
-								<button type="button" data-toggle="modal" data-modal-title="{{ $jobs->categoryDetails->category->category_name}}" data-id="{{$jobs->job_invitation_id}}" data-target="#myModal1" class="btn btn-primary respondent">Respond</button>
+								<button type="button" data-toggle="modal" data-modal-title="{{ $jobs->providerJobDetails[0]->looking_for}}" data-id="{{$jobs->job_invitation_id}}" data-target="#myModal1" class="btn btn-primary respondent">Respond</button>
 							@elseif($jobs->invitation_status==1)
 								<div class="repondeded"><i class="fa fa-check-circle" aria-hidden="true"></i> Responded</div>
 							@endif 
@@ -84,6 +84,9 @@
 						</div>
 					</div>
 				</div>
+				@if($loop->iteration%2==0)
+						<div class="clear"></div>
+				@endif
 				@endforeach
 				@else
 					<div class="norecordfound"><p>No invited job found.</p></div>
@@ -99,7 +102,6 @@
 		$('.modal-title').text('Reply for '+modal_title);
 		$('#invitation_id').val(id);
 	});
-
 </script>
 <!--wrapper end-->
 </div>
@@ -119,7 +121,7 @@
 					<div class="col-sm-6 col-lg-6 col-md-6">
 						<div class="form-group">
 							<label class="control-label" for="pwd">Price</label>
-							<input type="text" class="form-control required" name="price" placeholder="Price">
+							<input type="text" class="form-control required" name="price" placeholder="Price" onkeypress="validate(event)">
 						</div>
 					</div>
 					<div class="col-sm-6 col-lg-6 col-md-6">
@@ -127,7 +129,7 @@
 							<label class="control-label">Start Date</label>
 							<div class="ccal">
 								<img src="images/call.png">
-								<input type="text" class="form-control required" placeholder="Start date" name="start_date" id="datepicker">
+								<input type="text" class="form-control required" placeholder="Start date" name="start_date" id="datepicker" readonly style="background-color: #fff;">
 							</div>
 						</div>
 					</div>
@@ -140,7 +142,7 @@
 					<div class="col-sm-6 col-lg-6 col-md-6">
 						<div class="form-group">
 							<div class="Uploadbtn">
-								<input type="file" id="quote_attachment" name="quote_attachment" class="input-upload required" />
+								<input type="file" id="quote_attachment" name="quote_attachment" class="input-upload" />
 								<span> <b>Upload</b> <i><img src="images/ddownload.png"></i></span>
 							</div>
 						</div>
@@ -161,6 +163,16 @@ $("#quote_attachment").change(function(){
            $('.file_name').html(this.files[0].name);
        }
 	});
+	function validate(evt){
+	var theEvent=evt || window.event;
+	var key=theEvent.keyCode || theEvent.which;
+	key=String.fromCharCode(key);
+	var regex = /[0-9]||\./;
+	if(!regex.test(key)){
+		theEvent.returnValue=false;
+		if(theEvent.preventDefault) theEvent.preventDefault();
+	}
+}
 </script>
 @if(session()->get('success'))
 <script src="dist/sweetalert.min.js"></script>

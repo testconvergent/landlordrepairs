@@ -43,6 +43,9 @@
                     </div>
                     <div class="catt1 col-md-9">
                         <ul>
+						<li><img src="images/cat01.png" alt="cat">
+                                <p>Name : <span>{{$user_name}}</span></p>
+                            </li>
                             <li><img src="images/cat01.png" alt="cat">
                                 <p>Category : <span>{{$provider_primary_trade}}</span></p>
                             </li>
@@ -143,13 +146,13 @@
                             <div class="col-md-4 col-sm-6 co-xs-12">
                                 <div class="your-mail">
                                     <label>Working Hours From</label>
-                                    <input class="form-control required" placeholder="Type your company name" name="from_time" type="text" id="from_time" value="{{$hours_from}}">
+                                    <input class="form-control required" placeholder="From hours" name="from_time" type="text" id="from_time" value="{{$hours_from}}">
                                 </div>
                             </div>
                             <div class="col-md-4 col-sm-6 co-xs-12">
                                 <div class="your-mail">
                                     <label>Working Hours To</label>
-                                    <input class="form-control required" placeholder="Type your company name" name="to_time" type="text" id="to_time" value="{{$hours_to}}">
+                                    <input class="form-control required" placeholder="To hours" name="to_time" type="text" id="to_time" value="{{$hours_to}}">
                                 </div>
                             </div>
                             <div class="clearfix"></div>
@@ -229,46 +232,46 @@
             </ul>
         </div>
         <div class="clearfix"></div>
+		@if(!$review->isEmpty())
         <div class="review_panel">
             <div class="review_panel_toop">
                 <h3>Reviews</h3>
             </div>
             <div class="clearfix"></div>
             <div class="review_bblock_11 reviewarea">
-				@if(!$review->isEmpty())
-					@foreach($review as $rev)
-						<h3>{{@$rev->review_title}}</h3>
-						<div class="pull-right">
-							<div class="review_sub">
-								<ul>
-									<?php 
-									$review_point = floor(@$rev->ave_review);
-									for($i=1;$i<=5;$i++){
-									if($i <= $review_point){?>
-										<li><img src="images/sstar.png" alt=""></li>
-										<?php
-										}
-										else{?>
-										<li><img src="images/sstar_1.png" alt=""></li>
-										<?php
-										}
-									}?>
-								</ul>
-							</div>
-						</div>
-						<div class="clearfix"></div>
-						<div class="review_bblock_12">
+				@foreach($review as $rev)
+					<h3>{{@$rev->review_title}}</h3>
+					<div class="pull-right">
+						<div class="review_sub">
 							<ul>
-								<li><span><img src="images/user.png" alt="user"></span>{{$rev->review->user_name}}</li>
-								<li><span><img src="images/cals.png"></span>{{date('M d, Y',strtotime(@$rev->review_date))}}</li>
+								<?php 
+								$review_point = floor(@$rev->ave_review);
+								for($i=1;$i<=5;$i++){
+								if($i <= $review_point){?>
+									<li><img src="images/sstar.png" alt=""></li>
+									<?php
+									}
+									else{?>
+									<li><img src="images/sstar_1.png" alt=""></li>
+									<?php
+									}
+								}?>
 							</ul>
 						</div>
-						<div class="clearfix"></div>
-						<div class="review_ddes">{{@$rev->comments}}.</div><hr>
-					@endforeach
-				@endif
+					</div>
+					<div class="clearfix"></div>
+					<div class="review_bblock_12">
+						<ul>
+							<li><span><img src="images/user.png" alt="user"></span>{{$rev->review->user_name}}</li>
+							<li><span><img src="images/cals.png"></span>{{date('M d, Y',strtotime(@$rev->review_date))}}</li>
+						</ul>
+					</div>
+					<div class="clearfix"></div>
+					<div class="review_ddes">{{@$rev->comments}}.</div><hr>
+				@endforeach
 			</div>
         </div>
+		@endif
     </div>
 </div>
 @include('layout.builder_footer')

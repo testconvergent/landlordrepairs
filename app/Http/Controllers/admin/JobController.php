@@ -20,12 +20,12 @@ class JobController extends Controller
 		$keyword=$request->keyword;		
 		$posted_job_details =JobToJobCategory::whereHas('job.users',function($query)use($keyword){
 										$query->where('looking_for',  'like', '%'.$keyword.'%');
-									})
-											->whereHas('category', function($query)use($category_id){
+									})									
+									->whereHas('category', function($query)use($category_id){
 											if(@$category_id)$query->where('category_id', $category_id);
 									})
 								->paginate(25);
-							
+		
 		$data['posted_job_details']=$posted_job_details;
 		}else{		
 		$posted_job_details =JobToJobCategory::with('job.users','category')->paginate(25);
@@ -46,7 +46,9 @@ class JobController extends Controller
 		return redirect('admin-posted-job-list');
 	}
 	public function view_job_details($job_id){		
-		$job_details =JobToJobCategory::with('job.users','category')->paginate(25);
+		$job_details =JobToJobCategory::with('job.users','category')
+									    ->with('job.attachment')
+									    ->get();								
 		$job_details = $job_details->filter(function($jobs)use($job_id) {			
 				return $jobs->job->job_id == $job_id;
 			})->first();

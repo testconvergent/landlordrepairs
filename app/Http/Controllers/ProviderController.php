@@ -42,7 +42,7 @@ class ProviderController extends Controller{
 	  $data['provider_primary_id']=$provider_details->get_providers_details->category_id;
 	  $data['year_in_biz']=$provider_details->year_in_biz;
 	  $data['qualification']=$provider_details->qualification;	  
-	 
+	 $data['user_name']=$provider_details->user_name;	 
 	  $data['location']=$provider_details->address;	 
       $data['insurance']=($provider_details->insurance==1)?'Yes':'No';	
       $data['emergency_job']=($provider_details->emergency_job==1)?'Yes':'No';
@@ -126,10 +126,15 @@ class ProviderController extends Controller{
 		}
 	}
 	public function provider_quote_submit(Request $request){
-		if(@$request->all()){			
-		    $quote_attachment =time().'.'.$request->quote_attachment->getClientOriginalExtension();
-			$destinationPath = storage_path('invitation_attachment');			
-			$request->quote_attachment->move($destinationPath, $quote_attachment);
+		if(@$request->all()){
+			if($request->hasFile('quote_attachment')){
+			 $quote_attachment =time().'.'.$request->quote_attachment->getClientOriginalExtension();
+			 $destinationPath = storage_path('invitation_attachment');			
+			 $request->quote_attachment->move($destinationPath, $quote_attachment);	
+			}else{
+				 $quote_attachment=null;
+			}	
+		    
 			$invitation_id=$request->invitation_id;
 			$invitation_details = JobInvitation::find($invitation_id);
 			$invitation_details->started_date =date('Y-m-d H:i:s',strtotime($request->start_date));
@@ -343,7 +348,7 @@ class ProviderController extends Controller{
      /*--------------Read new job invitation------------------------*/
 		 $readNewInvitation=JobInvitation::newJobInvitation($userId)
 							->update(['invitation_read' => 1]);
-     /*------------Read new job invitation------------------------*/
+     /*------------Read new job invitation------------------------*/	 
 		 $data['provider_job_invitation']=$provider_job_invitation;		
 		 return view('builder_invited',$data);
 	}

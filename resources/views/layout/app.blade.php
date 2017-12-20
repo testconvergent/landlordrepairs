@@ -7,6 +7,7 @@
 <title>@yield('title')</title>
 	<!--style-->
     <link href="css/style.css" type="text/css" rel="stylesheet" media="all"/>
+	 <link href="css/jquery.toast.css" type="text/css" rel="stylesheet" media="all"/>
     <link href="css/responsive.css" type="text/css" rel="stylesheet" media="all"/>
     <!--bootstrape-->
     <link href="css/bootstrap.min.css" type="text/css" rel="stylesheet" media="all"/>
@@ -43,6 +44,7 @@
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
        <script type="text/javascript" src="js/jquery.timepicker.js"></script>
 	<script src="js/jquery.validate.js"></script>
+	<script src="js/jquery.toast.js"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWeU87Wceot0e9rzcVCndL26yGzUPxlMg&libraries=places"></script>
     <!--date picker-->
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -71,8 +73,10 @@
   });
   
   $( function() {
-    $( "#datepicker1" ).datepicker();
-  } );
+    $( "#datepicker1" ).datepicker({
+		minDate: '0'
+	});
+  });
   
 </script>
 <script>

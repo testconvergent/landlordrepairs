@@ -32,7 +32,7 @@ class JobInvitation extends Model
 		return $this->hasMany('App\jobs','job_id','job_id');
 	}
 	public function categoryDetails(){
-		return $this->hasOne('App\JobToJobCategory','job_id');
+		return $this->hasOne('App\JobToJobCategory','job_id','job_id');
 	}
 	public function scopeFilterBydate($query,$form_date,$to_date){
 		if(@$form_date && @$to_date){
