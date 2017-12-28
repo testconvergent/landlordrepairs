@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Mail;
 use App;
+use DB;
 use App\User;
 use App\Jobs;
 use App\UsersToPortFolio;
@@ -36,8 +37,7 @@ class ProviderController extends Controller{
 	  if(!@$provider_details->prof_image)$provider_details->prof_image='blank-profile-picture.png';
 	  $data['prof_image']=asset('public/prof_image/'.$provider_details->prof_image);
 	  $data['prof_title']=$provider_details->prof_title;
-	  $data['prof_description']=$provider_details->prof_description;	
-	  
+	  $data['prof_description']=$provider_details->prof_description;
 	  $data['provider_primary_trade']=$provider_details->get_providers_details->category_name;
 	  $data['provider_primary_id']=$provider_details->get_providers_details->category_id;
 	  $data['year_in_biz']=$provider_details->year_in_biz;
@@ -134,23 +134,22 @@ class ProviderController extends Controller{
 			}else{
 				 $quote_attachment=null;
 			}	
-		    
 			$invitation_id=$request->invitation_id;
 			$invitation_details = JobInvitation::find($invitation_id);
 			$invitation_details->started_date =date('Y-m-d H:i:s',strtotime($request->start_date));
 			$invitation_details->description =$request->quote_description;
 			$invitation_details->price =$request->price;
 			$invitation_details->attachment =$quote_attachment;						
+			$invitation_details->attachment =$quote_attachment;						
 			$invitation_details->invitation_status =1;	//reply from builders		
 			$invitation_details->save();
 			$customer_id=$invitation_details->from_user_id;
 			$tradesman_id=$invitation_details->to_user_id;
 			$job_id=$invitation_details->job_id;
-     /************calculate average bid and total bid ***********************/
+/************calculate average bid and total bid ***********************/
 			 $job_details=Jobs::find($job_id);
 			 $proposal_for=$job_details->looking_for;
 			 $job_details->avg_bid=JobInvitation::all()->where('job_id',$job_id)->where('invitation_status',1)->avg('price');
-			
 			 $job_details->no_of_bids=$job_details->no_of_bids+1;
 			 $job_details->save();
 			 
@@ -207,7 +206,7 @@ class ProviderController extends Controller{
 			$user_details->qualification=$request->qualification;
 			$user_details->emergency_job=$request->emergency_job;
 			$user_details->insurance=$request->insurance;
-			$user_details->holiday_notification=$request->holiday_notification;
+			$user_details->holiday_notification=($request->holiday_notification=='')?0:1;
 			$user_details->save();
 			session()->flash('success','Successfully updated your profile details.'); 
 			return redirect('my-profile');
@@ -285,6 +284,7 @@ class ProviderController extends Controller{
 			//$thumb_img->save($destinationPath.'/'.$prof_image,80);
 			$request->prof_image->move($destinationPath, $prof_image );
 			$user_details = User::find($userId);
+			if(@$user_details->prof_image)unlink($destinationPath.'/'.$user_details->prof_image);
 			$user_details->prof_image =$prof_image;
 			$user_details->save();
 			session()->flash('success','Profile picture change successfully.'); 
@@ -331,25 +331,27 @@ class ProviderController extends Controller{
 		$userId=$request->session()->get('user_id');
 		$provider_job_invitation=JobInvitation::awaredProvider($userId)
 								->filterBydate($form_date,$to_date)
-								->with('providerJobDetails.jobType','providerJobDetails.users')					
-								->with('categoryDetails.category')
+								->with(['providerJobDetails'=>function($providerJobDetail){
+								 $providerJobDetail->with('users')->with('jobReview')->with('attachment')->with('jobToCategory.category');
+								}])
 								->get();
 						
 		$data['provider_job_invitation']=$provider_job_invitation;	
 		return view('builder_awarded_jobs',$data);
 	}
-	public function my_invited(Request $request){  
+	public function my_invited(Request $request){
+		// DB::enableQueryLog();	
 		 $userId=$request->session()->get('user_id');
 	     $user_type=$request->session()->get('user_type');
-		 $provider_job_invitation=JobInvitation::invitedProvider($userId)
-					->with('providerJobDetails.jobType','providerJobDetails.users')					
-					->with('categoryDetails.category')
-					->get();			
+		 $provider_job_invitation=JobInvitation::with(['providerJobDetails'=>function($providerJobDetail){
+						 $providerJobDetail->with('users')->with('jobReview')->with('attachment')->with('jobToCategory.category');
+						}])->invitedProvider($userId)
+					->get();								
      /*--------------Read new job invitation------------------------*/
 		 $readNewInvitation=JobInvitation::newJobInvitation($userId)
 							->update(['invitation_read' => 1]);
      /*------------Read new job invitation------------------------*/	 
-		 $data['provider_job_invitation']=$provider_job_invitation;		
+		 $data['provider_job_invitation']=$provider_job_invitation;
 		 return view('builder_invited',$data);
 	}
 	public function view_tradesman_profile($profile_slag){			

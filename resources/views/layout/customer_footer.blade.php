@@ -12,12 +12,12 @@
 					<div class="fot_box fot_box_tow">
 						<h3>Information</h3>
 						<ul>
-							<li><a href="#">Landlords FAQ</a></li>
-							<li><a href="#">Terms & Conditions</a></li>
-							<li><a href="#">Privacy Policy</a></li>
+							<li><a href="landLords-faq">Landlords FAQ</a></li>
+							<li><a href="terms-and-conditions">Terms & Conditions</a></li>
+							<li><a href="privacy-policy">Privacy Policy</a></li>
 						</ul>
 						<ul>
-							<li><a href="#">About Us</a></li>
+							<li><a href="about-us">About Us</a></li>
 							<li><a href="#">Help</a></li>
 						   <!-- <li><a href="#">Contact Us</a></li>-->
 						</ul>
@@ -40,3 +40,14 @@
 		</div>
 	</div>
 </footer>
+@if(session()->get('success_recommendation'))
+<script src="dist/sweetalert.min.js"></script>
+<link rel="stylesheet" type="text/css" href="dist/sweetalert.css">
+<script>
+swal(
+  'Success',
+  '{{session()->get("success_recommendation")}}',
+  'success'
+)
+</script>
+@endif

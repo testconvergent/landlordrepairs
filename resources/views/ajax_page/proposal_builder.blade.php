@@ -28,7 +28,12 @@
 				<span><img src="images/ttags.png" alt="">${{number_format($user->price)}}</span>
 				<span><img src="images/ccal.png" alt="">{{date('d F Y',strtotime($user->started_date))}}</span>
 				<p class="show1">{{str_limit($user->description,120)}}</p>
-			    <p class="collapse">{{$user->description}}</p>
+			    <p class="collapse">
+				{{$user->description}}<br>
+							<div class="attac_area" id="attach_file_1">							
+							<a href="{{url('/storage/invitation_attachment/'.$user->attachment)}}" download="{{$user->attachment}}">Attachment</a>							
+				</div>
+				</p>
 			</div>
 			<div class="invite_rev">
 				<a class="invite_btn read_more"  href="javascript:void(0);"><img src="images/one.png" alt="" > Read More</a>

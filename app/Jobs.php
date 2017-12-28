@@ -22,7 +22,7 @@ class Jobs extends Model
 		return $this->hasMany('App\JobAttachment','job_id');
 	}
 	public function jobToCategory(){
-		return $this->hasMany('App\JobToJobCategory','job_id');
+		return $this->hasOne('App\JobToJobCategory','job_id');
 		//->belongsTo('App\JobCategory', 'category_id', 'category_id');
 	}
 	public function users(){
@@ -31,7 +31,13 @@ class Jobs extends Model
 	public function jobType(){
 		return $this->hasOne('App\JobType','job_type_id','job_type_id');
 	}
+	public function jobReview(){
+		return $this->hasOne('App\UsersToReview','job_id','job_id');
+	}
 	public function attachment(){
 		return $this->hasOne('App\JobAttachment','job_id','job_id');
+	}
+	public function scopeNotExpiredJob($query){
+		return $query->where('exp_date','>=',date('Y-m-d H:i:s'));
 	}
 }

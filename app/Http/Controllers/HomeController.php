@@ -9,8 +9,7 @@ use File;
 use App\Mail\registrationMail;
 class HomeController extends Controller
 {
-    public function index()
-	{
+    public function index(){
 		if(session()->get('user_id') !="")
 		{
 			if(session()->get('user_type') == 3)
@@ -29,8 +28,7 @@ class HomeController extends Controller
 		$data['job_type'] = $fetch_job_type;		
 		return view('home',$data);
 	}
-	public function post_job(Request $request)
-	{
+	public function post_job(Request $request){
 		if(@$request->all()){	
 			$validation = array();
 			$validation['job_type_id']='required';
@@ -42,7 +40,7 @@ class HomeController extends Controller
 			$validation['zip_code']='required';
 			$validation['job_details']='required';
 			$validation['lattitude']='required';
-			$validation['longitude']='required';
+			$validation['longitude']='required';			
 			$this->validate($request,$validation);
 			$insert = array();
 			$insert['job_type_id'] = $request->job_type_id;
@@ -55,23 +53,17 @@ class HomeController extends Controller
 			$insert['longitude'] = $request->longitude;
 			$insert['zip_code'] = $request->zip_code;
 			$insert['job_details'] = $request->job_details;
-			if(session()->get('user_id'))
-			{
+			$insert['exp_date'] = date('y-m-d',strtotime('+30 days',time())); //by default job expiry date will be 30 days from posted date
+			if(session()->get('user_id')){
 				$insert['user_id'] = session()->get('user_id');
-			}
-			else
-			{
+			}else{
 				$insert['user_id'] = 0;
 			}
 			$job_id = DB::table(TBL_JOB_POST)->insertGetId($insert);
-			session()->put('job_id',$job_id);
-			
-			if($request->hasFile('attachment'))
-			{
-				foreach($request->file('attachment') as $attachment)
-				{
-					if(!empty($attachment))
-					{
+			session()->put('job_id',$job_id);			
+			if($request->hasFile('attachment')){
+				foreach($request->file('attachment') as $attachment){
+					if(!empty($attachment)){
 						$destinationPath = 'attachment/';
 						$original_name=$attachment->getClientOriginalName();
 						$filename = time().".".$attachment->getClientOriginalExtension();
@@ -93,7 +85,7 @@ class HomeController extends Controller
 			DB::table(TBL_JOB_TO_CATEGORY)->insert($job_inser_cat);
 			if(session()->get('user_id'))
 			{
-				session()->flash('success','Job Posted Sucessfully.'); 
+				session()->flash('success','Job Posted Successfully.'); 
 				return redirect('my-jobs');
 			}
 			else
@@ -631,7 +623,7 @@ class HomeController extends Controller
 				'category_id' => $request->job_category_id
 				);
 				DB::table(TBL_JOB_TO_CATEGORY)->where('job_id',$id)->update($job_inser_cat);
-				session()->flash('success','Job Edited Sucessfully.'); 
+				session()->flash('success','Job Edited Successfully.'); 
 				return redirect('my-jobs');
 			}
 		}
@@ -670,12 +662,13 @@ class HomeController extends Controller
 	{
 		if(session()->get('user_id') !="" && session()->get('user_type') == 3)
 		{
-			$get_user = DB::table(TBL_USER)->select('user_name','mobile','email')->where('user_id',session()->get('user_id'))->first();
+			$get_user = DB::table(TBL_USER)->select('user_name','mobile','email','working_hours')->where('user_id',session()->get('user_id'))->first();
 			if(@$request->all())
 			{
 				$update = array(
 				'user_name'=>$request->user_name,
 				'mobile'=>$request->mobile,
+				'working_hours'=>$request->from_time.'-'.$request->to_time,
 				'password'=>md5($request->password)
 				);
 				DB::table(TBL_USER)->where('user_id',session()->get('user_id'))->update($update);
@@ -696,5 +689,14 @@ class HomeController extends Controller
 				return redirect('my-profile');
 			}
 		}
+	}
+	public function static_page($slug)
+	{
+		//echo $slug;
+		$get_page = DB::table(TBL_STATIC_PAGE)->where('page_slug',$slug)->first();
+		//return $get_page;die;
+		$data['page'] = $get_page;
+		//echo "<pre>";print_r($get_page);die;
+		return view('static_page',$data);
 	}
 }

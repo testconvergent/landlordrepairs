@@ -7,7 +7,7 @@
 				</div>
 				<div class="log_area">
 					<ul>
-						<li><a href="#">How it works</a></li>
+						<li><a href="how-it-works">How it works</a></li>
 						<li><a href="tradesmen">Tradesmen Here</a></li>
 						<li class="log_btn"><a href="login">log in</a></li>
 					</ul>

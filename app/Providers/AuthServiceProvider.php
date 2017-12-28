@@ -24,7 +24,10 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
+		Gate::define('recommend-us', function ($user, $post) {
+			dd($user,$post);
+        return $user->id == $post->user_id;
+		});
         //
     }
 }

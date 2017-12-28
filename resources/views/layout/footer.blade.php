@@ -12,14 +12,14 @@
 					<div class="fot_box">
 						<h3>Information</h3>
 						<ul>
-							<li><a href="#">Aboutus</a></li>
-							<li><a href="#">Post Job</a></li>
-							<li><a href="#">LandLords FAQ</a></li>
+							<li><a href="about-us">Aboutus</a></li>
+							<li><a href="post-job">Post Job</a></li>
+							<li><a href="landLords-faq">LandLords FAQ</a></li>
 						</ul>
 						<ul>
-							<li><a href="#">Builders FAQ</a></li>
-							<li><a href="#">Terms & Conditions</a></li>
-							<li><a href="#">Privacy Policy</a></li>
+							<li><a href="builders-faq">Builders FAQ</a></li>
+							<li><a href="terms-and-conditions">Terms & Conditions</a></li>
+							<li><a href="privacy-policy">Privacy Policy</a></li>
 						</ul>
 						<ul>
 							<li><a href="#">Help</a></li>
@@ -37,7 +37,7 @@
 				</div>
 			</div>
 			<div class="below_footer">
-				<p>Copyrights © 2017 LandLordRepairs all Rights Reserved</p>
+				<p>Copyrights © {{date('Y')}} LandLordRepairs all Rights Reserved</p>
 			</div>
 		</div>
 	</div>

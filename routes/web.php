@@ -24,6 +24,7 @@ Route::post('/delete-attachment','HomeController@delete_attachment')->middleware
 
 
 
+
 Route::get('/get-details','UserController@get_details');
 
 Route::post('/invited-builder-list','UserController@invited_builder_list')->middleware('user_logout');
@@ -34,7 +35,8 @@ Route::post('/review-post','UserController@review_post')->middleware('user_logou
 Route::post('/report-builder','UserController@report_builder')->middleware('user_logout');
 Route::get('/delete-job/{id}','HomeController@delete_job')->middleware('user_logout');
 Route::post('/invited-builder','UserController@invited_builder')->middleware('user_logout');
-
+Route::get('/{page}','HomeController@static_page')->where('page', 'about-us|post-job|terms-and-conditions|builders-faq|landLords-faq|privacy-policy|how-it-works|etc');
+Route::post('/send-recommend-us-mail','UserController@send_recommend_us_mail')->middleware('user_logout');
 /*Provider */
 Route::get('/my-profile','ProviderController@my_profile')->middleware('user_logout');
 Route::post('/prof-description-secend-block','ProviderController@prof_description_secend_block')->middleware('user_logout');
@@ -79,6 +81,12 @@ Route::group(['middleware'=>'admin_login'],function(){
 	Route::get('/admin-posted-job-status/{id}','admin\JobController@change_job_status');
 	Route::get('/admin-view-job-details/{id}','admin\JobController@view_job_details');
 	Route::match(['get', 'post'],'/admin-change-credential','admin\UserController@change_credential');
+	Route::match(['get', 'post'],'/admin-builder-report-list','admin\UserController@builder_report');
+	Route::get('/admin-builder-report-details/{id}','admin\UserController@builder_report_details');
+	Route::get('/admin-static-page-list','admin\HomeController@static_page_list');
+	Route::match(['get', 'post'],'/admin-edit-static-page/{id}','admin\HomeController@edit_static_page');
+	Route::match(['get', 'post'],'/admin-static-image','admin\HomeController@upload_image');
+	Route::get('/admin-page-status/{id}','admin\HomeController@page_status');
 });
 
 /*Admin*/

@@ -1,0 +1,128 @@
+img.center,
+iframe {
+    display: block;
+    margin: 0 auto;
+}
+div.img-responsive{
+    max-width: 100%;
+}
+.relative{
+    position: relative !important;
+}
+.leftpara{
+    font-family: inherit;
+}
+/*Home Page Start*/
+.pa_UserImg{
+    width: 100%;
+    max-width: 100%;
+}
+.userDetails{
+        position: absolute;
+    bottom: 0;
+    z-index: 1000;
+}
+/*Home Page End*/
+
+/*Story Page Start*/
+
+.memo-double-title {
+    position: relative;
+    color: #FE7201;
+    font-size: 40px;
+}
+
+.memo-double-title span {
+    display: inline-block;
+    margin-left: 8px;
+    font-size: 30px;
+}
+
+h3.story-sub-title {
+    color: #FE7201;
+    margin: 3px auto;
+}
+
+a.memo_cta {
+    background: #FE7201;
+    display: block;
+    width: 220px;
+    margin: 0 auto;
+    outline: none;
+    text-align: center;
+    color: #fff;
+    padding: 5px 0px;
+    font-size: 24px;
+    margin-top: 13px;
+}
+
+div.memo_seprator {
+    width: 640px;
+    margin: 12px auto 40px;
+    border-top: 1px solid #FE7201;
+    max-width: 90%;
+}
+.memo-story-from, .memo-story-from-name{
+    color: #FE7201;
+}
+.memo-story-from{
+    font-size: 14px;
+    margin: 0;
+}
+.memo-story-from-name{
+    font-size: 18px;
+    margin: 3px auto 15px;
+}
+.margin-top{
+    margin-top: 30px;
+}
+
+/*Story Page End*/
+
+/*Contact Page Start*/
+.memoContactTele p{
+    margin: 0;
+}
+#contactPage form {
+    margin-top:20px;
+}
+#contactPage form input, #contactPage form textarea{
+    border: 1px solid #FE7201;
+    border-radius: 0;
+}
+#contactPage form input{
+    padding: 20px 10px;
+}
+#contactPage form button{
+    background: #EB6901;
+    border-radius: 0;
+    border: 0;
+    padding: 10px 20px;
+    font-size: 25px;
+}
+/*Contact Page End*/
+
+/*Donation Start*/
+.candle-image img{
+    width: 100%;
+    height: auto;
+}
+
+.donation-details h4{
+    color: #FE7201;
+    font-size: 20px;
+}
+
+.donation-details .section-first{
+    border-right: 1px solid #FE7201;
+    height: 300px;
+}
+
+.donation-details .section-second h4{
+    margin-bottom: 0;
+}
+
+.donation-details .section-second p{
+    margin: 0;
+}
+/*Donation End*/

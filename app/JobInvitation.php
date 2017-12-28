@@ -39,4 +39,11 @@ class JobInvitation extends Model
 		 return $query->whereBetween('awarded_job_date',[$form_date,$to_date]);	
 		}
 	}
+	public function jobReview(){
+		return $this->hasOne('App\UsersToReview','job_id','job_id');
+	}
+	public function jobAttachment(){
+		return $this->hasMany('App\JobAttachment','job_id','job_id');
+	}
+	
 }

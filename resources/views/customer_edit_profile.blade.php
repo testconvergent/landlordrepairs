@@ -32,6 +32,24 @@
                        		<input class="form-control required" placeholder="Phone number" type="text" autocomplete="new-user_mobile" minlength="10" maxlength="10" onkeypress="validate(event)" id="mobile" value="{{@$user->mobile}}" name="mobile">
                         </div>
                     </div>
+					<?php 
+					if(@$user->working_hours){
+						$working_hours=explode('-',$user->working_hours);
+						//echo $working_hours[0];
+					}
+					?>
+					<div class="col-md-6 col-sm-6 co-xs-12">
+						<div class="your-mail">
+							<label>Working Hours From</label>
+							<input class="form-control required" placeholder="From hours" name="from_time" type="text" id="from_time" value="{{@$working_hours[0]}}">
+						</div>
+					</div>
+					<div class="col-md-6 col-sm-6 co-xs-12">
+						<div class="your-mail">
+							<label>Working Hours To</label>
+							<input class="form-control required" placeholder="To hours" name="to_time" type="text" id="to_time" value="{{@$working_hours[1]}}">
+						</div>
+					</div>
                     <h5>Password</h5>
                     <div class="col-md-12">
                         <div class="your-mail">
@@ -90,6 +108,8 @@ $('#mobile').blur(function(){
 		}
 	});
 });	
+$('#from_time').timepicker();
+$('#to_time').timepicker();
 function validate(evt){
 	var theEvent=evt || window.event;
 	var key=theEvent.keyCode || theEvent.which;

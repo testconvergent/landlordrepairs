@@ -735,6 +735,7 @@ select.newAdd {
 
 @media(max-width:767px){
 	/*saoli 01-Dec-17*/
+
 		.pull-right1{
 	float:right !important;
 }
@@ -1045,7 +1046,9 @@ line-height: 30px;
 	
 	
 	
-	
+.city_deascription {
+	bottom: 42px;
+}
 		
 }
 /*767*/
@@ -1626,8 +1629,18 @@ select.newAdd {
 }
 
 
-
-
+.city_deascription {
+	bottom: 80px;
+	margin: auto;
+	left: 0;
+	right: 0;
+}
+.city_deascription::after, .city_deascription::before {
+	left: 50%;
+}
+.final_action {
+	width: 100%;
+}
 }
 /*480*/
 

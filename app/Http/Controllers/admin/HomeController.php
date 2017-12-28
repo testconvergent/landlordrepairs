@@ -92,4 +92,74 @@ class HomeController extends Controller
 		}
 		return view('admin.change_password');
 	}
+	public function static_page_list()
+	{
+		
+		$get_page = DB::table(TBL_STATIC_PAGE)->get();
+		$data['page'] = $get_page;
+		//echo "<pre>";print_r($get_page);die;
+		return view('admin.static_page_list',$data);
+	}
+	public function edit_static_page(Request $request,$id)
+	{
+		if(@$request->all())
+		{
+			$update = array();
+			$update['page_description'] = $request->page_description;
+			$update['page_meta_title'] = $request->page_meta_title;
+			$update['page_meta_description'] = $request->page_meta_description;
+			DB::table(TBL_STATIC_PAGE)->where('page_id',$id)->update($update);
+			session()->flash('success','Page edited successfully.');
+			return redirect('admin-static-page-list');
+		}
+		$get_page = DB::table(TBL_STATIC_PAGE)->where('page_id',$id)->first();
+		$data['page'] = $get_page;
+		//echo "<pre>";print_r($get_page);die;
+		return view('admin.edit_static_page',$data);
+	}
+	public function page_status($id){
+		$page = DB::table(TBL_STATIC_PAGE)->where('page_id',$id)->first();
+		if($page->page_status == 1)
+		{
+			$update = array('page_status'=>0);
+		}
+		else
+		{
+			$update = array('page_status'=>1);
+		}
+		DB::table(TBL_STATIC_PAGE)->where('page_id',$id)->update($update);
+		session()->flash('success','Page status change successfully');
+		return redirect('admin-static-page-list');
+	}
+	public function upload_image(Request $request)
+	{
+		//die;
+		if($_FILES['file']){
+		$errors= array();
+		$file_name = $_FILES['file']['name'];
+		$file_tmp = $_FILES['file']['tmp_name'];
+		$file_size = $_FILES['file']['size'];
+		$file_type = $_FILES['file']['type'];
+		
+		$extension = strtolower(pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION));
+		$allowedExts = array("jpeg", "jpg", "png");
+		
+		if(in_array($extension,$allowedExts) === FALSE){
+			$errors[]="Extension not allowed, please choose a JPG or JPEG or PNG file.";
+		}
+		if(empty($errors) == TRUE){
+			$file=date('YmdHis').'-'.rand(00000,99999).'.'.$extension;
+			move_uploaded_file($file_tmp,base_path().'/text_editer/upload_image/'.$file);
+			// Generate response.
+			$response = array();
+			$response['link'] = url('text_editer/upload_image/'.$file);
+			echo json_encode($response);
+		}else{
+			print_r($errors);
+		}
+		}
+		else{
+		   echo "No file selected!";
+		}
+	}
 }

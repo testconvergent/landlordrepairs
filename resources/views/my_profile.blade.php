@@ -2,7 +2,6 @@
 <!--wrapper start-->
 <div class="row Nomarg">
     @include('layout.provider_header')
-    <div class="inner_banner_builder NopaddB"> <img src="images/inner_banner.jpg" alt="inner_banner"> </div>
 </div>
 <div class="row Nomarg">
     <div class="container">
@@ -43,9 +42,6 @@
                     </div>
                     <div class="catt1 col-md-9">
                         <ul>
-						<li><img src="images/cat01.png" alt="cat">
-                                <p>Name : <span>{{$user_name}}</span></p>
-                            </li>
                             <li><img src="images/cat01.png" alt="cat">
                                 <p>Category : <span>{{$provider_primary_trade}}</span></p>
                             </li>

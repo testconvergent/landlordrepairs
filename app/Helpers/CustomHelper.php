@@ -18,6 +18,12 @@
 		$fetch = DB::table(TBL_JOB_INVITATION)->where('invitation_status','!=',0)->where('job_id',$job_id)->get();
 		return $fetch;
 	}
+	function count_bid($job_id)
+	{
+		$fetch = DB::table(TBL_JOB_INVITATION)->where('job_id',$job_id)->get();
+		//echo "<pre>";print_r($fetch);die;
+		return $fetch;
+	}
 	function hired_builder($job_id)
 	{
 		$fetch = DB::table(TBL_JOB_INVITATION)->where('invitation_status',2)->orwhere('invitation_status',3)->where('job_id',$job_id)->get();
@@ -38,5 +44,10 @@
 		$win = DB::table(TBL_USER)->select('job_win','avg_review','tot_review')->where('user_id',session()->get('user_id'))->first();
 		//echo "<pre>";print_r($win);die;
 		return $win;
+	}
+	function get_attachment($job_id)
+	{
+		$get_attachment = DB::table(TBL_JOB_TO_ATTACHMENT)->where('job_id',$job_id)->get();
+		return $get_attachment;
 	}
 ?>

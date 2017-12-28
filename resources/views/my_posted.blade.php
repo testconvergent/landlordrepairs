@@ -10,10 +10,13 @@
 					<div class="col-sm-6 col-lg-6 col-md-6">
 						<div class="awaded_jobs_block user_pos">
 							<h3>{{@$job->looking_for}}</h3>
+							@php $bid = count_bid($job->job_id)@endphp
+							@if(count($bid)<= 0)
 							<div class="edt">
 								<a href="javascript:void(0);" data-id="{{@$job->job_id}}" data-looking_for="{{@$job->looking_for}}" data-budget="{{@$job->budget}}" data-deadline="{{@$job->deadline}}"data-city="{{@$job->city}}" data-zip_code="{{@$job->zip_code}}" data-job_details="{{@$job->job_details}}" data-job_type_id="{{@$job->job_type_id}}" data-job_cat_id="{{@$job->category_id}}" data-lattitude="{{@$job->lattitude}}" data-longitude="{{@$job->longitude}}" class="edit_job"><img src="images/edit.png" alt=""></a>
 								<a href="javascript:void(0);" onclick="delete_job({{$job->job_id}})"><img src="images/ext.png" alt=""></a>
 							</div>
+							@endif
 							<div class="clearfix"></div>
 							<div class="awaded_type">
 								<ul>
@@ -23,7 +26,7 @@
 							</div>
 							<div class="clearfix"></div>
 							<div class="awaded_des">
-								<p class="show">{{@$job->job_details}}</p>
+								<span class="show">{{@$job->job_details}}</span>
 							</div>
 							<div class="clearfix"></div>
 							<div class="awarded_btn_group">
@@ -36,9 +39,12 @@
 							<div class="clearfix"></div>
 							<div class="bottom_footer_bbox">
 								<ul>
-									<li class="lloc"><span><img src="images/loc.png" ></span>{{@$job->city}}</li>
+									<li class="lloc city_tooltip"><span><img src="images/loc.png" ></span>{{str_limit(@$job->city,20)}}</li>
 									<li class="lloc_2"><span><img src="images/ccal.png" ></span>Deadline: {{date('d F Y',strtotime(@$job->deadline))}}</li>
 								</ul>
+								<div class="city_deascription">
+								{{@$job->city}}
+							</div>
 							</div>
 						</div>
 					</div>
@@ -224,12 +230,13 @@
 .modal-backdrop{
     z-index: 10;        
 }
-.show {
-    font:normal 15px arial;
-    text-align: justify;
-	padding: 15px 0 0 0;
+.main_ctnt {
+    border: 1px solid #000000;
+    margin: 100px;
+    padding: 15px;
+    width: 650px;
 }
-.show1 {
+.show {
     font:normal 15px arial;
     text-align: justify;
 	padding: 15px 0 0 0;
@@ -237,15 +244,8 @@
 .morectnt span {
 display: none;
 }
-.morectnt1 span {
-display: none;
-}
 .showmoretxt {
-    font: bold 15px tahoma;
-    text-decoration: none;
-}
-.showmoretxt1 {
-    font: bold 15px tahoma;
+    font: bold 12px tahoma;
     text-decoration: none;
 }
 .no_invited{
@@ -525,11 +525,11 @@ var countryRestrict = {'country': country_code};
 var acOptions1 = {
 	componentRestrictions: countryRestrict
 };
-var input = document.getElementById('city');
-var autocomplete = new google.maps.places.Autocomplete(input,acOptions1);
- google.maps.event.addListener(autocomplete, 'place_changed', function() {
+var city_input = document.getElementById('city');
+var autocomplete_city = new google.maps.places.Autocomplete(city_input,acOptions1);
+ google.maps.event.addListener(autocomplete_city, 'place_changed', function() {
 //input.className = '';
-var place = autocomplete.getPlace();
+var place = autocomplete_city.getPlace();
 document.getElementById('longitude').value = place.geometry.location.lng();
 document.getElementById('lattitude').value = place.geometry.location.lat();
 });
@@ -549,35 +549,23 @@ document.getElementById('address_lattitude').value = place.geometry.location.lat
 });
 
 $(function() {
-var showTotalChar = 160, showChar = "", hideChar = "";
+var showTotalChar = 180, showChar = "View More", hideChar = "View Less";
 $('.show').each(function() {
 var content = $(this).text();
 if (content.length > showTotalChar) {
 var con = content.substr(0, showTotalChar);
 var hcon = content.substr(showTotalChar, content.length - showTotalChar);
-var txt= con +  '<span class="dots">...</span><span class="morectnt1"><span>' + hcon + '</span>&nbsp;&nbsp;<a href="" class="showmoretxt">' + showChar + '</a></span>';
+var txt= con +  '<span class="dots"> ...</span><span class="morectnt"><span>' + hcon + '</span>&nbsp;&nbsp;<a href="" class="showmoretxt">' + showChar + '</a></span>';
 $(this).html(txt);
 }
 });
-});
-$(function() {
-var showTotalChar1 = 10, showChar1 = "View More >>", hideChar1 = "<< View Less";
-$('.show1').each(function() {
-var content = $(this).text();
-if (content.length > showTotalChar1) {
-var con = content.substr(0, showTotalChar1);
-var hcon = content.substr(showTotalChar1, content.length - showTotalChar1);
-var txt= con +  '<span class="dots">...</span><span class="morectnt1"><span>' + hcon + '</span>&nbsp;&nbsp;<a href="" class="showmoretxt1">' + showChar1 + '</a></span>';
-$(this).html(txt);
-}
-});
-$(".showmoretxt1").click(function() {
+$(".showmoretxt").click(function() {
 if ($(this).hasClass("sample")) {
 $(this).removeClass("sample");
-$(this).text(showChar1);
+$(this).text(showChar);
 } else {
 $(this).addClass("sample");
-$(this).text(hideChar1);
+$(this).text(hideChar);
 }
 $(this).parent().prev().toggle();
 $(this).prev().toggle();
@@ -606,6 +594,11 @@ function delete_job(id)
 			
 		});
 	}
+$('.city_tooltip').hover(function(){//alert();
+$(this).parents('.bottom_footer_bbox').find('.city_deascription').show();
+},function(){
+$(this).parents('.bottom_footer_bbox').find('.city_deascription').hide();
+});
 </script>
 @if(session()->get('success'))
 <script>

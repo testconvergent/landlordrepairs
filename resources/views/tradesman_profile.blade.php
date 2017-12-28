@@ -96,13 +96,14 @@
             </div>
             <div class="clearfix"></div>
             <div class="portfolio_sec">
+			   @if(count($port_polio))
                 <div class="portfolio_top_panel">
                     <h3>Portfolio</h3>
-                    <!-- <a id="portpolio_button" class="add_new_portfolio" href="#">add new portfolio</a> --></div>
+                 </div>
                 <div class="clearfix"></div>
                 <div class="portfolio_photo_panel">
                     <ul>
-                        @if(@$port_polio) @foreach($port_polio as $polio)
+                         @foreach($port_polio as $polio)
                         <li>
                             <h3 class="bbfore">Before</h3>
                             <a class="fancybox" href="{{url('public/portpolio_normal/'.$polio->before_image)}}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
@@ -127,54 +128,49 @@
                                 </div>
                             </a>
                         </li>
-                        @endforeach @endif
-                        <!--  <li><a class="fancybox" href="images/9_b.jpg" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
-                <div class="view1 view-first"> <img src="images/9_s.jpg" />
-                <div class="mask">
-                    <h2>Dummy caption here</h2>
-                    <div class="cross_p"><i class="fa fa-times" aria-hidden="true"></i> </div>
-                  </div>
-              </div>
-                </a></li>
-              <li><a class="fancybox" href="images/10_b.jpg" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
-                <div class="view1 view-first"> <img src="images/10_s.jpg" />
-                <div class="mask">
-                    <h2>Dummy caption here</h2>
-                    <div class="cross_p"><i class="fa fa-times" aria-hidden="true"></i> </div>
-                  </div>
-              </div>
-                </a></li>-->
+                        @endforeach 
                     </ul>
                 </div>
+				@else
+				<div class="review_panel">
+				 <h3>Portfolio not available.</h3> 
+				</div>				
+				@endif
             </div>
             <div class="clearfix"></div>
             <div class="qualification_panel">
                 <h3>Qualification</h3>
                 <div class="clearfix"></div>
                 <div class="engg_panel">
-                    <h3>{{$qualification}}</h3>
-                    <!-- <a href="#" class="pull-right"><img src="images/edit_icco.png"></a> -->
+                    <h3>{{$qualification}}</h3>                    
                 </div>
-
             </div>
             <div class="mmember_panel">
-                <h3>Member of</h3>
-                <!-- <a id="logo_button" class="add_new_portfolio" href="#">add new Logo</a> -->
+			 @if(count($provider_logo)) 
+                <h3>Member of</h3>                
                 <div class="clearfix"></div>
-                <ul class="logo_image">
-                    @if($provider_logo) @foreach($provider_logo as $logo)
+                <ul class="logo_image">                    
+						@foreach($provider_logo as $logo)
                     <li><a href="javascript:void(0)"><img src="{{url('public/logo_image/'.$logo->logo_image)}}"></a></li>
-                    @endforeach @endif
+                    @endforeach 
+					
                 </ul>
+				@else
+					<div class="review_panel">
+					<h3>Currently not a member of any organization.</h3>
+					</div>
+				@endif
             </div>
             <div class="clearfix"></div>
             <div class="review_panel">
-                <div class="review_panel_toop">
+                
+				@if(count($review))
+					<div class="review_panel_toop">
                     <h3>Reviews</h3>
                 </div>
                 <div class="clearfix"></div>
 				<div class="review_bblock_11 reviewarea">
-					@if(!$review->isEmpty())
+					
 						@foreach($review as $rev)
 							<h3>{{@$rev->review_title}}</h3>
 							<div class="pull-right">
@@ -205,8 +201,10 @@
 							<div class="clearfix"></div>
 							<div class="review_ddes">{{@$rev->comments}}.</div><hr>
 						@endforeach
-					@endif
 				</div>
+				@else
+					<h3>No reviews found.</h3>
+				@endif
             </div>
         </div>
     </div>

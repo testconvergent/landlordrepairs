@@ -3,26 +3,36 @@
 <!--wrapper start-->
 <div class="row Nomarg">
     @include('layout.provider_header')
-    <div class="inner_banner_builder NopaddB" style="margin-bottom: 21px;"> <img src="images/inner_banner.jpg" alt="inner_banner"> </div>
 </div>
 <div class="row Nomarg" >
 	<div class="contain_divs">
 		<div class="container">
-			@if(count($provider_job_invitation)>0)
-				@foreach($provider_job_invitation as $jobs)
+			@if(count($provider_job_invitation) && count($provider_job_invitation[0]->providerJobDetails)>0)
+				@foreach($provider_job_invitation as $jobs)					
 				<div class="col-sm-6 col-lg-6 col-md-6">
 					<div class="awaded_jobs_block">	
 						<h3>{{ $jobs->providerJobDetails[0]->looking_for}}</h3>
 						<div class="clearfix"></div>
 						<div class="awaded_type">
 							<ul>
-								<li><img src="images/ico03.png">Job Category :{{ $jobs->categoryDetails->category->category_name}}</li>		
+								<li><img src="images/ico03.png">Job Category :{{ $jobs->providerJobDetails[0]->jobToCategory->category->category_name}}</li>		
 								<li><img src="images/ico04.png">Type : {{$jobs->providerJobDetails[0]->jobType->job_type_name}}</li>
 							</ul>
 						</div>
 						<div class="clearfix"></div>
 						<div class="awaded_des">
-							<p>{{str_limit($jobs->providerJobDetails[0]->job_details,200)}}</p>
+							<div class="job_desription">
+							<p>{{$jobs->providerJobDetails[0]->job_details}}</p>
+							@if(count($jobs->jobAttachment))							
+							<div class="attac_area" id="attach_file_1">
+							@foreach($jobs->jobAttachment as $attachment)
+							<a href="{{url('/attachment/'.$attachment->attachment_name)}}" download="{{$attachment->orginal_name}}">{{$attachment->orginal_name}}</a>
+							@endforeach
+							</div>							
+							@endif
+							</div>
+							<a class="read_more" style="display:none;" href="javascript:void(0)">Read more</a>
+							<a class="less_more" style="display:none;" href="javascript:void(0)">Less more</a>
 						</div>
 						<div class="clearfix"></div>
 						<div class="mob_block">
@@ -37,7 +47,7 @@
 						<div class="clearfix"></div>
 						<div class="awarded_btn_group">
 							<div class="bbtn_lleft_p">
-							@if($jobs->invitation_status==0)
+							@if($jobs->invitation_status==0 && $jobs->providerJobDetails[0]->exp_date>=date('Y-m-d H:i:s'))
 								<button type="button" data-toggle="modal" data-modal-title="{{ $jobs->providerJobDetails[0]->looking_for}}" data-id="{{$jobs->job_invitation_id}}" data-target="#myModal1" class="btn btn-primary respondent">Respond</button>
 							@elseif($jobs->invitation_status==1)
 								<div class="repondeded"><i class="fa fa-check-circle" aria-hidden="true"></i> Responded</div>
@@ -45,7 +55,11 @@
 							</div>
 							<div class="mail_msg">
 							@if($jobs->invitation_status==0)
-								<p><img src="images/mails.png"><span>you have been invited </span></p>
+									@if($jobs->providerJobDetails[0]->exp_date>=date('Y-m-d H:i:s'))
+									<p><img src="images/mails.png"><span>you have been invited </span></p>
+									@else
+									<p><img src="images/mails.png"><span>This job has been expired.</span></p>	
+									@endif
 							@elseif($jobs->invitation_status==1)
 								<p><img src="images/mails.png"><span>waiting for customer response </span></p>
 							@endif
@@ -83,7 +97,7 @@
 							</ul>
 						</div>
 					</div>
-				</div>
+				</div>				
 				@if($loop->iteration%2==0)
 						<div class="clear"></div>
 				@endif
@@ -158,6 +172,31 @@
 </div>
 <script>
 $('#submit_quote').validate();
+$('.read_more').click(function(){
+     $(this).hide();
+	$('.job_desription').css("height",'auto');
+	$('.job_desription').css('-webkit-line-clamp','');
+   $('.job_desription').css('display','block');	
+     $('.less_more').show();	
+ });
+$('.less_more').click(function(){
+     $(this).hide();
+	 $('.job_desription').css("height",'67px');
+	 $('.job_desription').css('-webkit-line-clamp','3');
+	 $('.job_desription').css('display','-webkit-box');
+     $('.read_more').show();
+});
+$(document).ready(function(){
+if($('.job_desription').height()>50){
+$('.read_more').show();
+$('.job_desription').css('height','67px');
+$('.job_desription').css('overflow','hidden');
+$('.job_desription').css('display','-webkit-box');
+$('.job_desription').css('-webkit-line-clamp','3');
+$('.job_desription').css('-webkit-box-orient','vertical');
+}
+});
+
 $("#quote_attachment").change(function(){		
 		if (this.files && this.files[0]) {
            $('.file_name').html(this.files[0].name);

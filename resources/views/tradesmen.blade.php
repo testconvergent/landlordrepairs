@@ -137,7 +137,7 @@
                 <h2>grow your business</h2>
                 <p>Our Platform helps you gain new customers, keep your existing customers happy, and manage your business on the go.</p>
                 <div class="clearfix"></div>
-                <a href="#" class="sgnup">sign up now</a>
+                <a href="tradesmen-signup" class="sgnup">sign up now</a>
                 </div>
             </div>
         </div>

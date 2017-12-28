@@ -29,7 +29,12 @@
 						<div class="profile_pic">
 							<?php $user = fetch_user(session()->get('user_id'));?>
 							<a href="javascript:void(0);" class="aa"> 
-								<img src="images/profile_img.jpg" class="img-circle"> <i class="fa fa-caret-down" aria-hidden="true"></i> <div class="dropss_down" style="display:none;">
+								@if(@$user->prof_image)
+									<img src="{{url('public/prof_image/'.$user->prof_image)}}" class="img-circle"> <i class="fa fa-caret-down" aria-hidden="true"></i> 
+								@else
+									<img src="images/noimages.png" class="img-circle"> <i class="fa fa-caret-down" aria-hidden="true"></i> 
+								@endif
+								<div class="dropss_down" style="display:none;">
 									<ul>
 										<li><a href="javascript:void(0);"> <i class="fa fa-angle-double-right" aria-hidden="true"></i> Profile</a> </li>
 										<li><a href="edit-profile"> <i class="fa fa-angle-double-right" aria-hidden="true"></i>  Edit Profile </a></li>
@@ -44,6 +49,7 @@
 		</div>
 	</div>
 	<div class="inner_banner_builder">
+		<h3 class="user_name">{{$user->user_name}}</h3>
 		<img src="images/inner_banner.jpg"  alt="inner_banner">
 		@if(Request::segment(1) != 'profile' && Request::segment(2) =="")
 		<div class="adnew1 post_btn">
@@ -61,21 +67,42 @@
 				<h4 class="modal-title">Recommend us </h4>
 			</div>
 			<div class="modal-body review_modal_body1 NopaddB">
-				<form class="modal_form_rreview">
+				<form class="modal_form_rreview" action="send-recommend-us-mail" id="send-recommend-us-mail" method="post">
+				{{csrf_field()}}
 					<div class="col-md-12 popad">
 						<div class="recomnd">
 							<h5>Recommend us to a </h5>
 							<div class="radio_area">
-								<p>
-									<input type="radio" id="test1" name="radio-group" checked>
+									<p>
+									<input type="radio" id="test1" name="user_type" value="tradesperson" checked>
 									<label for="test1">Tradesperson </label>
-								</p>
-								<p>
-									<input type="radio" id="test2" name="radio-group">
+									</p>
+								  <p>
+								    <input type="radio" id="test2" value="landlord" name="user_type">
 									<label for="test2"> Landlord </label>
-								</p>
+								 </p>
 							</div>
-							<button type="button" class="btn btn-primary mark_com pull-left post_bbttn">Submit</button>
+						<div class="col-sm-12 col-lg-12 col-md-12">
+						  <div class="form-group">
+							<label class="control-label" for="pwd">Name</label>
+							<input type="text" class="form-control required" name="name" id="name" placeholder="Name">
+						  </div>
+						  <div class="form-group">
+							<label class="control-label" for="pwd">Email</label>
+							<input type="email" class="form-control required" name="email" id="Email" placeholder="Email">
+						  </div>
+						  <div class="form-group">
+							<label class="control-label" for="pwd">Phone</label>
+							<input type="text" class="form-control required" name="phone" id="phone" placeholder="Phone">
+						  </div>
+						  <div class="form-group">
+							<div class="form-group">
+							<label class="control-label">Description</label>
+							<textarea class="form-control required" rows="3" id="comment" name="description" placeholder="Type your description here"></textarea>
+						</div>
+						  </div>
+					   </div>
+							<button type="submit" class="btn btn-primary mark_com pull-left post_bbttn">Submit</button>
 						</div>
 					</div>
 				</form>
@@ -162,7 +189,7 @@
 					<div class="col-sm-12 col-lg-12 col-md-12">
 						<div class="form-group">
 							<label class="control-label">Description</label>
-							<textarea class="form-control" rows="3" id="comment" name="job_details"></textarea>
+							<textarea class="form-control " rows="3" id="comment" name="job_details"></textarea>
 						</div>
 					</div>
 					<div class="col-sm-5 col-lg-5 col-md-5">
@@ -185,4 +212,7 @@
 		</div>
 	</div>
 </div> 
+<script>
+$("#send-recommend-us-mail").validate();
+</script>
 <!--Add Job-->

@@ -244,4 +244,30 @@ class UserController extends Controller
 		$data = array('admin'=>$user_data);
 		return view('admin.change_admin_credential',$data);
 	}
+	public function builder_report(Request $request)
+	{
+		$get_report = DB::table(TBL_REPORT_BUILDER)
+		->select(TBL_REPORT_BUILDER.'.*','customer.user_name as customer_name',
+		'builder.user_name as builder_name',TBL_JOB_POST.'.looking_for')
+		->leftJoin(TBL_USER.' as customer',TBL_REPORT_BUILDER.'.report_from_user_id','=','customer.user_id')
+		->leftJoin(TBL_USER.' as builder',TBL_REPORT_BUILDER.'.report_to_user_id','=','builder.user_id')
+		->leftJoin(TBL_JOB_POST,TBL_REPORT_BUILDER.'.job_id','=',TBL_JOB_POST.'.job_id')
+		->get();
+		$data['report'] = $get_report;
+		//echo "<pre>";print_r($get_report);die;
+		return view('admin.builder_report_list',$data);
+	}
+	public function builder_report_details($id)
+	{
+		$get_report = DB::table(TBL_REPORT_BUILDER)
+		->select(TBL_REPORT_BUILDER.'.*','customer.user_name as customer_name','customer.email as customer_email','customer.mobile as customer_mobile','builder.user_name as builder_name','builder.email as builder_email','builder.mobile as builder_mobile',TBL_JOB_POST.'.looking_for')
+		->leftJoin(TBL_USER.' as customer',TBL_REPORT_BUILDER.'.report_from_user_id','=','customer.user_id')
+		->leftJoin(TBL_USER.' as builder',TBL_REPORT_BUILDER.'.report_to_user_id','=','builder.user_id')
+		->leftJoin(TBL_JOB_POST,TBL_REPORT_BUILDER.'.job_id','=',TBL_JOB_POST.'.job_id')
+		->where(TBL_REPORT_BUILDER.'.report_id',$id)
+		->first();
+		$data['report'] = $get_report;
+		//echo "<pre>";print_r($get_report);die;
+		return view('admin.builder_report_details',$data);
+	}
 }
