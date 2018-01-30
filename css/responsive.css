@@ -693,8 +693,13 @@ select.newAdd {
 .mail_msg p{
 	font-size:14px;
 	}
-
-
+.plss i {
+	margin-top: 0px;
+	margin-bottom: 15px;
+}
+.one_pac, .auto{
+	margin-bottom:15px;
+	}
 
 
 }
@@ -1641,6 +1646,9 @@ select.newAdd {
 .final_action {
 	width: 100%;
 }
+.one_pac h5{
+	margin-top:10px !important;
+	}
 }
 /*480*/
 
@@ -1876,12 +1884,19 @@ padding: 4px 10px !important;
 .catt1{
 	padding:0 !important;
 	}
-
+.one_pac tbody tr td{
+	padding:3px !important;
+	}
 	
 }
 /*360*/
 
-
+@media(max-width:320px){
+.one_pac tbody tr td {
+	padding: 2px !important;
+}	
+}
+/*320*/
 
 
 

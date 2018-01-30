@@ -86,18 +86,19 @@
 																	<!--<td><input type="checkbox" name="user[]" value="{{@$row->user_id}}"/></td>
 																	<td>-->
 																	<td>
-																	{{$jobs->category->category_name}}
+																	{{@$jobs->category->category_name}}
 																	</td>
 																	<td>
-																	{{$jobs->job->users->user_name}}
+																	{{@$jobs->job->users->user_name}}
 																	</td>
 																	<td>
 																	{{$jobs->job->looking_for}}
 																	</td>
-																	<?php
-																	$status=array('0'=>'Active','1'=>'Active','2'=>'Inactive','3'=>'Hired','4'=>'Completed','5'=>'Deleted')
-																	?>
-																	<td>{{$status[$jobs->job->job_status]}}</td>
+																	@php			$status=array('0'=>'Draft','1'=>'Active','2'=>'Inactive','3'=>'Hired','4'=>'Completed','5'=>'Deleted')
+																	@endphp
+																	
+																	
+																	<td>{{@$status[$jobs->job->job_status]}}</td>
 																	<td>
 																	<a href="admin-view-job-details/{{$jobs->job->job_id}}" title="View"> <i class="fa fa-eye delet" aria-hidden="true"></i></a>
 																		@if(@$jobs->job->job_status == 2)

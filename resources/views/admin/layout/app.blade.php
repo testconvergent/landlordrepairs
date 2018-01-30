@@ -34,7 +34,7 @@
 		<script src="assets/js/jquery.validate.js"></script>
 		<script src="assets/js/jquery-ui.js"></script>
         <link href="assets/css/calender.css" rel="stylesheet" type="text/css">
-		
+		<link href="assets/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
 		
 		<script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
         <script src="assets/plugins/datatables/dataTables.bootstrap.js"></script>
@@ -50,6 +50,7 @@
         <script src="assets/plugins/datatables/dataTables.responsive.min.js"></script>
         <script src="assets/plugins/datatables/responsive.bootstrap.min.js"></script>
         <script src="assets/plugins/datatables/dataTables.scroller.min.js"></script>
+		<script src="assets/js/jquery.dataTables.min.js"></script>
     </head>
 		<body class="fixed-left">
 			@section('body')

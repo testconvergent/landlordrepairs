@@ -5,10 +5,15 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": ">=5.6.4",
+        "php": ">=7.1.9",
+        "aloha/twilio": "^3.0",
+        "cartalyst/stripe-laravel": "6.0.*",
         "intervention/image": "^2.4",
+        "lakshmaji/plivo": "^1.2",
         "laravel/framework": "5.4.*",
-        "laravel/tinker": "~1.0"
+        "laravel/tinker": "~1.0",
+        "rikless/laravel-caffeine": "0.4.3",
+        "spatie/laravel-stripe-webhooks": "0.0.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -22,7 +27,7 @@
         "psr-4": {
             "App\\": "app/"
         },
-		"files":[
+        "files": [
             "app/Helpers/CustomHelper.php"
         ]
     },

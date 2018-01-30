@@ -29,7 +29,7 @@ class JobInvitation extends Model
 	}
 	
 	public function providerJobDetails(){
-		return $this->hasMany('App\jobs','job_id','job_id');
+		return $this->hasMany('App\Jobs','job_id','job_id');
 	}
 	public function categoryDetails(){
 		return $this->hasOne('App\JobToJobCategory','job_id','job_id');

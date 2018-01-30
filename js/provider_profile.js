@@ -3,10 +3,10 @@ $(document).ready(function(){
 	    event.preventDefault();
 		var title_text=$('.title_description h3').text();
 		var title_description_text=$('.title_description p').text();
-		var textarea='<textarea class="form-control builder_type builder_text required" style="margin: 0px; width: 832px; height: 83px;" name="user_prof_description">'+title_description_text+'</textarea>';
+		var textarea='<textarea class="form-control builder_type builder_text required" style="margin: 0px; width: 832px; height: 83px;" name="user_prof_description" placeholder="Type your profile description">'+title_description_text+'</textarea>';
 		$('.title_description:eq(1)').html(textarea);
 		autosize(document.querySelectorAll('textarea'));
-		var input_box='<input class="form-control builder_type required" placeholder="Type your company name" name="prof_title" type="text" value="'+title_text+'">';
+		var input_box='<input class="form-control builder_type required" placeholder="Type your profile title" name="prof_title" type="text" value="'+title_text+'">';
 		$('.title_description:eq(0)').html(input_box);
 		$('.dess').append('<button type="submit" class="btn btn-primary mark_com pull-right post_bbttn submit_button">Submit</button>');
 	});

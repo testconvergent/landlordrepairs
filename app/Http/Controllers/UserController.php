@@ -3,6 +3,10 @@ namespace App\Http\Controllers;
 use DB;
 use Mail;
 use URL;
+use App\Mail\invitationMail;
+use App\Mail\proposalMail;
+use App\Mail\hiredMail;
+use App\Mail\recommendUsMail;
 use App\User;
 use App\Jobs;
 use App\UsersToPortFolio;
@@ -39,8 +43,9 @@ class UserController extends Controller
 				$month_ini = new \DateTime("first day of last month");
 				$month_end = new \DateTime("last day of last month");
 
-                echo $month_ini->format('Y-m-d'); // 2012-02-01
-                echo $month_end->format('Y-m-d'); // 2012-02-29
+               // echo $month_ini->format('Y-m-d'); // 2012-02-01
+               // echo $month_end->format('Y-m-d'); // 2012-02-29
+			   return view('test.home');
 	       }
 	public function view_tradesman_profile($profile_slag){			
 		$tradesman_pro_details=User::tradesManProfile($profile_slag)->first();		
@@ -88,10 +93,26 @@ class UserController extends Controller
 				$insert['to_user_id'] = $request->builder_id;
 				$insert['invitation_date'] = date('Y-m-d H:i:s');
 				DB::table(TBL_JOB_INVITATION)->insert($insert);
-				$responce = array('invited'=>1);
+				
+				// A mail has been sent to builder for job invitation				
+				$job_details=Jobs::find($request->job_id);				
+				$invitation_details=new \StdClass();
+				$invitation_details->budget=$job_details->budget;				
+				$invitation_details->looking_for=$job_details->looking_for;				
+				$invitation_details->deadline=date('D j-M Y',strtotime($request->start_date));
+				$invitation_details->city=$job_details->city;
+				$invitation_details->job_details=$job_details->job_details;
+				$invitation_details->tradesman_email=User::find($request->builder_id)->email;			
+				$invitation_details->tradesman_name=User::find($request->builder_id)->user_name;
+				$invitation_details->customer_name=User::find(session()->get('user_id'))->user_name;	
+				$invitation_details->looking_for=$job_details->looking_for;
+				$invitation_details->subject='Invitation for '.$job_details->looking_for;			
+				$data['proposal']=$invitation_details;							
+				Mail::to($invitation_details->tradesman_email)->send(new invitationMail($invitation_details));
+				$responce = array('invited'=>1,'tradesman_mail'=>$invitation_details->tradesman_email);				
 			}
 			else{
-				$responce = array('invited'=>2);
+				$responce = array('invited'=>2,'tradesman_mail'=>$invitation_details->tradesman_email);
 			}
 			echo json_encode($responce);
 		}
@@ -144,7 +165,7 @@ class UserController extends Controller
 			$proposal_details->looking_for=$proposal_for;
 			$proposal_details->subject='Proposal for '.$proposal_for;			
 			$data['proposal']=$proposal_details;			
-			Mail::to($customer_email)->send(new App\Mail\proposalMail($proposal_details));			
+			Mail::to($customer_email)->send(new proposalMail($proposal_details));			
 			session()->flash('success','Successfully submited your quote.'); 
 			return redirect('my-invited');
 		}
@@ -204,7 +225,7 @@ class UserController extends Controller
 				$hire_details->job_type=$get_job->job_type_name;
 				$hire_details->job_price=$get_job->budget;
 				$hire_details->hire_price=$fetch->price;
-				//Mail::to($email)->send(new App\Mail\hiredMail($hire_details));	
+				Mail::to($email)->send(new hiredMail($hire_details));	
 			/*Job Hired Mail*/
 			$responce = array('hired'=>1);
 			echo json_encode($responce);
@@ -295,7 +316,7 @@ class UserController extends Controller
 		$recommendation->to_email=$request->email;		
 		$recommendation->phone=$request->phone;		
 		$recommendation->description=$request->description;
-		//Mail::to($recommendation->to_email)->send(new App\Mail\recommendUsMail($recommendation));
+		Mail::to($recommendation->to_email)->send(new recommendUsMail($recommendation));
 		session()->flash('success_recommendation','A recommendation mail has been sent for '.$request->user_type);
 		return redirect(URL::previous());
 	}

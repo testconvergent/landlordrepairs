@@ -71,11 +71,11 @@
 					<div class="col-md-4 col-sm-6 co-xs-12">
 						<div class="your-mail">
 							<label>Email Address</label>
-							@if(session()->get('registration_id') == "")
+							{{--  @if(session()->get('registration_id') == "")  --}}
 							<input class="form-control required" placeholder="Type your email address" name="email" id="email" type="email">
-							@else
+							{{--  @else
 								<label style="margin-top:10px;">{{@$user->email}}</label>
-							@endif
+							@endif  --}}
 						</div>
 					</div>
 					<h5>Company details</h5>
@@ -131,7 +131,6 @@
 							<input type="hidden" id="lattitude" name="lattitude" value="@if(@$user->lattitude){{@$user->lattitude}}@endif">
 						</div>
 					</div>
-					@if(session()->get('registration_id')=="")
 					<h5>Account Password</h5> 
 					<div class="col-md-4 col-sm-6 co-xs-12">
 						<div class="your-mail">
@@ -139,63 +138,14 @@
 							<input class="form-control required" placeholder="Type your password" type="password" name="password" autocomplete="new-password">
 						</div>
 					</div>
-					@endif
+				
 					<div class="col-md-12">
 						<div class="fnsh">
 							<input value="next" type="submit">
 						</div>
 					</div>
 				</form>
-				<h5>Enter your payment details</h5> 
-				<div class="cardsp">
-					<ul>
-						<li><a href="#"><img src="images/card_1.png" alt=""></a></li>
-						<li><a href="#"><img src="images/card_2.png" alt=""></a></li>
-					</ul>
-				</div>
-				<div class="col-md-4 col-sm-6 co-xs-12">
-					<div class="your-mail">
-						<label>Name on Card</label>
-						<input class="form-control" placeholder="Type your name on card" type="text">
-					</div>
-				</div>
-				<div class="col-md-4 col-sm-6 co-xs-12">
-					<div class="your-mail">
-						<label>Post Code</label>
-						<input class="form-control" placeholder="Card Number" type="text">
-					</div>
-				</div>
-				<div class="col-md-4 col-sm-6 co-xs-12">
-					<div class="">
-						<div class="your-mail">
-						<label>Expiration Date</label>
-						<div class="exprtn">
-							<select class="form-control newdrop3">
-								<option value="volvo">Month</option>
-								<option value="saab">Month</option>
-								<option value="mercedes">Month</option>
-							</select>
-						</div>
-						<div class="exprtn2">      
-							<select class="form-control newdrop3">
-								<option value="volvo">Year</option>
-								<option value="saab">Year</option>
-							</select> 
-						</div>  	
-						</div>
-					</div>  
-				</div>
-				<div class="col-md-4 col-sm-6 co-xs-12">
-					<div class="your-mail">
-						<label>CCV</label>
-						<input class="form-control" placeholder="Type your CCV number" type="text">
-					</div>
-				</div>
-				<div class="col-md-12">
-				<div class="your-mail">
-					<input value="fINISH" type="submit">
-					</div>
-				</div>
+
 			</div>
 		</div>
 	</div>

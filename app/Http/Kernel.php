@@ -60,5 +60,8 @@ class Kernel extends HttpKernel
         'user_logout' => \App\Http\Middleware\UserLogOut::class,
 		'admin_login' => \App\Http\Middleware\AdminLogIn::class,
         'admin_logout' => \App\Http\Middleware\AdminLogOut::class,
+        'CheckProviderSession' => \App\Http\Middleware\CheckProviderSession::class,
+        'CheckAdminSession' => \App\Http\Middleware\CheckAdminSession::class,
+        'CheckCustomerSession' => \App\Http\Middleware\CheckCustomerSession::class,
     ];
 }

@@ -27,3 +27,27 @@ pma link:
 https://phpmyadmin.gridhost.co.uk/index.php 
 
 while login select the ip "10.169.0.158" from server choice dropdown. 
+ssh
+
+SSH Server:	shell.gridhost.co.uk
+SSH Username:	landlord1
+SSH Password:	whhfwc74vo5vfwhh
+
+lanlordsrepairs@gmail.com
+tester123?
+
+
+lanlordsrepairs@gmail.com
+tester123?
+
+info@landlordrepairs.uk
+admin1234
+
+stripe demo account
+
+test.convergent1@gmail.com
+Tester123?
+
+https://webmail.gridhost.co.uk/
+info@landlordrepairs.uk
+admin1234

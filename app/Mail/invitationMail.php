@@ -16,9 +16,10 @@ class invitationMail extends Mailable
      *
      * @return void
      */
-    public function __construct()
+  public $invitation;
+    public function __construct($invitationDetails)
     {
-        //
+        $this->invitation=$invitationDetails;
     }
 
     /**
@@ -26,8 +27,8 @@ class invitationMail extends Mailable
      *
      * @return $this
      */
-    public function build()
-    {
-        return $this->view('view.name');
+    public function build(){
+		$data['invitation']=$this->invitation;
+        return $this->view('mail.invitation',$data)->subject($this->subject)->from('noreply@landlordrepairs.uk');
     }
 }

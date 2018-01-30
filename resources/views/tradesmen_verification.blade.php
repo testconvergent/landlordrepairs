@@ -33,14 +33,17 @@
 			<div class="setup_frm ">
 				<h5>Verify your identity</h5>
 				<div class="clearfix"></div>
+				@if(session()->get('email_not_verified')!='')
 				<div class="alert alert-success" style="font-size: 15px;font-weight: 600;font-family: -webkit-body;">
-					A verification link has been sent to your register email address. Please verify your account.
+				A verification link has been sent to your register email address. Please verify your account.
 				</div>
+				@endif
 				<div class="clearfix"></div>
+				@if(session()->get('mobile_not_verified')!='')
 				<div class="alert alert-info" style="font-size: 15px;font-weight: 600;font-family: -webkit-body;">
-				A mobile verification code has been sent to your register mobile number. Please enter your code in bellow text.<strong> Verification Code {{session()->get('mobile_code')}}</strong>
-				</div>
 				
+					A mobile verification code has been sent to your register mobile number. Please enter your code in bellow text. code is {{@session()->get('mobile_code')}}</strong>
+				</div>				
 				<form id="tradesmen_frm" action="identity-verification" method="post" class="mak_frm">
 				{{csrf_field()}}
 					<div class="col-md-8 col-sm-8 co-xs-12">
@@ -55,6 +58,7 @@
 						</div>
 					</div>
 				</form>
+				@endif
 			</div>
 		</div>
 	</div>

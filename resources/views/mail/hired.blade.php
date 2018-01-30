@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{{$proposal->tradesman_name}}</title>
+    <title>Tradesman Hire</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
@@ -25,7 +25,7 @@
 
                 <div style="display:block; overflow:hidden; width:100%; margin:20px 0 20px 0;">
 					<div style="font-family: 'Open Sans', sans-serif; float:left; font-size:15px; font-weight:400; color:#333; display:block; overflow:hidden; width:100%;">
-                        <p style="margin:0 0 8px 0; float:left;"><p> {{@$hired->customer_name}} hired for the job  {{@$hired->looking_for}}.</p>
+                        <p style="margin:0 0 8px 0; float:left;"><p> {{@$hired->customer_name}} hired you for the job  {{@$hired->looking_for}}.</p>
                     </div>
                     <div style="font-family: 'Open Sans', sans-serif; float:left; font-size:15px; font-weight:400; color:#333; display:block; overflow:hidden; width:100%;">
                         <p style="margin:0 0 8px 0; float:left;"><strong>Job Category :</strong> {{@$hired->category_name}}</p>
@@ -36,31 +36,12 @@
                     </div>
 					
 					<div style="font-family: 'Open Sans', sans-serif; float:left; font-size:15px; font-weight:400; color:#333; display:block; overflow:hidden; width:100%;">
-                        <p style="margin:0 0 8px 0; float:left;"><strong>Job Price :</strong> {{@$hired->job_price}}</p>
+                        <p style="margin:0 0 8px 0; float:left;"><strong>Job Price :</strong> £{{@$hired->job_price}}</p>
                     </div>
 					<div style="font-family: 'Open Sans', sans-serif; float:left; font-size:15px; font-weight:400; color:#333; display:block; overflow:hidden; width:100%;">
-                        <p style="margin:0 0 8px 0; float:left;"><strong>Job Awared Price :</strong> {{@$hired->hire_price}}</p>
+                        <p style="margin:0 0 8px 0; float:left;"><strong>Job Awarded Price :</strong> £{{@$hired->hire_price}}</p>
                     </div>
                 </div>
-
-                <!--<div style="font-family: 'Open Sans', sans-serif;  font-size:15px; font-weight:400; color:#333; line-height:22px;">
-				{{$proposal->proposal_description}}
-                </div>
-
-                <div style="display:block; overflow:hidden; width:100%; margin:20px 0 20px 0;">
-                    <div style="font-family: 'Open Sans', sans-serif; float:left; font-size:15px; font-weight:400; color:#333; display:block; overflow:hidden; width:100%;">
-                        <p style="margin:0 0 8px 0; float:left;"><strong>Proposal price :</strong> ${{$proposal->proposed_price}}</p>
-                    </div>
-
-                    <div style="font-family: 'Open Sans', sans-serif; float:left; font-size:15px; font-weight:400; color:#333; display:block; overflow:hidden; width:100%;">
-                        <p style="margin:0 0 8px 0; float:left;"><strong>Start date :</strong> {{$proposal->proposed_date}}</p>
-                    </div>
-
-                    <div style="font-family: 'Open Sans', sans-serif; float:left; font-size:15px; font-weight:400; color:#333; display:block; overflow:hidden; width:100%;">
-                        <p style="margin:0 0 8px 0; float:left;"><strong>From :</strong> {{$proposal->tradesman_name}}</p>
-                    </div>
-                </div>-->
-
                 <div style="background: #f1f1f1; display:block; overflow:hidden; width:100%; height:1px;"></div>
 
                 <p style="font-family: 'Open Sans', sans-serif; font-size:15px; font-weight:600; color:#333; margin:25px 0 3px 0;">Thank you</p>

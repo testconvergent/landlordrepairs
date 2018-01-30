@@ -1,5 +1,6 @@
 @extends('layout.app') 
-@section('title','My Profile') @section('body')
+@section('title','My Profile') 
+@section('body')
 <!--wrapper start-->
 <div class="row Nomarg">
 	@include('layout.provider_header')
@@ -142,84 +143,18 @@
 	</div>
 </div>
 <!-- Modal -->
-<div id="mark_complete" class="modal fade" role="dialog">
-	<div class="modal-dialog"> 
-	<!-- Review Modal content-->
-		<div class="modal-content bborder_bottom">
-			<div class="modal-header review_modal_header">
-				<button type="button" class="close cllose" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> </button>
-				<h4 class="modal-title">Mark Completed </h4>
-			</div>
-			<div class="modal-body marks_completed NopaddB">
-				<form action="provider-mark-complete-job" method="post" id="provider-mark-complete-job">
-				{{csrf_field()}}
-					<h3><i class="fa fa-check-circle" aria-hidden="true"></i>
-					<span>The job is marked as completed and costomers are notified</span></h3>
-					<input type="hidden" name="invitation_id" id="invitation_id">
-					<div class="form-group">				  
-					  <textarea class="form-control required" rows="5" name="request_feedback" id="comment"></textarea>
-					</div>
-					<button type="submit" class="btn btn-primary mark_com">Submit</button>
-				</form>
-			</div>
-		</div>
-	</div>
-</div>
-<div id="myModal1" class="modal fade" role="dialog">
-	<div class="modal-dialog"> 
-	<!-- Review Modal content-->
-		<div class="modal-content bborder_bottom">
-			<div class="modal-header review_modal_header">
-				<button type="button" class="close cllose" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> </button>
-				<h4 class="modal-title">Recommend us </h4>
-			</div>
-			<div class="modal-body review_modal_body1 NopaddB">
-				<form class="modal_form_rreview">
-					<div class="col-md-12 popad">
-						<div class="recomnd">
-							<h5>Recommend us to a </h5>
-							<div class="radio_area">
-								<p>
-									<input type="radio" id="test1" name="radio-group" checked>
-									<label for="test1">Tradesperson </label>
-								</p>
-								<p>
-									<input type="radio" id="test2" name="radio-group">
-									<label for="test2"> Landlord </label>
-								</p>
-							</div>
-							<button type="button" class="btn btn-primary mark_com pull-left post_bbttn">Submit</button>
-						</div>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-</div>
-<div id="request_feed" class="modal fade " role="dialog">
-	<div class="modal-dialog"> 
-	<!-- Review Modal content-->
-		<div class="modal-content bborder_bottom">
-			<div class="modal-header review_modal_header">
-				<button type="button" class="close cllose" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> </button>
-				<h4 class="modal-title">Request Feedback</h4>
-			</div>
-			<div class="modal-body request_feed_msg">
-				<h3><i class="fa fa-commenting-o" aria-hidden="true"></i> Your feedback request is send to the customer. </h3>
-			<form action="request-feedback" method="post" id="request-feedback">
-			 {{csrf_field()}}
-			   <input type="hidden" name="invitation_master_id" id="invitation_master_id" value="">
-				<div class="form-group">				  
-				  <textarea class="form-control required" rows="3" name="request_feedback" id="comment"></textarea>
-				</div>
-				<button type="submit" class="btn btn-primary mark_com">Submit</button>
-			</form>
-			</div>
-		</div>
-	</div>
-</div>
-@include('layout.builder_footer')
+@component('modal.builder_awarded_mark_complete',['title'=>'Mark Completed '])
+		Modal pop-up HTML of mark complete will be included.
+@endcomponent
 
+@component('modal.builder_awarded_request_feedback')
+		 @slot('title')
+			<h4 class="modal-title">Request Feedback</h4>
+		 @endslot
+		Modal pop-up HTML of request feedback will be included.
+@endcomponent
+
+@include('layout.builder_footer')
 @push('mark_as_complete_modal_open')
     <script>
 	$(document).ready(function() {
@@ -284,14 +219,11 @@ $('.job_desription').css('-webkit-box-orient','vertical');
 });
 </script>
 @if(session()->get('success'))
-<script src="dist/sweetalert.min.js"></script>
-<link rel="stylesheet" type="text/css" href="dist/sweetalert.css">
-<script>
-    swal(
-        'Success',
-        '{{session()->get("success")}}',
-        'success'
-    )
-</script>
+@component('alert.sweet_alert')
+	 @slot('message')
+	 {{session()->get('success')}}
+    @endslot
+ Sweet alert message
+@endcomponent
 @endif 
 @endsection

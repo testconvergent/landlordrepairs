@@ -12,8 +12,11 @@
 					<div class="login_box login_box2">
 						<img src="images/login_logo.png" alt="">
 						<h2>Sign In</h2>
+						@if(session()->get('reset_password_message'))
+						<div class="alert alert-success">{{session()->get('reset_password_message')}}</div>
+						@endif
 						@if(@session()->get('msg'))
-						<div class="alert alert-danger ">{{session()->get('msg')}}</div>@endif
+						<div class="alert alert-danger "><?=session()->get('msg')?></div>@endif
 						@if(@session()->get('success'))
 						<div class="alert alert-success">{{session()->get('success')}}</div>@endif
 						<form action="login" method="post" id="login">

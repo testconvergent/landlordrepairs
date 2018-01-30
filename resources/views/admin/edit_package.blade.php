@@ -47,6 +47,17 @@
 												</div>
 												<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
 													<div class="your-mail">
+														<label for="exampleInputEmail1">Period</label>
+														<select class="form-control newdrop required" name="period">
+															<option value="">Select</option>
+															<option value="Yearly" @if($package->period == 'Yearly'){{'selected'}}@endif>Yearly</option>
+															<option value="Weekly"  @if($package->period == 'Weekly'){{'selected'}}@endif>Weekly</option>
+															<option value="Monthly" @if($package->period == 'Monthly'){{'selected'}}@endif>Monthly</option>
+														</select>
+													</div>
+												</div>
+												<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+													<div class="your-mail">
 														<label for="exampleInputEmail1">Credit Point</label>
 														<input type="text" class="form-control required" name="credit_point" value="{{$package->credit_point}}">
 													</div>

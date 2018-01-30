@@ -35,13 +35,16 @@
 						<li><a href="admin-category-list" class="<?php if(Request::segment(1) == "admin-category-list" || Request::segment(1) == "admin-add-category" || Request::segment(1) == "admin-edit-category"){?>active1<?php } ?>">Category</a></li>
 					</ul>
 				</li>
-				<li class="has_sub">
+							
+				<!-- <li class="has_sub">
 					<a href="javascript:void(0);" class="waves-effect<?php if(Request::segment(1) == "admin-posted-job-list"){?>subdrop active<?php } ?>"></i><i class="fa fa-briefcase" aria-hidden="true"></i>
 					<span>Job Management</span> <span class="pull-right"><i class="md md-add"></i></span></a>
 					<ul class="list-unstyled">
 						<li><a href="admin-posted-job-list" class="<?php if(Request::segment(1) == "admin-posted-job-list"){?>active1<?php } ?>">Posted job</a></li>
 					</ul>
 				</li>
+				-->
+				<!--
 				<li class="has_sub">
 					<a href="javascript:void(0);" class="waves-effect<?php if(Request::segment(1) == "admin-builder-report-list" || Request::segment(1) == "admin-builder-report-details"){?>subdrop active<?php } ?>"></i><i class="fa fa-address-card-o" aria-hidden="true"></i>
 					<span>Report Management</span> <span class="pull-right"><i class="md md-add"></i></span></a>
@@ -49,6 +52,7 @@
 						<li><a href="admin-builder-report-list" class="<?php if(Request::segment(1) == "admin-builder-report-list" || Request::segment(1) == "admin-builder-report-details"){?>active1<?php } ?>">Report</a></li>
 					</ul>
 				</li>
+				-->
 				<li class="has_sub">
 					<a href="javascript:void(0);" class="waves-effect<?php if(Request::segment(1) == "admin-static-page-list" || Request::segment(1) == "admin-edit-static-page"){?>subdrop active<?php } ?>"></i><i class="fa fa-address-card-o" aria-hidden="true"></i>
 					<span>Page Management</span> <span class="pull-right"><i class="md md-add"></i></span></a>

@@ -165,7 +165,6 @@
                                 <button type="submit" class="btn btn-primary mark_com pull-right post_bbttn">Submit</button>
                             </div>
                         </form>
-
                     </div>
                 </div>
             </div>
@@ -234,8 +233,9 @@
                 <h3>Reviews</h3>
             </div>
             <div class="clearfix"></div>
-            <div class="review_bblock_11 reviewarea">
-				@foreach($review as $rev)
+			<div class="reviewarea">
+			@foreach($review as $rev)
+            <div class="review_bblock_11">
 					<h3>{{@$rev->review_title}}</h3>
 					<div class="pull-right">
 						<div class="review_sub">
@@ -264,8 +264,9 @@
 					</div>
 					<div class="clearfix"></div>
 					<div class="review_ddes">{{@$rev->comments}}.</div><hr>
-				@endforeach
 			</div>
+		@endforeach
+		</div>
         </div>
 		@endif
     </div>
@@ -326,92 +327,13 @@
 	}); 
 </script>
 <!--wrapper end-->
-<div id="myModal1" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <!-- Review Modal content-->
-        <div class="modal-content bborder_bottom">
-            <div class="modal-header review_modal_header">
-                <button type="button" class="close cllose" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i>
-                </button>
-                <h4 class="modal-title">Portfolio </h4>
-            </div>
-            <div class="modal-body review_modal_body1 NopaddB">
-                <div class="col-md-12 popad">
-                    <div class="recomnd">
-                        <div class="radio_area port_pop">
-                            <form action="prof-description-portpolio-block" id="portpolio-frm" method="post" enctype="multipart/form-data">
-                                {{csrf_field()}}
-                                <div class="col-md-6">
-                                    <div class="before_image view-first"></div>
-                                    <div class="upload_icon">
-                                        <div class="Uploadbtn">
-                                            <input type="file" id="before_image_file_id" name="before_image" class="input-upload required">
-                                            <span><b>choose before image</b> <i><img src="images/ddownload.png"></i></span>
-                                        </div>
-                                    </div>
-                                    <div class="upload_caption">
-                                        <input type="text" class="form-control builder_type required" name="before_image_caption" placeholder="Before image caption">
-                                    </div>
-                                </div>
+@component('modal.my_profile_logo')
+		Modal pop-up HTML of log will be included.
+@endcomponent
+@component('modal.my_profile_portfolio')
+		Modal pop-up HTML of portfolio will be included.
+@endcomponent
 
-                                <div class="col-md-6">
-                                    <div class="after_image view-first"></div>
-                                    <div class="upload_icon">
-                                        <div class="Uploadbtn">
-                                            <input type="file" id="after_image_file_id" name="after_image" class="input-upload required">
-                                            <span> <b>choose after image</b> <i><img src="images/ddownload.png"></i></span>
-                                        </div>
-                                    </div>
-                                    <div class="upload_caption">
-                                        <input type="text" class="form-control builder_type required" name="after_image_caption" placeholder="After image caption">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="submit" class="btn btn-primary mark_com pull-left post_bbttn" vlaue="Submit">
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div id="myModal2" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <!-- Review Modal content-->
-        <div class="modal-content bborder_bottom">
-            <div class="modal-header review_modal_header">
-                <button type="button" class="close cllose" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i>
-                </button>
-                <h4 class="modal-title">Logo </h4>
-            </div>
-            <div class="modal-body review_modal_body1 NopaddB">
-                <div class="col-md-12 popad">
-                    <div class="recomnd modal_logo">
-                        <div class="radio_area port_pop">
-                            <form action="prof-description-logo-block" id="logo-frm" method="post" enctype="multipart/form-data">
-                                {{csrf_field()}}
-                                <div class="col-md-12">
-                                    <div class="logo_view_image view-first"></div>
-                                    <div class="upload_icon">
-                                        <div class="Uploadbtn">
-                                            <input type="file" name="logo_image" id="logo_image" class="input-upload required">
-                                            <span> <b>Upload</b> <i><img src="images/ddownload.png"></i></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12" style="margin-top:15px;">
-                                    <input type="submit" class="btn btn-primary mark_com pull-left post_bbttn" value="Submit">
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 @if(session()->get('success'))
 <script src="dist/sweetalert.min.js"></script>
 <link rel="stylesheet" type="text/css" href="dist/sweetalert.css">

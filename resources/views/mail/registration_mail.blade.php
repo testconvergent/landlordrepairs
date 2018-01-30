@@ -16,7 +16,7 @@
 						background:#f7f8f9; overflow:hidden; display:block;">
 						<p style="margin:0; line-height:22px; text-align:left;">
 						Thank you for connect with us.
-						<a href="{{url('/verifiy/')}}/{{md5(@$v_code)}}_{{@$user_id}}">Click Here </a>to active your account.
+						<a href="{{url('/verifiy/')}}/{{@$v_code}}">Click Here </a>to active your account.
 						</p>
 					</div>
 				</div>

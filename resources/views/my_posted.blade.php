@@ -31,7 +31,7 @@
 							<div class="clearfix"></div>
 							<div class="awarded_btn_group">
 								<div class="bbtn_lleft_p">
-									<button data-id="{{$job->job_id}}" type="button" class="btn btn-primary mark_com invited">Invited Builders</button>
+									<button data-id="{{$job->job_id}}" type="button" class="btn btn-primary mark_com invited">Invite Builders</button>
 									<?php $get_proposal = count_proposal($job->job_id);?>
 									<button type="button" data-id="{{$job->job_id}}" class="btn btn-primary recommend_us view_proposal">View Proposals ({{count($get_proposal)}})</button>
 								</div>

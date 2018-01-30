@@ -54,7 +54,7 @@
                     <div class="col-md-12">
                         <div class="your-mail">
                       		<label>Change Password</label>
-                       		<input class="form-control required" placeholder="Change your password" type="password" name="password" autocomplete="new-password">
+                       		<input class="form-control" placeholder="Change your password" type="password" name="password" autocomplete="new-password">
                         </div>
                     </div>
                     <div class="col-md-12">

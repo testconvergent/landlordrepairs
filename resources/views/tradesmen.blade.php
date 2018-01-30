@@ -3,7 +3,8 @@
 @section('body')
 <div class="wrapper">
 	<header class="header_area">
-		@include('layout.header')
+        @include('layout.header')
+       
 		<div class="tradesmen"><img src="images/tradesmen.jpg" alt="">
             	<div class="iner_contain">
                 	<div class="container">
@@ -42,7 +43,7 @@
                         <p>Contact details area exchanged</p>
                     </div>
                 </div>
-                
+              
                 <div class="col-md-4 col-sm-4">
                 	<div class="iconbox">
                     	<div class="iconrund"><img src="images/icon1.png" alt=""></div>

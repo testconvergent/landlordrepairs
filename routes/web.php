@@ -1,29 +1,30 @@
 <?php
+if (env('APP_ENV') === 'production') {
+    URL::forceScheme('https');
+}
 Route::get('/','HomeController@index');
 Route::post('/post-job','HomeController@post_job');
 Route::match(['post','get'],'/signup','HomeController@signup')->middleware('user_login');
 Route::match(['post','get'],'/verification','HomeController@verification')->middleware('user_login');
 Route::get('/verifiy/{key}','HomeController@verifiy')->middleware('user_login');
-Route::match(['post','get'],'/identity-verification','HomeController@identity_verification')->middleware('user_login')->middleware('user_login');
-Route::match(['post','get'],'/payment','HomeController@payment')->middleware('user_login')->middleware('user_login');
-Route::match(['post','get'],'/tradesmen-package','HomeController@tradesmen_package')->middleware('user_login')->middleware('user_login');
-Route::match(['post','get'],'/forget-password','HomeController@forget_password')->middleware('user_login')->middleware('user_login');
+Route::match(['post','get'],'/identity-verification','TradesmanSignUpController@identity_verification')->middleware('user_login')->middleware('user_login');
+Route::match(['post','get'], '/payment', 'TradesmanSignUpController@payment')->name('payment');
+Route::match(['post','get'],'/tradesmen-package','HomeController@tradesmen_package')->middleware('user_login');
+Route::match(['post','get'],'/forget-password','LoginController@forget_password')->middleware('user_login');
+Route::get('/reset-password/{id}','LoginController@reset_password');
+Route::post('/submit-reset-password','LoginController@submit_reset_password');
 Route::match(['post','get'],'/login','HomeController@login')->middleware('user_login');
 Route::match(['post','get'],'/tradesmen','HomeController@tradesmen');
-Route::match(['post','get'],'/tradesmen-signup','HomeController@tradesmen_signup')->middleware('user_login');
+Route::match(['post','get'],'/tradesmen-signup','TradesmanSignUpController@tradesmen_signup')->middleware('user_login');
 Route::get('/logout','HomeController@logout');
 Route::get('/my-jobs','HomeController@my_posted')->middleware('user_logout');
 Route::match(['get','post'],'/edit-post-job/{id}','HomeController@edit_job_posted')->middleware('user_logout');
 Route::match(['get','post'],'/edit-profile','HomeController@edit_profile')->middleware('user_logout');
-
 Route::post('/exist-mail','HomeController@exist_mail');
 Route::post('/exist-mobile','HomeController@exist_mobile');
 Route::post('/exist-mobile-number','HomeController@exist_mobile_number');
 Route::post('/get-file','HomeController@job_attachment');
 Route::post('/delete-attachment','HomeController@delete_attachment')->middleware('user_logout');
-
-
-
 
 Route::get('/get-details','UserController@get_details');
 
@@ -51,7 +52,9 @@ Route::post('/provider-mark-complete-job','ProviderController@provider_mark_comp
 Route::post('/request-feedback','ProviderController@request_feedback')->middleware('user_logout');
 Route::match(['get','post'],'/my-awarded-job','ProviderController@awarded_provider_job')->middleware('user_logout');
 Route::get('/my-invited','ProviderController@my_invited')->middleware('user_logout');
-
+Route::get('/my-credits', 'ProviderController@my_credits')->name('my-credits')->middleware('user_logout');
+Route::post('change-card-details', 'ProviderController@change_card_details')->middleware('user_logout');
+Route::post('renew-package', 'ProviderController@renew_package')->middleware('user_logout');
 /*Admin*/
 Route::get('/admin',function(){	return view('admin.admin_login');});
 Route::post('admin-login','admin\HomeController@login');
@@ -88,5 +91,15 @@ Route::group(['middleware'=>'admin_login'],function(){
 	Route::match(['get', 'post'],'/admin-static-image','admin\HomeController@upload_image');
 	Route::get('/admin-page-status/{id}','admin\HomeController@page_status');
 });
+Route::get('/404-not-found',function(){
+	return view('error.404');
+});
+Route::get('verify-identity','HomeController@verify_identity');
+Route::POST('stripe','StripeController@postPaymentWithStripe')->name('paywithstripe');
+Route::get('stripe', 'StripeController@payWithStripe')->name('stripform');
+Route::post('credit-package-buy', 'StripeController@payment_for_credit_from_dashboard')->name('stripform');
 
-/*Admin*/
+Route::get('membershipAutoRenewal', 'AutoRenewalMembershipController@fnToRenewMembership');
+// Route::post('webhook/stripe', [ 'as' => 'stripe.webhook', 'uses' => 'WebhookController@handleWebhook' ]);
+Route::get('webhook/stripe', 'StripeController@handleWebhook');
+Route::get('twilio','TwilioController@fnToSendSmsForTradesmanRegistration');

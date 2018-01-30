@@ -15,7 +15,7 @@
 		  <ul>
 		<li><a href="my-invited">New Invites <span>({{App\JobInvitation::newJobInvitation(session()->get('user_id'))->count()}})</span></a></li>
 		<li><a href="my-awarded-job"><img src="images/ico01.png">Awarded Jobs</a></li>
-		<li><a href="javascript:void(0);" class="credits"><img src="images/ico02.png">Credits<span>(6)</span></a></li>
+		<li><a href="my-credits" class="credits"><img src="images/ico02.png">Credits<span>({{ App\CreditTransaction::member(session()->get('user_id'))->sum('credit') }})</span></a></li>
 	  </ul>
 		</div>
 	</div>

@@ -16,7 +16,7 @@ class recommendUsMail extends Mailable
      *
      * @return void
      */
-	public $recommend_us;
+	public $recommendation;
     public function __construct($recommended_details)
     {
         $this->recommendation=$recommended_details;
@@ -28,5 +28,7 @@ class recommendUsMail extends Mailable
      */
     public function build(){
 		$data['recommendation']=$this->recommendation;
-        return $this->view('mail.recommend_us',$data)->subject($this->subject)->from('noreply@landlordrepairs.uk');
+        return $this->view('mail.recommend_us',$data)->subject($this->recommendation->subject)->from('noreply@landlordrepairs.uk');
     }
+}
+	

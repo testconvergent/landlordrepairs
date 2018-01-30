@@ -11,14 +11,16 @@
 				<div class="col-md-12">
 					<div class="login_box login_box2">
 						<img src="images/login_logo.png" alt="">
-						@if(session()->get('message') == 'mail-verification')
+						@if(session()->get('message') == 'mail-verified')
 							<h2 style="margin-bottom: 5px !important;">Email Verified</h2>
 							<span class="mess_span">You have successfully verify your email.</span><br>
-						@else
+						@endif
+						@if(session()->get('message') == 'mail-verification')
 							<h2 style="margin-bottom: 5px !important;">Verification</h2>
-							<span class="mess_span">A verification link has been sent to your register email address. Please verify your account.</span><br>
-						
-							<span class="mess_span">A mobile verification code has been sent to your register mobile number. Please enter your code in bellow text. Mobile Verification code is {{session()->get('mobile_vcode')}}</span>
+							<span class="mess_span">A verification link has been sent to your registered email address. Please verify your account.</span><br>
+						@endif
+						@if(session()->get('message_mobile_verification') == 'mobile-verification')	
+							<span class="mess_span">A mobile verification code has been sent to your register mobile number. Please enter your code in bellow text. Code is {{@session()->get('mobile_code')}}</span>
 							<form action="verification" method="post" id="verification_frm">
 							{{csrf_field()}}
 								<div class="log_form1">

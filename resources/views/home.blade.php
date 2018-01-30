@@ -30,7 +30,7 @@
 								<div class="desktop_form banner_form">
 									<h2>Get started </h2>
 									<div class="form_area">
-										<form method="post" action="post-job" id="job_post_frm" enctype="multipart/form-data">
+										<form method="post" action="post-job" autocomplete="off" id="job_post_frm" enctype="multipart/form-data">
 											{{csrf_field()}}
 											<div class="form-group">
 												<select class="form_type form_option" name="job_type_id" id="job_type_id">
@@ -53,28 +53,28 @@
 												</select>
 											</div>
 											<div class="form-group">
-												<input type="text" class="form-control form_type" name="looking_for" id="looking_for" placeholder="Looking for">
+												<input type="text" class="form-control form_type" autocomplete="off"  name="looking_for" id="looking_for" placeholder="Looking for">
 											</div>
 											<div class="form-group">
 												<div class="first">
-													<input type="text" class="form-control form_type" name="budget" id="budget" placeholder="Budget (£)" onkeypress="validate(event)">
+													<input type="text" class="form-control form_type" autocomplete="off"  name="budget" id="budget" placeholder="Budget (£)" onkeypress="validate(event)">
 												</div>
 												<div class="second">
-													<input type="text" class="form-control form_type form_date" id="datepicker" name="deadline" placeholder="Deadline" >
+													<input type="text" class="form-control form_type form_date" autocomplete="off" id="datepicker" name="deadline" placeholder="Deadline" >
 												</div>
 											</div>
 											<div class="form-group">
 												<div class="first">
-													<input type="text" class="form-control form_type " name="city" id="city" placeholder="City">
+													<input type="text" class="form-control form_type "  autocomplete="new-street-address"  name="city" id="city" placeholder="City">
 													<input type="hidden" id="longitude" name="longitude">
 													<input type="hidden" id="lattitude" name="lattitude">
 												</div>
 												<div class="second">
-													<input type="text" class="form-control form_type" name="zip_code" id="zip_code" placeholder="Post Code">
+													<input type="text" class="form-control form_type" autocomplete="off" name="zip_code" id="zip_code" placeholder="Post Code">
 												</div>
 											</div>
 											<div class="form-group">
-												<textarea class="form_type form_msg" id="job_details" name="job_details" placeholder="Details"></textarea>
+												<textarea class="form_type form_msg" id="job_details" autocomplete="off" name="job_details" placeholder="Details"></textarea>
 											</div>
                                             <div class="form-group">
                                             	<div class="attach_file">  
@@ -136,12 +136,12 @@
 										<input type="text" class="form-control form_type" name="budget" id="budget" placeholder="Budget (£)" onkeypress="validate(event)">
 									</div>
 									<div class="second">
-										<input type="text" class="form-control form_type form_date" id="datepicker" name="deadline" placeholder="Dateline" >
+										<input type="text" autocomplete="off" class="form-control form_type form_date" id="datepicker" name="deadline" placeholder="Dateline" >
 									</div>
 								</div>
 								<div class="form-group">
 									<div class="first">
-										<input type="text" class="form-control form_type " name="city" id="city" placeholder="City">
+										<input type="text" class="form-control form_type " name="city" id="city" placeholder="City" autocomplete="off">
 										<input type="hidden" id="longitude" name="longitude">
 										<input type="hidden" id="lattitude" name="lattitude">
 									</div>
@@ -177,7 +177,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<h2 class="head_tow">Resources</h2>
-					<p>Our Mission is simple. We are Here only to support Britain Landlords LandlordRepairs is here only to support landlords to save money and time on all there repairs needs 247! <a href="#"> More <i class="fa fa-caret-right" aria-hidden="true"></i> </a></p>
+					<p>Our Mission is simple. We are Here only to support Britain Landlords LandlordRepairs is here only to support landlords to save money and time on all there repairs needs 247! <a href="javascript:void(0)"> More <i class="fa fa-caret-right" aria-hidden="true"></i> </a></p>
 				</div>
 			</div>
 		</div>
@@ -245,60 +245,17 @@
 					<span>Find local businesses directly. What are you looking for today</span>
 				</div>
 				<div class="popular_item">
+				@foreach($category as $cat)
+					@if($loop->index%8==0)
 					<div class="col-md-3 col-sm-6 col-xs-12">
 						<ul>
-							<li><a href="#">Architectural Designers</a></li>
-							<li><a href="#">Bathroom Fitters</a></li>
-							<li><a href="#">Bricklayers</a></li>
-							<li><a href="#">Carpenters & Joiners</a></li>
-							<li><a href="#">Carpet fitters</a></li>
-							<li><a href="#">Chimney & Fireplace Specialists</a></li>
-							<li><a href="#">Conservatory Installers</a></li>
-							<li><a href="#">Conversion Specialists</a></li>
-							<li><a href="#">Damp Proofing Specialists</a></li>
+					@endif	
+							<li><a href="javascript:void(0)">{{$cat->category_name}}</a></li>
+					@if($loop->index%8==7)	
 						</ul>
 					</div>
-					
-					<div class="col-md-3 col-sm-6 col-xs-12">
-						<ul>
-							<li><a href="#">Demolition Contractors</a></li>
-							<li><a href="#">Driveway Pavers</a></li>
-							<li><a href="#">Electricians</a></li>
-							<li><a href="#">Extension Builders</a></li>
-							<li><a href="#">Fencers</a></li>
-							<li><a href="#">Flooring Fitters</a></li>
-							<li><a href="#">Garage & Shed Builders</a></li>
-							<li><a href="#">Gas Engineers</a></li>
-							<li><a href="#">Groundworkers</a></li>
-						</ul>
-					</div>
-					
-					<div class="col-md-3 col-sm-6 col-xs-12">
-						<ul>
-							<li><a href="#">Handymen</a></li>
-							<li><a href="#">Heating Engineers</a></li>
-							<li><a href="#">Insulation Installers</a></li>
-							<li><a href="#">Kitchen Fitters</a></li>
-							<li><a href="#">Landscape Gardeners</a></li>
-							<li><a href="#">Loft Conversion Specialists</a></li>
-							<li><a href="#">New Home Builders</a></li>
-							<li><a href="#">Painters & Decorators</a></li>
-							<li><a href="#">Plasterers</a></li>
-						</ul>
-					</div>
-					
-					<div class="col-md-3 col-sm-6 col-xs-12">
-						<ul>
-							<li><a href="#">Plumbers</a></li>
-							<li><a href="#">Restoration & Refurb Specialists</a></li>
-							<li><a href="#">Roofers</a></li>
-							<li><a href="#">Security System Installers</a></li>
-							<li><a href="#">Stonemasons</a></li>
-							<li><a href="#">Tilers</a></li>
-							<li><a href="#">Tree Surgeons</a></li>
-							<li><a href="#">Window Fitters</a></li>
-						</ul>
-					</div>
+					@endif	
+				@endforeach	
 				</div>
 			</div>
 		</div>
@@ -337,7 +294,7 @@
 					</div>
 				</div>
 				<div class="mor">
-					<a class="more_bttn" href="#">More</a>
+					<a class="more_bttn" href="javascript:void(0)">More</a>
 				</div>
 			</div>
 		</div>
@@ -349,7 +306,7 @@
 				<div class="col-md-12">
 					<h2 class="head_tow">BUILDERS GROW YOUR BUSINESS</h2>
 					<span>Thousands of landlords come to Landlord Repairs every day looking to hire service pros just like you</span>
-					<a class="more_bttn" href="#">Register your Business</a>
+					<a class="more_bttn" href="tradesmen-signup">Register your Business</a>
 				</div>
 			</div>
 		</div>
@@ -380,45 +337,53 @@
 </style>
 <script>
 $(document).ready(function(){
-	$('#job_post_frm').submit(function(){
+	$('#job_post_frm').submit(function(){		
 		if($('#job_type_id').val() == "")
 		{
-			$('.span_erro').html('Job type is required');
+			// toastr.error('Job type is required');
+			 $('.span_erro').html('Job type is required');
 			return false;
 		}
 		else if($('#job_category_id').val() == "")
 		{
-			$('.span_erro').html('Job category is required');
+			// toastr.error('Job category is required');
+			 $('.span_erro').html('Job category is required');
 			return false;
 		}
 		else if($('#looking_for').val() == "")
 		{
-			$('.span_erro').html('Looking for is required');
+			// toastr.error('Looking for is required');
+			 $('.span_erro').html('Looking for is required');
 			return false;
 		}
 		else if($('#budget').val() == "")
 		{
-			$('.span_erro').html('Budget is required');
+			// toastr.error('Budget is required');
+			 $('.span_erro').html('Budget is required');
 			return false;
 		}
 		else if($('#datepicker').val() == "")
 		{
-			$('.span_erro').html('Deadline is required');
+			// toastr.error('Deadline is required');
+			 $('.span_erro').html('Deadline is required');
 			return false;
 		}
 		else if($('#city').val() == "")
 		{
-			$('.span_erro').html('City is required');
+			// toastr.error('City is required');
+			 $('.span_erro').html('City is required');
 			return false;
 		}
 		else if($('#zip_code').val() == "")
 		{
-			$('.span_erro').html('Post Code is required');
+			// toastr.error('Post Code is required');
+			 $('.span_erro').html('Post Code is required');
 			return false;
 		}
 		else if($('#job_details').val() == "")
 		{
-			$('.span_erro').html('Job Details is required');
+			// toastr.error('Job Details is required');
+			 $('.span_erro').html('Job Details is required');
 			return false;
 		}
 		else

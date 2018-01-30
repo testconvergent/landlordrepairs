@@ -37,4 +37,12 @@
 		</div>
 	</div>
 </div>
+<script>
+		$(document).ready(function(){
+    // $('#datatable').DataTable({
+		// paging: false,
+		// "searching": false
+	// });
+});
+</script>
 <!-- Top Bar Start -->

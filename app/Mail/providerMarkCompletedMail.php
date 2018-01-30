@@ -31,6 +31,6 @@ class providerMarkCompletedMail extends Mailable
 	    $data['request_complete']=$this->request_complete;
 		return $this->view('mail.request_job_complete',$data)
 		->subject($this->request_complete->subject)
-		->from($this->request_complete->provider_email);
+		->from('noreply@landlordrepairs.uk');
     }
 }

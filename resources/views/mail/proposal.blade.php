@@ -48,10 +48,6 @@
                     <div style="font-family: 'Open Sans', sans-serif; float:left; font-size:15px; font-weight:400; color:#333; display:block; overflow:hidden; width:100%;">
                         <p style="margin:0 0 8px 0; float:left;"><strong>Start date :</strong> {{$proposal->proposed_date}}</p>
                     </div>
-
-                    <div style="font-family: 'Open Sans', sans-serif; float:left; font-size:15px; font-weight:400; color:#333; display:block; overflow:hidden; width:100%;">
-                        <p style="margin:0 0 8px 0; float:left;"><strong>From :</strong> {{$proposal->tradesman_name}}</p>
-                    </div>
                 </div>
 
                 <div style="background: #f1f1f1; display:block; overflow:hidden; width:100%; height:1px;"></div>

@@ -31,6 +31,6 @@ class requestFeedback extends Mailable
     {
         return $this->view('mail.request_feedback')
 		->subject($this->request_feedback->subject)
-		->from($this->request_feedback->provider_email);
+		->from('noreply@landlordrepairs.uk');
     }
 }

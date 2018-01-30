@@ -31,7 +31,8 @@ class JobController extends Controller
 		$posted_job_details =JobToJobCategory::with('job.users','category')->paginate(25);
 		$data['posted_job_details']=$posted_job_details;
 		}        		
-		$data['category_details']=JobCategory::all();	
+		$data['category_details']=JobCategory::all();
+		
 		return view('admin.posted_job_list',$data);
 	}
 	public function change_job_status($id){

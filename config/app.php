@@ -177,6 +177,10 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 		Intervention\Image\ImageServiceProvider::class,
+        App\Providers\ComposerServiceProvider::class,
+        Cartalyst\Stripe\Laravel\StripeServiceProvider::class,
+        Lakshmaji\Plivo\PlivoServiceProvider::class,
+        Aloha\Twilio\Support\Laravel\ServiceProvider::class
 
     ],
 
@@ -226,7 +230,11 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-		'Image' => Intervention\Image\Facades\Image::class
+        'Stripe' => Cartalyst\Stripe\Laravel\Facades\Stripe::class,
+        'Image' => Intervention\Image\Facades\Image::class,
+        'Plivo' => Lakshmaji\Plivo\Facade\Plivo::class,
+        'Twilio' => Aloha\Twilio\Support\Laravel\Facade::class
+        
 
     ],
 

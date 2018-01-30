@@ -30,6 +30,6 @@ class hiredMail extends Mailable
     public function build()
     {
 		$data['hired']=$this->hired;
-        return $this->view('mail.hired',$data))->subject($this->subject)->from('noreply@landlordrepairs.uk');
+        return $this->view('mail.hired',$data)->subject($this->subject)->from('noreply@landlordrepairs.uk');
     }
 }

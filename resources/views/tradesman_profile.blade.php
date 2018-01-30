@@ -169,9 +169,9 @@
                     <h3>Reviews</h3>
                 </div>
                 <div class="clearfix"></div>
-				<div class="review_bblock_11 reviewarea">
-					
+				<div class="reviewarea">
 						@foreach($review as $rev)
+						<div class="review_bblock_11 ">
 							<h3>{{@$rev->review_title}}</h3>
 							<div class="pull-right">
 								<div class="review_sub">
@@ -200,6 +200,7 @@
 							</div>
 							<div class="clearfix"></div>
 							<div class="review_ddes">{{@$rev->comments}}.</div><hr>
+						</div>
 						@endforeach
 				</div>
 				@else

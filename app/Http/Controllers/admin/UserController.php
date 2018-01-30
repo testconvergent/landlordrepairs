@@ -5,8 +5,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 class UserController extends Controller
 {
-	public function customers_list(Request $request)
-	{
+	public function customers_list(Request $request){
 		$user = DB::table(TBL_USER);
 		$post_data = $request->all();
 		if(@$post_data)
@@ -127,8 +126,7 @@ class UserController extends Controller
 		session()->flash('success','User status change successfully');
 		return redirect('admin-tradesmen-list');
 	}
-	public function customer_details($id)
-	{
+	public function customer_details($id){
 		$users = DB::table(TBL_USER)->where('user_id',$id)->where('user_type',3)->first();
 		if(count($users)>0)
 		{
@@ -140,8 +138,7 @@ class UserController extends Controller
 			return redirect('admin-customers-list');
 		}
 	}
-	public function tradesmen_details($id)
-	{
+	public function tradesmen_details($id){
 		$users = DB::table(TBL_USER)->select(TBL_USER.'.*',TBL_JOB_CATEGORY.'.category_name')
 		->leftJoin(TBL_JOB_CATEGORY,TBL_USER.'.primary_trade','=',TBL_JOB_CATEGORY.'.category_id')
 		->where('user_id',$id)->where('user_type',2)->first();
@@ -158,35 +155,32 @@ class UserController extends Controller
 			return redirect('admin-tradesmen-list');
 		}
 	}
-	public function customer_delete($id)
-	{
+	public function customer_delete($id){
 		$user = DB::table(TBL_USER)->where('user_id',$id)->first();
 		$update = array('user_status'=>4);
 		DB::table(TBL_USER)->where('user_id',$id)->update($update);
 		session()->flash('success','User deleted successfully');
 		return redirect('admin-customers-list');
 	}
-	public function tradesmen_delete($id)
-	{
+	public function tradesmen_delete($id){
 		$user = DB::table(TBL_USER)->where('user_id',$id)->first();
 		$update = array('user_status'=>4);
 		DB::table(TBL_USER)->where('user_id',$id)->update($update);
 		session()->flash('success','User deleted successfully');
 		return redirect('admin-tradesmen-list');
 	}
-	public function package_list(Request $request)
-	{
+	public function package_list(Request $request){
 		$package = DB::table(TBL_PACKAGE)->get();
 		$data = array('package'=>$package);
 		return view('admin.package_list',$data);
 	}
-	public function edit_package(Request $request,$id)
-	{
+	public function edit_package(Request $request,$id){
 		$get_package = DB::table(TBL_PACKAGE)->where('package_id',$id)->first();
 		if(@$request->all())
 		{
 			$update_package = array();
 			$update_package['package_type'] = $request->package_type;
+			$update_package['period'] = $request->period;
 			$update_package['cost'] = $request->cost;
 			$update_package['credit_point'] = $request->credit_point;
 			$update_package['package_description'] = $request->package_description;
@@ -197,8 +191,7 @@ class UserController extends Controller
 		$data = array('package'=>$get_package);
 		return view('admin.edit_package',$data);
 	}
-	public function package_status($id)
-	{
+	public function package_status($id)	{
 		$get_package = DB::table(TBL_PACKAGE)->where('package_id',$id)->first();
 		if($get_package->package_status == 1)
 		{
@@ -209,11 +202,10 @@ class UserController extends Controller
 			$update_package = array('package_status'=>1);
 		}
 		DB::table(TBL_PACKAGE)->where('package_id',$id)->update($update_package);
-		session()->flash('success','Package edited sucessfully.');
+		session()->flash('success','Package edited successfully.');
 		return redirect('admin-package-list');
 	}
-	public function change_credential(Request $request)
-	{
+	public function change_credential(Request $request){
 		$post_data = $request->all();
 		$user_data =DB::table(TBL_USER)->select('email')->where('user_id',session()->get('admin_id'))->first();
 		
@@ -244,8 +236,7 @@ class UserController extends Controller
 		$data = array('admin'=>$user_data);
 		return view('admin.change_admin_credential',$data);
 	}
-	public function builder_report(Request $request)
-	{
+	public function builder_report(Request $request){
 		$get_report = DB::table(TBL_REPORT_BUILDER)
 		->select(TBL_REPORT_BUILDER.'.*','customer.user_name as customer_name',
 		'builder.user_name as builder_name',TBL_JOB_POST.'.looking_for')
@@ -257,8 +248,7 @@ class UserController extends Controller
 		//echo "<pre>";print_r($get_report);die;
 		return view('admin.builder_report_list',$data);
 	}
-	public function builder_report_details($id)
-	{
+	public function builder_report_details($id){
 		$get_report = DB::table(TBL_REPORT_BUILDER)
 		->select(TBL_REPORT_BUILDER.'.*','customer.user_name as customer_name','customer.email as customer_email','customer.mobile as customer_mobile','builder.user_name as builder_name','builder.email as builder_email','builder.mobile as builder_mobile',TBL_JOB_POST.'.looking_for')
 		->leftJoin(TBL_USER.' as customer',TBL_REPORT_BUILDER.'.report_from_user_id','=','customer.user_id')

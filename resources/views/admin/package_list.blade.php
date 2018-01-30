@@ -74,6 +74,7 @@
 																<th>Package Type</th>
 																<th>Cost</th>
 																<th>Credits Point</th>
+																<th>Period</th>
 																<th>Status</th>
 																<th>Action</th>
 															</tr>
@@ -95,6 +96,9 @@
 																	</td>
 																	<td>
 																	{{number_format(@$row->credit_point)}}
+																	</td>
+																	<td>
+																		{{(@$row->period)}}
 																	</td>
 																	<td>@if($row->package_status == 0)Inactive
 																	@elseif($row->package_status == 1)Active
